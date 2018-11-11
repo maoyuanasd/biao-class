@@ -1,0 +1,80 @@
+行 首屏 row first-screen
+   行 导航栏 row nav
+     列 左 col left
+       列 logo col logo
+       列 位置 col location
+     列 右 col right
+       行 用户 row user 
+       行 链接组 row link-grounp
+   行 大标题栏 row big-title-bar
+      行 主标题 row title
+      行 副标题 row sub-title
+   行 搜索栏 row search-bar
+      行 分类 row cat
+      行 搜索框 row search-box
+   行 声明栏 row statement-bar
+      链接*n link
+行 主体 row main
+   行 功能栏 row function-bar
+      列*3 col
+        行 图 row
+        行 文字 row text
+           行 主标题 row title
+           行 副标题 row sub-title
+   行 app推荐 row app-recommend
+      行 标题栏 row title-bar
+         行 主标题 row title
+         行 副标题 row sub-title
+      行 描述 row des
+      行 下载 row download
+         列 按钮组 row btn-grounp
+         列 二维码 row QR-code
+   行 二手推荐栏 row used-bar
+     行 头 row header
+       列 左 col left
+         行 主标题栏 row main-title-bar
+         行 副标题栏 row sub-title-bar
+       列 右 col right
+         链接 link
+     行 卡片组 row card-grounp
+        列*4 col
+         行 卡片 row card
+            行 图 row
+               行 缩略图 row
+               行 价格 row-price
+            行 文字 row text
+               行 标题 row title
+               行 描述 row des
+         行 其他信息 row else-info
+   行 小区推荐栏 row plot-bar
+      行 头(同上) row header
+      行 卡片组 row card-grounp
+        列*3 col
+          行 卡片 row card
+             行 图 
+               行 缩略图
+             行 文字 row text
+                行 标题 row title
+                行 描述 row des
+                  列 价格 col price
+                  列 年份 col time
+   行 新房推荐栏 row new-house bar
+      行 头（同上） row header
+      行 卡片组 row card-grounp
+         列 卡片（背景图）*3 col card
+            行 标题 col title
+            行 价格 col price
+   行 查询栏 row inquire-bar
+      列 左 col left
+        行 主标题 row title
+        行 副标题 row sub-title
+      列 右 col right
+        行 描述 row des
+        行 查询框 row inquire-box
+行 页脚 row footer
+   行 链接组 row link-grounp
+      列 链接*n col link
+   行 友情链接 row blogroll
+      行 分类 row cat
+      行 链接组  row link-grounp 
+   行 元信息 row meta

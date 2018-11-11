@@ -1,0 +1,34 @@
+导航 全局 行 nav global row
+   链接组 左 列 link-grounp left col
+           链接*n 列 link col
+   链接组 右 列 link-grounp right col
+           链接*n 列  link col
+主体 行 main row
+   导航 页面 行 nav page row
+           logo 列 logo col
+           链接组 列 link-grounp col
+                链接*n 列 link col
+           搜索框 列 serch-box col
+    内容区 行 cars row
+         精选 列 choiceness col
+            精选标题 行 choiceness-title row
+            精选列表 行 choiceness-list row
+                   列表*n 行 list row
+                      点赞 列 like col
+                      列表内容 列 list-cars col
+                             列表标题 行 list-title row
+                             列表预览 行 list-preview row
+                             元信息 行 meta row
+                    
+         推荐 列 recommend col
+            推荐标题 行 recommend-title col
+            推荐列表 行 recommend-list col
+                   列表*n 行 list row
+                      头像 列 icon col
+                      文字 列 text col
+                         列表标题 行 list-title row
+                         元信息  行   meta tow  
+页脚 行 footer row
+   元信息 列 meta col
+   链接组 列 link-grounp col
+        链接*n 列 link col
