@@ -1,0 +1,60 @@
+div {
+    width: 3em;
+    height: 3em;
+    background: #ccc;
+    border: solid;
+    margin: 5px;
+}
+#a {
+    /*上下左右都是10px*/
+    padding: 10px;
+}
+#c {
+    /*顺时针指定：上10px 右20px 下30px 左40px*/
+    padding: 10px 20px 30px 40px;
+}
+#b {
+    /*上下为10px左右为30px*/
+    padding: 10px 30px;
+}
+#d {
+    /*只有左边距是10px*/
+    padding-left: 10px;
+}
+#e {
+    /*所有边距都为10px*/
+    padding: 10px;
+    /*除了左边距为50px*/
+    padding-left: 50px;
+}
+#box {
+    border-radius: 0 10px 20px 30px;
+    margin-bottom: 30px;
+
+}
+span {
+    outline: 2px solid;
+}
+
+button:focus{
+    outline: 2px solid #4385f4; 
+}
+/*指定颜色*/
+.a { background: lightgray; }
+
+/*指定背景图*/
+.b { background: url(http://public.biaoyansu.com/bg-light-flower.png); }
+
+/*指定背景图，不重复背景图*/
+.c { background: url(http://public.biaoyansu.com/bg-light-flower.png) no-repeat; }
+
+/*指定背景图，不重复背景图，居中，缩放10%*/
+.d { background: url(http://public.biaoyansu.com/bg-light-flower.png) no-repeat center/10%; }
+#xbox {
+    width: 100px;
+    height: 100px;
+    background: rgb(241, 238, 238);
+
+    /* 虽然元素在视觉上更胖了，但是内边距并没有算入宽度 */
+    padding: 20px;
+  }
