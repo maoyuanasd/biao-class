@@ -1,0 +1,59 @@
+<!-- <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .row::after,
+    .row::before {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    .col {
+        float: left;
+        width: 50%;
+        border: 1px solid rgba(255, 0, 0, .4);
+        background: rgba(255, 0, 0, .4);
+        padding: 20px;
+    }
+
+    .col.bb {
+        width: 100%;
+    }
+</style>
+<div class="row">
+    <div class="col">
+        <div class="col bb">
+            <div class="col">aaa</div>
+            <div class="col">bbb</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="col bb">bb</div>
+    </div>
+</div> -->
+<style>
+    *{box-sizing: border-box;}
+    .row::before,.row::after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .col{
+        float: left;
+        width: 50%;
+        border: 1px solid rgba(255, 0, 0, 0.4);
+        background: rgba(255, 0, 0, 0.4);
+        padding: 20px;
+    }
+</style>
+<div class="row">
+    <div class="col">
+        <div class="col">
+            <div class="col">aaa</div>
+            <div class="col">bbb</div>
+        </div>
+        <div class="col">bb</div>
+    </div>
+</div>

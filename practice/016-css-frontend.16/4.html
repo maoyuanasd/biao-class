@@ -1,0 +1,34 @@
+<!-- <style>
+    *{box-sizing: border-box}
+    .row::before,
+    .row::after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .row{border: solid;}
+    .float{
+        float: left;
+        width: 50%;
+    }
+</style>
+<div class="row">
+    <div class="float">a</div>
+    <div class="float">b</div>
+</div> -->
+<style>
+    *{box-sizing: border-box}
+    .row::before,.row::after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .row{border: solid;}
+    .left{float: left;width: 50%;}
+    .right{float: right;width: 50%;}
+    .col{border: solid blue;}
+</style>
+<div class="row">
+    <div class="col left">a</div>
+    <div class="col right">b</div>
+</div>
