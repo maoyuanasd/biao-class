@@ -1,22 +1,19 @@
-*{
-    box-sizing: border-box;
-}
-.row::before,
-.row::after{
+*{box-sizing: border-box;}
+.row::before,.row::after{
     content: "";
     display: block;
     clear: both;
 
     margin-bottom: 5px;
 }
+div{padding: 10px;}
 .row{
+   
     border: solid tomato;
 }
-div{padding: 10px;}
 .col{
     float: left;
-    border: solid royalblue;
-
+border: solid royalblue;
 }
 .col-1{
     width: 4.1666666666666666%;
@@ -90,3 +87,8 @@ div{padding: 10px;}
 .col-24{
     width: 100%;
 }
+.container{
+    display: block;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
