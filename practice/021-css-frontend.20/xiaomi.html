@@ -1,0 +1,134 @@
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .row::before,
+    .row::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    .col {
+        float: left;
+        padding: 5px;
+    }
+
+    .col-6 {
+        width: 25%;
+    }
+
+    .card {
+        box-shadow: 0 0 3px rgba(0, 0, 0, .5)
+    }
+
+    .card .thumb {
+        position: relative;
+    }
+    .card .thumb .flag{
+        position: absolute;
+        background: #e53935;
+        color: #fff;
+        padding: 3px 6px;
+        font-size: 70%;
+        top: 0;
+        right: 44%;
+    }
+    .card .text {
+        padding: 10px 0;
+    }
+
+    .card .text>* {
+        margin: 8px 0;
+    }
+
+    .card .text {
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .card .text .desc {
+        font-size: 90%;
+        opacity: .5;
+    }
+
+    .card .text .price .hot {
+        color: #ff6700;
+    }
+
+    .card .text .price .original-price {
+        opacity: .5;
+        text-decoration: line-through;
+    }
+</style>
+<div class="row">
+    <div class="col col-6">
+        <div class="card">
+            <div class="thumb">
+                <img src="http://dummyimage.com/500x500">
+                <span class="flag">减 350 元</span>
+            </div>
+            <div class="text">
+                <div class="title">小米6X 6GB+128GB</div>
+                <div class="desc">轻薄美观的拍照手机</div>
+                <div class="price">
+                    <span class="hot">1649元</span>
+                    <span class="original-price">1999元</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-6">
+        <div class="card">
+            <div class="thumb">
+                <img src="http://dummyimage.com/500x500">
+                <span class="flag">减 350 元</span>
+            </div>
+            <div class="text">
+                <div class="title">小米6X 6GB+128GB</div>
+                <div class="desc">轻薄美观的拍照手机</div>
+                <div class="price">
+                    <span class="hot">1649元</span>
+                    <span class="original-price">1999元</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-6">
+        <div class="card">
+            <div class="thumb">
+                <img src="http://dummyimage.com/500x500">
+                <span class="flag">减 350 元</span>
+            </div>
+            <div class="text">
+                <div class="title">小米6X 6GB+128GB</div>
+                <div class="desc">轻薄美观的拍照手机</div>
+                <div class="price">
+                    <span class="hot">1649元</span>
+                    <span class="original-price">1999元</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-6">
+        <div class="card">
+            <div class="thumb">
+                <img src="http://dummyimage.com/500x500">
+                <span class="flag">减 350 元</span>
+            </div>
+            <div class="text">
+                <div class="title">小米6X 6GB+128GB</div>
+                <div class="desc">轻薄美观的拍照手机</div>
+                <div class="price">
+                    <span class="hot">1649元</span>
+                    <span class="original-price">1999元</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
