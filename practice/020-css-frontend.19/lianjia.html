@@ -1,0 +1,231 @@
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #aaa;
+        font-family: "Hiragino Sans GB", "Microsoft Yahei UI";
+        font-size: 16px;
+    }
+
+    .row::after,
+    .row::before {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+
+    }
+
+    .nav {
+        color: #fff;
+        padding-top: 30px;
+
+    }
+
+    .col {
+        float: left;
+    }
+
+    .col-1 {
+        width: 4.1666666666666666%;
+    }
+
+    .col-2 {
+        width: 8.3333333333333333%;
+    }
+
+    .col-3 {
+        width: 12.5%;
+    }
+
+    .col-4 {
+        width: 16.6666666666666666%;
+    }
+
+    .col-5 {
+        width: 20.8333333333333333%;
+    }
+
+    .col-6 {
+        width: 25%;
+    }
+
+    .col-7 {
+        width: 29.1666666666666666%;
+    }
+
+    .col-8 {
+        width: 33.3333333333333333%;
+    }
+
+    .col-9 {
+        width: 37.5%;
+    }
+
+    .col-10 {
+        width: 41.6666666666666666%;
+    }
+
+    .col-11 {
+        width: 45.8333333333333333%;
+    }
+
+    .col-12 {
+        width: 50%;
+    }
+
+    .col-13 {
+        width: 54.1666666666666666%;
+    }
+
+    .col-14 {
+        width: 58.3333333333333333%;
+    }
+
+    .col-15 {
+        width: 62.5%;
+    }
+
+    .col-16 {
+        width: 66.6666666666666666%;
+    }
+
+    .col-17 {
+        width: 70.8333333333333333%;
+    }
+
+    .col-18 {
+        width: 75%;
+    }
+
+    .col-19 {
+        width: 79.1666666666666666%;
+    }
+
+    .col-20 {
+        width: 83.3333333333333333%;
+    }
+
+    .col-21 {
+        width: 87.5%;
+    }
+
+    .col-22 {
+        width: 91.6666666666666666%;
+    }
+
+    .col-23 {
+        width: 95.8333333333333333%;
+    }
+
+    .col-24 {
+        width: 100%;
+    }
+
+    .container {
+        max-width: 1080px;
+        margin: 0 auto;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    #logo {
+        background-image: url(./lianjie-sprite.png);
+        width: 120px;
+        height: 60px;
+        display: inline-block;
+        background-position: -10px -373px;
+    }
+
+    #icon {
+        background-image: url(./lianjie-sprite.png);
+        width: 25px;
+        height: 25px;
+        display: inline-block;
+        background-position: -200px -16px;
+        vertical-align: middle;
+    }
+    #point {
+        background-image: url(./lianjie-sprite.png);
+        width: 8px;
+        height: 8px;
+        display: inline-block;
+        background-position: -225px -20px;
+        vertical-align: middle;
+    }
+    #location{
+        border-radius: 13px;
+        background: rgba(0, 0, 0, .25);
+        width: 62px;
+        height: 28px;
+        display: inline-block;
+        /* text-align: center; */
+       position: relative;
+       bottom: 30px;
+        
+    }
+    #location span{
+        
+        width: 19px;
+        height: 18px;
+        display: inline-block;
+        background-image: url(./lianjie-sprite.png);
+        background-position: -185px -16px;
+        /* vertical-align: middle; */
+        position: relative;
+        top: 3px;
+        
+        
+        
+    }
+
+    .link-group>* {
+        margin: .2em .4em;
+        display: inline-block;
+        font-weight: bold;
+    }
+  
+    .auto,#location {
+        font-size: 10px;
+    }
+</style>
+<div class="row nav">
+    <div class="container">
+        <div class="col col-6 logo">
+            <a id="logo" href="#"></a>
+            <a id="location" href="#"><span></span>北京</a>
+        </div>
+        <div class="col col-18 text-right">
+            <div class="auto">
+                <span id="icon"></span>
+                <a href="#">登录</a>
+                <a href="#">立即注册</a>
+            </div>
+            <div class="link-group">
+                <a href="#">二手房</a>
+                <a href="#">新房</a>
+                <a href="#">租房</a>
+                <a href="#">海外</a>
+                <a href="#">小区</a>
+                <a href="#">经纪人</a>
+                <a href="#">指南</a>
+                <a href="#">房价</a>
+                <a href="#">工具</a>
+                <a href="#">经验</a>
+                <span id="point"></span>
+                <a href="#">发布房源</a>
+                <a style="margin-right: 0;" href="#">企业汇</a>
+            </div>
+        </div>
+
+    </div>
+</div>
