@@ -1,0 +1,471 @@
+<style>
+    *{box-sizing: border-box;}
+    form,body{
+
+        margin: 0;
+    }
+    body{
+        font-family: sans-serif;
+        font-size: 13px;
+        line-height: 1.62;
+       
+    }
+    img{
+        max-width: 100%;
+    }
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+    input{
+        outline: none;
+    }
+    h1{
+        font-size: 26px;
+        font-weight: 500;
+        padding: 20px 0;
+    }
+    .row::after,.row::before{
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .fl{
+        float: left;
+    }
+    .fr{
+        float: right;
+    }
+    .col{
+        float: left;
+    }
+    .col-1{
+        width: 4.1666666666666666%;
+    }
+    .col-2{
+        width: 8.3333333333333333%;
+    }
+    .col-3{
+        width: 12.5%;
+    }
+    .col-4{
+        width: 16.6666666666666666%;
+    }
+    .col-5{
+        width: 20.8333333333333333%;
+    }
+    .col-6{
+        width: 25%;
+    }
+    .col-7{
+        width: 29.1666666666666666%;
+    }
+    .col-8{
+        width: 33.3333333333333333%;
+    }
+    .col-9{
+        width: 37.5%;
+    }
+    .col-10{
+        width: 41.6666666666666666%;
+    }
+    .col-11{
+        width: 45.8333333333333333%;
+    }
+    .col-12{
+        width: 50%;
+    }
+    .col-13{
+        width: 54.1666666666666666%;
+    }
+    .col-14{
+        width: 58.3333333333333333%;
+    }
+    .col-15{
+        width: 62.5%;
+    }
+    .col-16{
+        width: 66.6666666666666666%;
+    }
+    .col-17{
+        width: 70.8333333333333333%;
+    }
+    .col-18{
+        width: 75%;
+    }
+    .col-19{
+        width: 79.1666666666666666%;
+    }
+    .col-20{
+        width: 83.3333333333333333%;
+    }
+    .col-21{
+        width: 87.5%;
+    }
+    .col-22{
+        width: 91.6666666666666666%;
+    }
+    .col-23{
+        width: 95.8333333333333333%;
+    }
+    .col-24{
+        width: 100%;
+    }
+    .container{
+        max-width: 1040px;
+        margin: 0 auto;
+    }
+    .nav.global{
+        background: #545652;
+        color: #d5d5d5;
+    }
+    .nav.global a{
+        padding: 6px 9px;
+        display: inline-block;
+        font-size: 12px;
+    }
+    .nav.global a:last-child{
+        padding-right: 18px;
+    }
+    .nav.global a:hover{
+        color: #fff;
+    }
+    .main .content a,
+    .footer a{
+        color: #37a;
+    }
+    .main .content .container{
+        padding-bottom: 75px;
+        border-bottom: 1px dashed #ddd;
+    }
+    .time-line .desc .info>*,
+    .group-rem .title,
+    .footer .fl{
+        color: #666;
+    }
+    .main .content a:hover,
+    .footer a:hover{
+        background: #37a;
+        color: #fff;
+    }
+    .nav.page{
+        background: #f0f6f3;
+        font-size: 15px;
+        color: #037b82;
+     
+    }
+    
+    .nav.page .link-group a{
+        margin: 23px 15px;
+        display: inline-block;    
+    }
+    .nav.page .link-group a:hover{
+        background: #037b82;
+        color: #f0f6f3;
+    }
+    .nav.page .logo{
+     
+        margin-top: 19px;
+        width: 110px;
+        margin-right: 9px;
+
+    }
+    .nav.page .search{
+        margin-top: 20px;
+        position: relative;
+    }
+    .nav.page .search input::placeholder,
+    .nav.page .search button{
+        color: #ccc;
+    }
+   
+    .nav.page .search input{
+        width: 100%;
+    }
+    .nav.page .search input,
+    .nav.page .search button{
+        background: #fff;
+        border: 1px solid rgba(0,0,0, .1);
+        padding: 6px 10px;
+    }
+    .nav.page .search input:focus,
+    .nav.page .search button:focus{
+        border-color: #037b82;
+    }
+    .nav.page .search button{
+        position: absolute;
+        background: transparent;
+        right: 0;
+        top: -1px;
+        border: none;
+        outline: none;
+    }
+    .activity .like{
+        background: #fae9da;
+        color: #ca6445;
+        display: inline-block;
+        text-align: center;
+        padding: 5px 10px;
+    }
+    .activity .desc{
+        padding-right: 50px;
+        padding-bottom: 15px;
+      
+        
+    }
+    .activity .title,
+    .activity .preview,
+    .activity .info{
+        margin-bottom: 10px;
+    }
+    .activity .title{
+        font-size: 15px;
+        
+        display: inline-block;
+    }
+    .activity .desc .preview{
+        background: #f9f9f9;
+        vertical-align: top;
+        padding: 10px;
+        color: #aaa;
+    }
+    .activity .desc .preview span{
+        float: left;
+        margin-right: 10px;
+        display: block;
+    }
+    .activity .desc .info{
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 15px;
+    }
+    .group-rem .title{
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    .group-rem .group{
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+    .group-rem .info{
+        margin-top: 18px;
+    }
+    .footer {
+        margin-top: 50px;
+    }
+    .footer .fr .point::before{
+        content: "·";
+        color: #37a;
+        display: inline-block;
+        padding-right: 1px;
+    }
+    
+</style>
+<div class="row nav global">
+    <div class="fl">
+        <a href="#">豆瓣</a>
+        <a href="#">读书</a>
+        <a href="#">电影</a>
+        <a href="#">音乐</a>
+        <a href="#">同城</a>
+        <a href="#">小组</a>
+        <a href="#">阅读</a>
+        <a href="#">FM</a>
+        <a href="#">时间</a>
+        <a href="#">豆品</a>
+        <a href="#">更多</a>
+    </div>
+    <div class="fr">
+        <a href="#">下载豆瓣客户端</a>
+        <a href="#">登录</a>
+        <a href="#">注册</a>
+    </div>
+</div>
+<div class="main">
+    <div class="row nav page">
+        <div class="container">
+            <div class="col col-3 logo">
+                <img src="logo.png">
+            </div>
+            <div class="col col-15 link-group">
+                <a href="#">精选</a>
+                <a href="#">文化</a>
+                <a href="#">行摄</a>
+                <a href="#">娱乐</a>
+                <a href="#">时尚</a>
+                <a href="#">生活</a>
+                <a href="#">科技</a>
+            </div>
+            <form class="col col-6 search">
+                <input type="text" placeholder="小组、话题">
+                <button>搜</button>
+            </form>
+        </div>
+    </div>
+    <div class="row content">
+        <div class="row container">
+            <h1>讨论精选</h1>
+            <div class="col col-18 time-line">
+                <div class="row activity">
+                    <div class="col col-2">
+                        <div class="like">
+                            <div>10</div>
+                            <div>喜欢</div>
+                        </div>
+                    </div>
+                    <div class="col col-22 desc">
+                        <a href="#" class="title">超可爱~~（第十次更新，多图流量慎入)</a>
+                        <div class="row preview">
+                            <span><img src="http://dummyimage.com/60x60"></span>
+                            在推上关注了一个霓虹的动物园，基本每天都会发有关园内动物的动态，我觉得很可爱，想跟大家分享出来，没有搬完，选了一部分。 每一次最新的更新都是在最下面。 希望我搬运的这些图片可以...
+                        </div>
+                        <div class="info">
+                            来着<a href="#">哈哈哈哈哈哈哈哈哈哈哈小组</a>
+                            <span>11-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row activity">
+                    <div class="col col-2">
+                        <div class="like">
+                            <div>10</div>
+                            <div>喜欢</div>
+                        </div>
+                    </div>
+                    <div class="col col-22 desc">
+                        <a href="#" class="title">超可爱~~（第十次更新，多图流量慎入)</a>
+                        <div class="row preview">
+                            <span><img src="http://dummyimage.com/60x60"></span>
+                            在推上关注了一个霓虹的动物园，基本每天都会发有关园内动物的动态，我觉得很可爱，想跟大家分享出来，没有搬完，选了一部分。 每一次最新的更新都是在最下面。 希望我搬运的这些图片可以...
+                        </div>
+                        <div class="info">
+                            来着<a href="#">哈哈哈哈哈哈哈哈哈哈哈小组</a>
+                            <span>11-15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-6 group-rem">
+                <div class="title">值得加入的小组</div>
+                <div class="row group">
+                <div class="col col-7 icon">
+                    <a href="#"><img src="http://dummyimage.com/60x60"></a>
+                </div>
+                <div class="col col-17 text">
+                    <div class="name">
+                        <a href="#">各地最有特色的国际青年旅舍</a>
+                    </div>
+                    <div class="info">
+                        <span>25349个成员</span>
+                        <a href="#">+加入小组</a>
+                    </div>
+
+                </div>
+            </div>
+                <div class="row group">
+                <div class="col col-7 icon">
+                    <a href="#"><img src="http://dummyimage.com/60x60"></a>
+                </div>
+                <div class="col col-17 text">
+                    <div class="name">
+                        <a href="#">各地最有特色的国际青年旅舍</a>
+                    </div>
+                    <div class="info">
+                        <span>25349个成员</span>
+                        <a href="#">+加入小组</a>
+                    </div>
+
+                </div>
+            </div>
+                <div class="row group">
+                <div class="col col-7 icon">
+                    <a href="#"><img src="http://dummyimage.com/60x60"></a>
+                </div>
+                <div class="col col-17 text">
+                    <div class="name">
+                        <a href="#">各地最有特色的国际青年旅舍</a>
+                    </div>
+                    <div class="info">
+                        <span>25349个成员</span>
+                        <a href="#">+加入小组</a>
+                    </div>
+
+                </div>
+            </div>
+                <div class="row group">
+                <div class="col col-7 icon">
+                    <a href="#"><img src="http://dummyimage.com/60x60"></a>
+                </div>
+                <div class="col col-17 text">
+                    <div class="name">
+                        <a href="#">各地最有特色的国际青年旅舍</a>
+                    </div>
+                    <div class="info">
+                        <span>25349个成员</span>
+                        <a href="#">+加入小组</a>
+                    </div>
+
+                </div>
+            </div>
+                <div class="row group">
+                <div class="col col-7 icon">
+                    <a href="#"><img src="http://dummyimage.com/60x60"></a>
+                </div>
+                <div class="col col-17 text">
+                    <div class="name">
+                        <a href="#">各地最有特色的国际青年旅舍</a>
+                    </div>
+                    <div class="info">
+                        <span>25349个成员</span>
+                        <a href="#">+加入小组</a>
+                    </div>
+
+                </div>
+            </div>
+                <div class="row group">
+                <div class="col col-7 icon">
+                    <a href="#"><img src="http://dummyimage.com/60x60"></a>
+                </div>
+                <div class="col col-17 text">
+                    <div class="name">
+                        <a href="#">各地最有特色的国际青年旅舍</a>
+                    </div>
+                    <div class="info">
+                        <span>25349个成员</span>
+                        <a href="#">+加入小组</a>
+                    </div>
+
+                </div>
+            </div>
+                <div class="row group">
+                <div class="col col-7 icon">
+                    <a href="#"><img src="http://dummyimage.com/60x60"></a>
+                </div>
+                <div class="col col-17 text">
+                    <div class="name">
+                        <a href="#">各地最有特色的国际青年旅舍</a>
+                    </div>
+                    <div class="info">
+                        <span>25349个成员</span>
+                        <a href="#">+加入小组</a>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="row container">
+        <div class="fl">© 2005－2018 douban.com, all rights reserved 北京豆网科技有限公司</div>
+        <div class="fr">
+            <a href="#">关于豆瓣</a>
+            <a class="point" href="#">在豆瓣工作</a>
+            <a class="point" href="#">联系我们</a>
+            <a class="point" href="#">免责声明</a>
+            <a class="point" href="#">帮助中心</a>
+            <a class="point" href="#">移动应用</a>
+            <a class="point" href="#">豆瓣广告</a>
+        </div>
+    </div>
+</div>
