@@ -1,0 +1,169 @@
+.col-min-1 {
+    width: 4.1666666666666666%;
+}
+
+.col-min-2 {
+    width: 8.3333333333333333%;
+}
+
+.col-min-3 {
+    width: 12.5%;
+}
+
+.col-min-4 {
+    width: 16.6666666666666666%;
+}
+
+.col-min-5 {
+    width: 20.8333333333333333%;
+}
+
+.col-min-6 {
+    width: 25%;
+}
+
+.col-min-7 {
+    width: 29.1666666666666666%;
+}
+
+.col-min-8 {
+    width: 33.3333333333333333%;
+}
+
+.col-min-9 {
+    width: 37.5%;
+}
+
+.col-min-10 {
+    width: 41.6666666666666666%;
+}
+
+.col-min-11 {
+    width: 45.8333333333333333%;
+}
+
+.col-min-12 {
+    width: 50%;
+}
+
+.col-min-13 {
+    width: 54.1666666666666666%;
+}
+
+.col-min-14 {
+    width: 58.3333333333333333%;
+}
+
+.col-min-15 {
+    width: 62.5%;
+}
+
+.col-min-16 {
+    width: 66.6666666666666666%;
+}
+
+.col-min-17 {
+    width: 70.8333333333333333%;
+}
+
+.col-min-18 {
+    width: 75%;
+}
+
+.col-min-19 {
+    width: 79.1666666666666666%;
+}
+
+.col-min-20 {
+    width: 83.3333333333333333%;
+}
+
+.col-min-21 {
+    width: 87.5%;
+}
+
+.col-min-22 {
+    width: 91.6666666666666666%;
+}
+
+.col-min-23 {
+    width: 95.8333333333333333%;
+}
+
+.col-min-24 {
+    width: 100%;
+}
+
+.m-fl {
+    float: left;
+}
+
+.nav.page .logo a,
+.nav.page .search {
+    margin: 5px 0;
+}
+
+.nav.global a,
+.nav.global span {
+    padding: 8px 0px;
+}
+
+.nav.page .link-group a {
+    padding: 8px 4px;
+    font-size: 13px;
+}
+
+.nav.page .search input {
+    width: 92%;
+}
+
+.nav.page .search button {
+    width: 8%;
+}
+
+.nav.page .search .search-referral {
+    right: 84px;
+}
+
+.hide {
+    display: none;
+}
+
+.first-screen-AD .shortcut {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.first-screen-AD .shortcut .item {
+    padding: 20px 0;
+}
+
+.footer .regular .support a {
+    padding: 5px 20px;
+    font-size: 15px;
+}
+
+.footer .regular .link-group {
+    width: 100%;
+    margin: 5px 0;
+    text-align: center;
+    font-size: 15px;
+}
+
+.footer .regular .link-group a,
+.footer .regular .link-group .title {
+    font-size: 11px;
+}
+
+.footer .regular .link-group .item {
+    padding: 5px 5px;
+}
+
+.footer .regular .contact {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.footer .meta .fr {
+    text-align: center;
+}
