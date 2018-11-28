@@ -1,0 +1,24 @@
+pre {
+    font-size: 150%;
+    font-weight: bold;
+}
+.parent{
+    display: flex;
+    border: solid;
+}
+.child {
+    border: solid tomato;
+    padding: 20px;
+}
+.row {
+    flex-direction: row; /*关键属性*/
+}
+.row-reverse{
+    flex-direction: row-reverse;
+}
+.column{
+    flex-direction: column;
+}
+.column-reverse{
+    flex-direction: column-reverse;
+}

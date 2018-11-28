@@ -1,0 +1,30 @@
+<style>
+    .parent {
+        display: flex;
+        border: solid;
+    }
+
+    .child {
+        width: 500px; /*大家的宽度都是500px*/
+        border: solid tomato;
+        padding: 20px;
+    }
+    .child2{
+        flex-shrink: 2;
+        width: 500px; /*大家的宽度都是500px*/
+        border: solid tomato;
+        padding: 20px;
+    }
+    .child3{
+        flex-shrink: 3;
+        width: 500px; /*大家的宽度都是500px*/
+        border: solid tomato;
+        padding: 20px;
+    }
+</style>
+
+<div class="parent">
+    <div id="a" class="child">A</div>
+    <div id="b" class="child2">B</div>
+    <div id="c" class="child3">C</div>
+</div>
