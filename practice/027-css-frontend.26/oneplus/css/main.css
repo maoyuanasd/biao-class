@@ -1,0 +1,333 @@
+
+ * {
+    transition: 0.1s;
+}
+
+body {
+    background: #f6f6f6;
+}
+
+i {
+    display: inline-block;
+}
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav .container {
+  
+    color: #828282;
+}
+
+/* .nav .link-group{
+    display:flex;
+    justify-content: space-around;
+} */
+.nav .auth {
+    text-align: right;
+}
+
+.nav .auth i {
+
+    font-size: 18px;
+    padding: 18.5px;
+
+}
+
+.nav .link-group>* {
+    padding: 19px 38px;
+    font-size: 14px;
+}
+.nav .logo a,
+.nav .auth a{
+    font-size: 0;
+}
+
+.nav .logo i {
+    color: #eb0028;
+    font-size: 33px;
+    position: relative;
+    top: 10px;
+    left: 14px;
+   padding-bottom:23px;
+}
+
+.nav .link-group>*:hover {
+    color: #eb0028;
+    border-bottom: 2px solid #eb0028;
+}
+
+.nav .auth i:hover {
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+
+.first-screen {
+    color: #fff;
+    background-image: url(../img/first-screen-img.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    /* height: 835.14px; */
+
+}
+
+.first-screen .text {
+    padding: 197px 0;
+    padding-left: 278px;
+    position: relative;
+}
+
+.first-screen .text>* {
+    padding: 18px 0;
+}
+
+.first-screen .text .AD-name {
+    font-size: 130%;
+}
+
+.first-screen .text .title {
+    font-size: 290%;
+}
+
+.first-screen .text .price {
+    font-size: 150%;
+}
+
+.first-screen .text .buy {
+    font-size: 95%;
+    border: #fff 2px solid;
+    text-align: center;
+    width: 180px;
+}
+
+.first-screen .text .info {
+    font-size: 110%;
+}
+
+.first-screen .text .title,
+.first-screen .text .price {
+    font-weight: bolder;
+}
+
+.first-screen .text .left i,
+.first-screen .text .right i {
+    position: absolute;
+    top: 337px;
+    font-size: 60px;
+    color: rgb(255, 255, 255, .1)
+}
+
+.first-screen .text .left i:hover,
+.first-screen .text .right i:hover {
+
+    color: rgb(255, 255, 255, .8)
+}
+
+.first-screen .text .left i {
+    left: 52px;
+}
+
+.first-screen .text .right i {
+    right: 52px;
+}
+
+.second-screen a {
+    position: relative;
+   font-size: 0;
+}
+
+.second-screen span {
+    position: absolute;
+    top: 21px;
+    left: 40px;
+    font-size: 22px;
+} 
+.third-screen{
+    position: relative;
+}
+.third-screen .text{
+    position: absolute;
+    top: 43%;
+    left: 40%;
+    color: #fff;
+    text-align: center;
+    
+}
+.third-screen .text .title{
+    font-size: 250%;
+}
+.third-screen .img{
+    font-size: 0;
+}
+.third-screen .text .butoon{
+    font-size: 100%;
+    border: 2px solid #fff;
+    padding: 10px 30px;
+    display: inline-block;
+    margin-top: 30px;
+    
+}
+.third-screen .text .butoon:hover{
+    color: #000;
+    background: #fff;
+
+}
+.card-bar{
+    padding: 80px 0;
+}
+.card-bar .container{
+    justify-content: space-between;
+}
+.card-bar .card{
+    box-shadow: 0 17px 50px 0 rgba(0,0,0,.19);
+    background: #fff;
+}
+.card-bar .card:hover{
+    box-shadow: 0 17px 50px 0 rgba(0,0,0,.19);
+    transform: translate3d(0,-2px,0);
+}
+.card-bar .card .text{
+    padding-bottom: 30px;
+    padding-top: 25px;
+}
+.card-bar .card .img{
+    font-size: 0;
+}
+.card-bar .card .text>*{
+    padding: 5px 22px;
+}
+.card-bar .card .title{
+    font-size: 15px;
+}
+.card-bar .card .desc{
+    font-size: 12px;
+}
+.support .container{
+    justify-content: space-around;
+}
+.support {
+    padding: 50px 0;
+    background: #fff;
+    border-bottom: #ddd solid 1px;
+
+}
+.support .item{
+    text-align: center;
+    font-size: 14px;
+}
+.support .item i{
+    color: #7db93f;
+    font-size: 50px;
+    padding-bottom: 30px;
+}
+.link-box{
+
+    background: #fcfcfc;
+}
+.link-box .container{
+    justify-content: space-between;
+    padding: 30px 0;
+}
+.link-box .link-group .title{
+    font-size: 14px;
+    padding-bottom: 15px;
+    
+}
+.link-box .link-group a {
+    display: block;
+    padding-bottom: 10px;
+    font-size: 12px;
+    color: #828282;
+    
+}
+.link-box .contact{
+    text-align: center;
+    font-size: 15px;
+    font-weight: lighter;
+   
+
+   
+}
+.link-box .contact>*{
+    margin-bottom:19px;
+}
+.link-box .contact .btn{
+    padding: 7px 66px;
+    border: 1px solid #000;
+    background: #fff;
+}
+.link-box .contact .btn:hover{
+    color: #fff;
+    background: #000;
+    transition: 0s;
+}
+.link-box .contact span{
+    padding-left: 5px;
+}
+.link-box .contact .work-time{
+    font-size: 11px;
+    color: #828282;
+}
+.link-box .contact .icon-weixin,
+.link-box .contact .icon-weibo{
+    font-size: 20px;
+}
+.link-box .contact .icon-weixin{
+    color: #3ab034;
+}
+.link-box .contact .icon-weibo{
+    color: #e6162d;
+}
+.regula{
+    padding: 40px 0;
+    border-bottom: 1px solid #ddd;
+}
+.regula .state .cn{
+    width: 18.6px;
+    height: 12.6px;
+    background-image: url(../img/state.png);
+    background-position: 0 -63px;
+    margin-right: 15px;
+    position: relative;
+    top: 2px;
+}
+.regula .state{
+    margin-right: auto;
+    font-size: 15px;
+    vertical-align: top;
+    
+}
+.regula .link-group{
+    margin-left: auto;
+    font-size: 9px;
+}
+.regula .link-group a{
+    padding: 0 30px;
+}
+.regula .link-group a:nth-child(1),
+.regula .link-group a:nth-child(2){
+    border-right:solid 1px #ddd; 
+}
+.meta{
+    padding: 30px 0;
+}
+.meta .info{
+    margin-right: auto;
+    font-size: 15px;
+}
+.meta .info .text{
+    font-size: 11px;
+    color: #828282;
+    padding-bottom: 10px;
+}
+.meta  .police a img{
+    vertical-align: top;
+    padding-right: 3px;
+
+}
+.meta .img a{
+    margin-left: auto;
+    width: 83px;
+}
