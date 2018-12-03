@@ -1,0 +1,170 @@
+.col-min-1 {
+    width: 4.1666666666666666%;
+}
+
+.col-min-2 {
+    width: 8.3333333333333333%;
+}
+
+.col-min-3 {
+    width: 12.5%;
+}
+
+.col-min-4 {
+    width: 16.6666666666666666%;
+}
+
+.col-min-5 {
+    width: 20.8333333333333333%;
+}
+
+.col-min-6 {
+    width: 25%;
+}
+
+.col-min-7 {
+    width: 29.1666666666666666%;
+}
+
+.col-min-8 {
+    width: 33.3333333333333333%;
+}
+
+.col-min-9 {
+    width: 37.5%;
+}
+
+.col-min-10 {
+    width: 41.6666666666666666%;
+}
+
+.col-min-11 {
+    width: 45.8333333333333333%;
+}
+
+.col-min-12 {
+    width: 50%;
+}
+
+.col-min-13 {
+    width: 54.1666666666666666%;
+}
+
+.col-min-14 {
+    width: 58.3333333333333333%;
+}
+
+.col-min-15 {
+    width: 62.5%;
+}
+
+.col-min-16 {
+    width: 66.6666666666666666%;
+}
+
+.col-min-17 {
+    width: 70.8333333333333333%;
+}
+
+.col-min-18 {
+    width: 75%;
+}
+
+.col-min-19 {
+    width: 79.1666666666666666%;
+}
+
+.col-min-20 {
+    width: 83.3333333333333333%;
+}
+
+.col-min-21 {
+    width: 87.5%;
+}
+
+.col-min-22 {
+    width: 91.6666666666666666%;
+}
+
+.col-min-23 {
+    width: 95.8333333333333333%;
+}
+
+.col-min-24 {
+    width: 100%;
+}
+
+.m-fl {
+    float: left;
+}
+
+.hide{
+    display: none;
+}
+main{
+    padding-top:64px;
+}
+.nav.global .min-nav{
+    display: block;
+}
+.min-nav .link{
+    position: relative;
+}
+.min-nav .link i{
+    font-size: 30px;
+    color: #12abcc;
+}
+.min-nav .logo{
+    font-size: 15px;
+    text-align: center;
+}
+.min-nav .search input{
+    
+    padding: 5px 0;
+}
+.min-nav .search button{
+    top:2px;
+    right: -4px;
+}
+.min-nav .search{
+    padding: 0;
+}
+#menu-checkbox{
+    display: none;
+}
+#menu-checkbox:checked ~ .menu{
+    display: block;
+   
+}
+.nav.global .menu{
+    position: absolute;
+    bottom: -144px;
+    left:-9px;
+    background: #fff;
+    border-radius: 3px;
+    /* border: 1px solid #135f70; */
+    /* width: 50%; */
+    
+    display: none;  
+}
+.nav.global .menu a{
+    display: block;
+    font-size: 80%;
+    text-align: center;
+    padding: 10px;
+    
+}
+.nav.global .menu a:hover{
+    background: rgba(204, 204, 204, .6);
+}
+.time-line .card .title{
+    text-align: center;
+}
+.time-line .card .img{
+    width: 100%;
+}
+.time-line .card .text{
+    width: 100%;
+    padding-left: 18px;
+
+}

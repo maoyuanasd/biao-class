@@ -1,0 +1,167 @@
+.col-min-1 {
+    width: 4.1666666666666666%;
+}
+
+.col-min-2 {
+    width: 8.3333333333333333%;
+}
+
+.col-min-3 {
+    width: 12.5%;
+}
+
+.col-min-4 {
+    width: 16.6666666666666666%;
+}
+
+.col-min-5 {
+    width: 20.8333333333333333%;
+}
+
+.col-min-6 {
+    width: 25%;
+}
+
+.col-min-7 {
+    width: 29.1666666666666666%;
+}
+
+.col-min-8 {
+    width: 33.3333333333333333%;
+}
+
+.col-min-9 {
+    width: 37.5%;
+}
+
+.col-min-10 {
+    width: 41.6666666666666666%;
+}
+
+.col-min-11 {
+    width: 45.8333333333333333%;
+}
+
+.col-min-12 {
+    width: 50%;
+}
+
+.col-min-13 {
+    width: 54.1666666666666666%;
+}
+
+.col-min-14 {
+    width: 58.3333333333333333%;
+}
+
+.col-min-15 {
+    width: 62.5%;
+}
+
+.col-min-16 {
+    width: 66.6666666666666666%;
+}
+
+.col-min-17 {
+    width: 70.8333333333333333%;
+}
+
+.col-min-18 {
+    width: 75%;
+}
+
+.col-min-19 {
+    width: 79.1666666666666666%;
+}
+
+.col-min-20 {
+    width: 83.3333333333333333%;
+}
+
+.col-min-21 {
+    width: 87.5%;
+}
+
+.col-min-22 {
+    width: 91.6666666666666666%;
+}
+
+.col-min-23 {
+    width: 95.8333333333333333%;
+}
+
+.col-min-24 {
+    width: 100%;
+}
+
+.m-fl {
+    float: left;
+}
+
+.hide {
+    display: none;
+}
+
+.logo{
+    text-align: center;
+}
+.b-hide{
+    display: block;
+}
+.first-screen{
+    padding:0;
+}
+.search{
+    padding: 0 10px;
+}
+header h1{
+    margin: 50px 0;
+}
+header .cat{
+    padding: 0;
+}
+main .card-group .card .text .name{
+    font-size: 16px;
+}
+main .card-group .card .text  div {
+   font-size: 13px;
+}
+
+footer .regular .container{
+    display: block;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+footer .support .icon span{
+    font-size: 15px;
+}
+
+footer .regular .link-group{
+    text-align: left;
+}
+footer .regular .link-group>label{
+    border-bottom: 1px solid #aaa;
+    cursor: pointer;
+    padding: 8px 0;
+    display: block;
+}
+footer .regular .link-group>a,
+footer .regular .link-group>span{
+    display: none;
+}
+
+footer .regular .link-group #menu-checkbox:checked ~a,
+footer .regular .link-group #menu-checkbox2:checked ~a,
+footer .regular .link-group #menu-checkbox3:checked ~a,
+footer .regular .link-group #menu-checkbox4:checked ~a
+{
+    display: block;
+}
+footer .regular .contact button{
+    width: 50%;
+}
+.detail .head .desc{
+    text-align: center;
+   
+}
+

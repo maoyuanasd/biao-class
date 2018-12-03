@@ -1,0 +1,63 @@
+body{
+    background: rgb(230, 249, 253);
+}
+input{
+    border: none;
+}
+.login{
+    text-align: center;
+    background-color: #fff;
+    border-radius: 20px;
+    width: 350px;
+    height: 400px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    color: #333;
+}
+.rebox .logo a{
+    font-size: 28px;
+    padding: 18px 0;
+    
+  
+}
+.rebox .logo div{
+    font-size: 18px;
+    padding: 5px 0;
+}
+.account,
+.password{
+    /* width: 80%; */
+    border-bottom: 1px solid #333;
+    text-align: center;
+    margin: 25px 35px;
+    font-size: 17px;
+    padding-bottom: 10px;
+}
+input{
+    padding: 5px 10px;
+}
+button{
+    background: rgb(232, 186, 52);
+    color: #fff;
+    padding: 8px 10px;
+    width: 50%;
+    border-radius: 10px;
+    border: 1px solid rgb(232, 186, 52);
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+button:hover{
+    background: #fff;
+    color: rgb(232, 186, 52);
+}
+.info{
+    font-size: 15px;
+}
+.info a{
+    color: rgb(52, 145, 232);
+}

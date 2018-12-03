@@ -1,0 +1,61 @@
+.card-group{
+    margin: 30px 0;
+}
+.card-group .title{
+    font-size: 20px;
+    background: rgb(255, 255, 255);
+    margin:18px;
+    border-radius: 10px;
+}
+.card-group .title img{
+height: 80px;
+vertical-align: middle;
+}
+
+.card-group .card:hover .text{
+    background: #fff;
+    color: rgb(232, 186, 52);
+}
+.card-group .card:hover{
+    background: url(../img/bc-01.png)repeat center/ 100%;
+    transform: scale(1.05);
+    /* background-size: 20%; */
+    transition: all .5s ease;
+}
+.card-group .card{
+    background: rgb(255, 255, 255,.9);
+    border-radius: 50%;
+    margin-top:188px;
+    padding: 18px;
+    box-shadow: 2px 10px 10px rgba(204, 204, 204, 0.9);
+}
+.card-group .card img{
+    margin-top: -175px;
+}
+.card-group .card .text{
+    text-align: center;
+    background: rgb(232, 186, 52);
+    color:#fff;
+    border-radius: 5px;
+    padding: 8px 0;
+    border: 1px solid rgb(232, 186, 52);
+}
+.card-group .card .text .name{
+    font-size: 20px;
+}
+.card-group .item {
+    padding: 0 10px;
+}
+.card-group.hot .item{
+    padding:18px;
+}
+.card-group.hot .card{
+    background: rgb(255, 255, 255);
+    border-radius: 5px;
+    margin-top:0px;
+    padding: 18px;
+}
+
+.card-group.hot .card img{
+    margin:0;
+}

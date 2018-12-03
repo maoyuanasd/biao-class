@@ -1,0 +1,58 @@
+
+
+.time-line .card .title{
+    font-size: 110%;
+    padding: 13px 20px;
+    border-bottom: 1px solid #ddd;
+}
+.time-line .card .img{
+  font-size: 0;
+    float: left;
+    padding: 10px 20px;
+}
+.time-line .card .img img{
+    border-radius: 3px;
+    overflow: hidden;
+
+}
+.time-line .card .text{
+    font-size: 15px;
+    float: right;
+   line-height: 1.6;
+   padding: 10px 0;
+   padding-right: 10px;
+}
+.time-line .card .text>*:last-child{
+    color: #12abcc;
+}
+.info>*{
+    display: inline-block;
+    color: #777
+}
+.info{
+    padding-left: 17px;
+    padding-bottom: 10px;
+}
+.info button{
+    padding: 5px 9px;
+    background: rgba(145, 175, 184, 0.5);
+    border-radius: 3px;
+    overflow: hidden;
+    border: none;
+    color: #777;
+    margin:0 3px;
+}
+.info .btn{
+    padding-right: 30px;
+}
+.info button:hover{
+    color: #fff;
+    background: #6395ab;
+}
+.info span{
+    padding-right: 15px;
+
+}
+.info span i{
+    padding-right: 5px;
+}
