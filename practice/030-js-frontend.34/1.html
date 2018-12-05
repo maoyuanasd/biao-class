@@ -1,0 +1,128 @@
+<script>
+    ;
+    (function () {
+        'use strict';
+        let a, b;
+        a = 5;
+        b = 5;
+        let c = a + b;
+        console.log(c);
+        let arr = [
+            1,
+            2,
+            666,
+        ];
+        console.log(arr[2]);
+        arr = [
+            1,
+            2,
+            [666],
+        ];
+        console.log(arr[2][0]);
+        arr = [
+            [
+                [1, 5],
+                ['whh', 666],
+            ],
+        ];
+        console.log(arr[0][1][1]);
+        arr = [
+            [
+                [100, 'Emmm'],
+                [
+                    2, 'yo', [666],
+                ],
+            ],
+        ];
+        console.log(arr[0][1][2][0]);
+        let obj = {
+            a: 1,
+            b: 2,
+            c: 666,
+        };
+        console.log(obj.c);
+        obj = {
+            a: 1,
+            b: {
+                yo: {
+                    em: '6',
+                    ha: 666,
+                },
+            },
+        };
+        console.log(obj.b.yo.ha);
+        obj = {
+            a: 1,
+            b: {
+                yo: [
+                    2,
+                    'La',
+                    {
+                        muhaha: '~',
+                        a: 666,
+                    }
+                ],
+            },
+        };
+        console.log(obj.b.yo[2].a);
+        obj = {
+            a: 1,
+            b: {
+                x: [
+                    2, {
+                        ya: [666]
+                    },
+                ],
+            },
+        };
+        console.log(obj.b.x[1].ya[0]);
+        obj = {
+            a: [3, 5],
+            b: ['Yo', 1],
+        };
+        console.log(obj.a.length, obj.b.length);
+        obj = {
+            a: {
+                foo: 2
+            },
+            yo: [3, 5],
+            b: {
+                la: {
+                    name: 'Wood',
+                    x: [5, 'a', 'c'],
+                    muhaha: ['Bob', 'Huahua'],
+                    length: 100,
+                },
+            },
+        };
+        console.log(obj.yo.length+obj.b.la.x.length+obj.b.la.muhaha.length);
+        obj = {
+            la: 'Ha',
+            v: 2,
+            p: [2, 5],
+            b: {
+                a: {
+                    name: 'White',
+                    yo: [5, 'a', 'c'],
+                    length: 100,
+                    map: true,
+                },
+            },
+        };
+        console.log(typeof obj.la,typeof obj.v,typeof obj.b,typeof obj.b.a,typeof obj.b.a.name,typeof obj.b.a.yo,typeof obj.b.a.length,typeof obj.b.a.map);
+        obj = {
+            la: 'Ha',
+            v: 2,
+            p: [2, 5],
+            b: {
+                a: {
+                    name: 'White',
+                    yo: [5, 'a', 'c'],
+                    length: 100,
+                    map: true,
+                },
+            },
+        };
+        console.log(obj.la,obj.b.a.name);
+    })();
+</script>
