@@ -1,0 +1,26 @@
+<script>
+    ;
+    (function () {
+        'use strict';
+        let list = [
+            '王花花',
+            '刘备备',
+            '李拴蛋',
+            '赵可爽',
+        ];
+        let i=0;
+        let length=list.length;
+        let str ='';
+        while(i<list.length){
+           let it=list[i];
+           let commit=',';
+           if(i===length-1){
+               commit='';
+           };
+            i++;
+           str=str+it+commit;
+            
+        }
+        console.log(str);
+    })();
+</script>
