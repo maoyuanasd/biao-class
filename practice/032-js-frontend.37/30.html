@@ -1,0 +1,36 @@
+<script>
+    ;
+    (function () {
+        'use strict';
+        let array = ['a1', 'a2', ['b1', 'b2', ['c1', 'c2', 'c3'], 'b3'], 'a3'];
+        let str1 = '';
+        let str2 = '';
+        let str3 = '';
+        for (let i = 0; i < array.length; i++) {
+            let it = array[i];
+            if (typeof it == 'string') {
+                str1 += ' ' + it;
+            } else {
+
+                let it1 = array[i];
+                for (let i = 0; i < it1.length; i++) {
+                    let it11 = it1[i];
+                    if (typeof it11 == 'string') {
+                        str2 += ' ' + it11;
+                    } 
+                    else {
+                        let it2 = it1[i];
+                        for (let i = 0; i < it2.length; i++) {
+                            let it22 = it2[i];
+                            str3 += ' ' + it22;
+                        }
+                    }
+                }
+            }
+
+        }
+        console.log('第一级:' + str1);
+        console.log('第二级:' + str2);
+        console.log('第三级:' + str3);
+    })();
+</script>

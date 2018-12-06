@@ -1,0 +1,23 @@
+<script>
+    ;
+    (function () {
+        'use strict';
+        let array =['Yo', 'Em', 1, 'La', 4, 8, 'Ha', 11, 5];
+       let str='';
+       let sum=0;
+       for(let i =0;i<array.length;i++){
+        let   it=array[i];
+           if(typeof it!='string')
+           continue;
+           str=str+it;
+       }
+       console.log(str);
+       for(let i=0;i<array.length;i++){
+         let it = array[i];
+         if(typeof it !="number")
+         continue;
+         sum+=it;
+       }
+       console.log(sum);
+})();
+</script>

@@ -1,0 +1,33 @@
+<script>
+    ;
+    (function () {
+        'use strict';
+        let list = ['a1', 'a2', ['b1', 'b2', ['c1', 'c2', 'c3'], 'b3'], 'a3'];
+        let lever1 = '第一级';
+        let lever2 = '第二级';
+        let lever3 = '第三级';
+        for (let i = 0; i < list.length; i++) {
+            let it1 = list[i];
+            if (typeof it1 === 'string') {
+                lever1 += it1;
+            } else {
+                let list2 = list[i];
+                for (let j = 0; j < list2.length; j++) {
+                    let it2 = list2[j];
+                    if (typeof it2 == 'string') {
+                        lever2 += it2;
+                    } else {
+                        let list3 = list2[j];
+                        for (let k = 0; k < list3.length; k++) {
+                            let it3 = list3[k]
+                            lever3 += it3;
+                        }
+                    }
+                }
+            }
+        }
+        console.log(lever1);
+        console.log(lever2);
+        console.log(lever3);
+    })();
+</script>
