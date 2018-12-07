@@ -1,0 +1,24 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+        let list1 = [
+        1, 2, 'Yo'
+        ];
+        let list2 = [
+        1, 'a', 2, 3
+        ];
+        function filterSum(arr){
+            let total =0;
+            for(let i=0;i<arr.length;i++){
+                if(typeof arr[i]=='string')
+                continue;
+                total+=arr[i];
+            }
+            console.log(total);
+        }
+        filterSum(list1);
+        filterSum(list2);
+        
+    })();
+</script>

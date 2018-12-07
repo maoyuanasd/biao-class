@@ -1,0 +1,21 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+        let list1 = [
+           1,2,3,5,6,5
+        ];
+        let list2 = [
+           1,2,3,5,6,5,454,999
+        ];
+        function sum(arr){
+            let sum=0;
+            for(let i=0;i<arr.length;i++){
+               sum+=arr[i];
+            }
+            console.log(sum);
+        }
+        sum(list1);
+        sum(list2);
+    })();
+</script>

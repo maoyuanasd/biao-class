@@ -1,0 +1,22 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+        let list = [
+            '王花花',
+            '刘备备',
+            '李拴蛋',
+            '赵可爽',
+        ];
+        function printer(arr,jumper){
+            for(let i=0;i<arr.length;i++){
+                if(arr[i]==jumper){
+                    continue;
+                }
+                console.log(arr[i]);
+            }
+        }
+        printer(list,'李拴蛋');
+        printer(list,'赵可爽');
+    })();
+</script>

@@ -1,0 +1,25 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+
+        function evenMaker(max) {
+            let result = [];
+
+            for (let i = 0; i < max; i++) {
+                // 乘2保证每次循环都能拿到偶数
+                let even = (i + 1) * 2;
+
+                // 如果当前的偶数大于最大值，就停止循环
+                if (even > max)
+                    break;
+
+                result.push(even);
+            }
+
+            return result;
+        }
+        let c=evenMaker(4);
+        console.log(c);
+    })();
+</script>

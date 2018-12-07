@@ -1,0 +1,25 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+        let list = [
+            'abb',
+            'bcc',
+            'cdd',
+            'daa',
+        ];
+        function search(arr=list,con){
+    
+            let result=[];
+            for(let i=0;i<arr.length;i++){
+                if(arr[i].includes(con))
+                result.push(arr[i])
+                
+            }
+            console.log(result);
+        }
+        search(list,'a');
+        search(list,'b');
+        search('ab');
+    })();
+</script>

@@ -1,0 +1,18 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+        let list1 = [5, 2, 3];
+        let list2 = [1, 2, 3, 4];
+        function filterOdd(arr){
+            let newList=[];
+            for(let i=0;i<arr.length;i++){
+                if(arr[i]%2)
+                newList.push(arr[i]);
+            }
+            console.log(newList);
+        }
+        filterOdd(list1);
+        filterOdd(list2);
+    })();
+</script>

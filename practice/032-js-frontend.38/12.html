@@ -1,0 +1,19 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+        let list1 = [1, 2, 3, 4];
+        let list2 = [2, 5, 2];
+       function sumEven(arr){
+           let result=0;
+           for(let i=0;i<arr.length;i++){
+               if(arr[i]%2!=0)
+               continue;
+              result+=arr[i];
+           }
+           console.log(result);
+       }
+       sumEven(list1);
+       sumEven(list2);
+    })();
+</script>
