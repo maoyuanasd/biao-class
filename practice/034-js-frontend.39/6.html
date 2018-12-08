@@ -1,0 +1,23 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+
+        function eachNumber(arr, fn) {
+            for (let i = 0; i < arr.length; i++) {
+                fn(arr[i]);
+            }
+        }
+
+        let arr1 = [1, 2, 3, 4, 5, 6];
+        function sum(arr){
+            let total=0;
+            eachNumber(arr,function(it){
+                  total+=it;
+            })
+            return total;
+        }
+        console.log(sum(arr1));
+        
+    })();
+</script>

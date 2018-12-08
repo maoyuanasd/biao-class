@@ -1,0 +1,25 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+       function cooking(吃什么,几个人,忌口){
+           console.log('买跟'+吃什么()+'有关的食材');
+           console.log('做'+几个人()+'个人的饭');
+           console.log('有'+忌口()+'的习惯');
+       }
+       function 红烧肉(){
+           return '红烧肉';
+       }
+       function 数人(){
+         let  son=2;
+          let dad=1;
+           return son+dad;
+       }
+       function 询问忌口(){
+           let son='不吃香菜';
+           let dad='不吃辣'
+           return [son,dad];
+       }
+       cooking(红烧肉,数人,询问忌口);
+    })();
+</script>

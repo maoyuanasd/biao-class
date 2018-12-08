@@ -1,0 +1,34 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+        //     function a(functions){
+        //         functions(5);
+
+        //     };
+        //     function b(){
+        //         console.log('b');
+        //     }
+        //     function c(){
+        //         console.log('c');
+        //     }
+        //     function d(){
+        //         console.log('d');
+        //     }
+        //    a(b);
+        let arr = ['a', 'b', 'c'];
+
+        function iterator(list, fn) {
+            for (let i = 0; i < list.length; i++) {
+                fn(list[i]);
+            }
+             console.log(str)
+        }
+       let str='';
+        iterator(arr,function (it){
+             str+=it;
+        })
+        
+
+    })();
+</script>

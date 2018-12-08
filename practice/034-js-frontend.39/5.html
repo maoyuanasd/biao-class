@@ -1,0 +1,24 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+
+        function eachNumber(arr, fn) {
+            for (let i = 0; i < arr.length; i++) {
+                fn(arr[i]);
+            }
+        }
+
+        let arr1 = [1, 2, 3, 4, 5, 6];
+
+        function oddNumber(arr){
+            let result=[];
+            eachNumber(arr,function(it){
+                if(it%2)
+                result.push(it);
+            })
+            return result;
+        }
+        console.log(oddNumber(arr1));
+    })();
+</script>

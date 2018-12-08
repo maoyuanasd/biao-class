@@ -1,0 +1,27 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+
+        function eachNumber(arr, fn) {
+            for (let i = 0; i < arr.length; i++) {
+                fn(arr[i]);
+            }
+        }
+
+        let arr1 = [1, 2, 6, 99, 5, 3];
+        function max(arr){
+            let result;
+            eachNumber(arr,function(it){
+                if(result===undefined){
+                    result=it;
+                    return;
+                }
+                if(it>result)
+                result=it;
+            })
+            return result;
+        }
+        console.log(max(arr1));
+    })();
+</script>

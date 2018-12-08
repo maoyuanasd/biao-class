@@ -1,0 +1,28 @@
+<script>
+    ;
+    (function () {
+        'usr strict';
+
+        function eachNumber(arr, fn) {
+            for (let i = 0; i < arr.length; i++) {
+                fn(arr[i]);
+            }
+        }
+
+        let arr1 = [83, 2, 6, 99, 5, 3];
+        function min(arr){
+            let result;
+            eachNumber(arr,function(it){
+                if(result===undefined){
+                    result=it;
+                    return;
+                }
+                if(it<result)
+                result=it;
+            })
+            return result;
+        }
+        console.log(min(arr1));
+       
+    })();
+</script>
