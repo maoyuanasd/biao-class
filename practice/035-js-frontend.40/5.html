@@ -1,0 +1,53 @@
+<style>
+    :root{
+        font-size: 15px;
+        font-family: sans-serif;
+    }
+    .board{
+        font-size: 2rem;
+        color:red;
+        background: #000;
+        border: 2px solid ;
+        display:inline-block;
+        opacity: 1;
+        padding: 10px;
+    }
+    
+    
+    
+
+</style>
+
+    <div class="board"><span class="inner"></span></div>
+
+<script>
+        ;(function(){
+            'use strict';
+            let list=['修脚','贴膜','修航母','修手机','修电脑','修水管']
+            const board=document.querySelector('.board');
+                const inner=board.querySelector('.inner');
+                let i=0;
+                inner.innerText=list[i];
+                setInterval(()=>{
+                    let opacity=getComputedStyle(inner).opacity;
+                    if (opacity==1){
+                        inner.style.opacity=0;
+                        board.style.borderColor='rgb(0,0,0)';
+                    }else{
+                        inner.style.opacity=1;
+                        board.style.borderColor='inherit';
+                        // i++
+                        // if(i>=list.length)
+                        // i=0;
+                        if(i<list.length-1){
+                            i++;
+                        }else{
+                            i=0;
+                        }
+                        
+                       inner.innerText=list[i];
+                        
+                    }
+                },500);
+        })();
+    </script>
