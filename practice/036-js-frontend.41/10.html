@@ -1,0 +1,72 @@
+<style>
+    :root {
+        font-size: 20px;
+        font-family: sans-serif;
+    }
+
+    .board {
+        font-size: 2rem;
+        color: red;
+        background: #000;
+        border: 2px solid;
+        display: inline-block;
+        opacity: 1;
+        padding: 10px;
+    }
+</style>
+
+
+<div class="board"><span class="inner"></span></div>
+
+<script>
+    ;
+    (function () {
+        'use strict';
+        const board = document.querySelector('.board');
+        const inner = board.querySelector('.inner');
+        let list = ['修脚', '贴膜', '修电脑'];
+        let i = 0;
+        boot();
+
+        function boot() {
+            startFlash()
+        }
+
+        function startFlash() {
+            inner.innerText = list[i];
+            setInterval(() => {
+                toggleBorder();
+                toggleText(sliderArr);
+            }, 500)
+        }
+
+        function isVisible() {
+            return getComputedStyle(inner).opacity != 0;
+        }
+
+        function toggleText(inShow, inHide) {
+            if (isVisible()) {
+                inner.style.opacity = 0;
+                inHide && inHide();
+            } else {
+                inner.style.opacity = 1;
+                inShow && inShow();
+            }
+        }
+
+        function toggleBorder() {
+            board.style.borderColor = isVisible() ? 'transparent' : 'inherit';
+        }
+
+        function sliderArr() {
+            i++;
+            if (i >= list.length) {
+                i = 0;
+            }
+            inner.innerText = list[i];
+
+        }
+
+
+    })();
+</script>
