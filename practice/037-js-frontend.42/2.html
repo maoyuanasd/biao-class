@@ -1,0 +1,51 @@
+<style>
+    img {
+        max-width: 100%;
+    }
+
+    .container {
+        max-width: 1080px;
+        margin: 0 auto;
+    }
+
+    .slider {
+        position: relative;
+    }
+
+    .item {
+        position: absolute;
+        display: block;
+        opacity: 0;
+        transition: all 1000ms;
+    }
+</style>
+<div class="container">
+    <div class="slider">
+        <a class="item" href="#">
+            <img src="./1000x500-A.png" alt="">
+        </a>
+        <a class="item" href="#">
+            <img src="./1000x500-B.png" alt="">
+        </a>
+        <a class="item" href="#">
+            <img src="./1000x500-C.png" alt="">
+        </a>
+    </div>
+</div>
+<script>
+    const slider=document.querySelector('.slider');
+    const items=slider.querySelectorAll('.item');
+    let count=0;
+    let maxIndex=items.length-1;
+    setInterval(()=>{
+        count++;
+        if(count>=items.length){
+            count=0;
+        } 
+       let prev= count==0? items[maxIndex]:items[count-1];
+       prev && (prev.style.opacity=0);
+       let next=items[count];
+       next.style.opacity=1;
+    },1000);
+  
+</script>

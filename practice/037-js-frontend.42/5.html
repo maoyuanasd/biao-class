@@ -1,0 +1,87 @@
+<style>
+    img {
+        max-width: 100%;
+    }
+
+    .container {
+        max-width: 1080px;
+        margin: 0 auto;
+    }
+
+    .slider {
+        position: relative;
+    }
+
+    .item {
+        position: absolute;
+        display: block;
+        opacity: 0;
+        transition: all 1000ms;
+    }
+</style>
+<div class="container">
+    <div class="slider">
+        <a class="item" href="#">
+            <img src="./1000x500-A.png" alt="">
+        </a>
+        <a class="item" href="#">
+            <img src="./1000x500-B.png" alt="">
+        </a>
+        <a class="item" href="#">
+            <img src="./1000x500-C.png" alt="">
+        </a>
+    </div>
+</div>
+<script>
+    const items = document.querySelectorAll('.item');
+    let current = 0;
+    let maxIndex = items.length - 1;
+    boot();
+
+    function boot() {
+        startSlider()
+    }
+
+    function startSlider() {
+        // 显示第一页,防止空等状态
+        items[current].style.opacity=1;
+        // 循环函数
+        setInterval(() => {
+           
+            flip(); 
+        }, 1000)
+    }
+     // 循环一次要做的事情
+    function flip(){
+        current++;
+            if (current >= items.length)
+                current = 0;
+            let prev = getPrev();
+
+            hide(prev);
+
+            let next = items[current];
+            show(next);
+    }
+    // 前一页取值
+    function getPrev() {
+        // 如果自增后超过最大页就重置为零（从头开始）
+        if (current == 0) {
+            return prev = items[maxIndex];
+        } else {
+            return prev = items[current - 1]
+        }
+    }
+    // 显示状态
+    function show(el) {
+        if (!el)
+            return;
+        el.style.opacity = 1;
+    }
+    // 消失状态
+    function hide(el) {
+        if (!el)
+            return;
+        el.style.opacity = 0;
+    }
+</script>

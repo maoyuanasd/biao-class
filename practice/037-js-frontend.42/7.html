@@ -1,0 +1,85 @@
+<style>
+    img {
+        max-width: 100%;
+    }
+
+    .container {
+        max-width: 1080px;
+        margin: 0 auto;
+    }
+
+    .slider {
+        position: relative;
+    }
+
+    .item {
+        position: absolute;
+        display: block;
+        opacity: 0;
+        transition: all 1000ms;
+    }
+</style>
+<div class="container">
+    <div class="slider">
+        <a class="item" href="#">
+            <img src="./1000x500-A.png" alt="">
+        </a>
+        <a class="item" href="#">
+            <img src="./1000x500-B.png" alt="">
+        </a>
+        <a class="item" href="#">
+            <img src="./1000x500-C.png" alt="">
+        </a>
+    </div>
+</div>
+<script>
+    const items = document.querySelectorAll('.item');
+    let currret = 0;
+    let maxIndex = items.length - 1
+    boot();
+
+    function boot() {
+        startFlash();
+    }
+   
+    function startFlash() {
+        items[currret].style.opacity=1;
+        setInterval(() => {
+         flip()
+        }, 1000)
+    }
+
+    function flip() {
+        currret++;
+        if (currret >= items.length)
+            currret = 0;
+        let prev = getPrev();
+
+        hide(prev);
+        let next = items[currret];
+        show(next);
+    }
+
+    function getPrev() {
+        if (currret == 0) {
+
+            return prev = items[maxIndex];
+
+        } else {
+
+            return prev = items[currret - 1];
+        }
+    }
+
+    function show(el) {
+        if (!el)
+            return;
+        el.style.opacity = 1;
+    }
+
+    function hide(el) {
+        if (!el)
+            return;
+        el.style.opacity = 0;
+    }
+</script>
