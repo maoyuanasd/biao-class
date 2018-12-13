@@ -1,0 +1,131 @@
+<style>
+    .container {
+        max-width: 1080px;
+        margin: 0 auto;
+    }
+
+    .slider {
+        position: relative;
+        width: 1000px;
+        overflow: hidden;
+        height: 500px;
+    }
+
+    .item {
+        display: block;
+        position: absolute;
+        transition: all 1000ms;
+        width: 2000px;
+        max-width: 100%;
+
+
+    }
+</style>
+<div class="container">
+    <div class="slider">
+        <a href="#" class="item" id="pic-1">
+            <img src="./1.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-2">
+            <img src="./2.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-3">
+            <img src="./3.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-4">
+            <img src="./4.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-5">
+            <img src="./5.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-6">
+            <img src="./6.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-7">
+            <img src="./5.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-8">
+            <img src="./6.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-9">
+            <img src="./5.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-10">
+            <img src="./6.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-11">
+            <img src="./5.png" alt="">
+        </a>
+        <a href="#" class="item" id="pic-12">
+            <img src="./6.png" alt="">
+        </a>
+    </div>
+</div>
+<script>
+    const slider = document.querySelector('.slider');
+    const items = slider.querySelectorAll('.item');
+    let currentIndex = 0;
+    let lastIndex = items.length - 1;
+
+    boot();
+
+    function boot() {
+        sliderFlash();
+    }
+
+    function sliderFlash() {
+        sliderX();
+        sliderZ();
+        setInterval(() => {
+            loop();
+            sliderX();
+            sliderZ();
+        }, 1000);
+    }
+
+    function loop() {
+        if (currentIndex < lastIndex) {
+            currentIndex++
+        } else {
+            currentIndex = 0
+        }
+    }
+
+    function sliderZ() {
+        let prev = getPrev();
+        let cuurent = getCuurent();
+        let next = getNext();
+        prev.style.zIndex = 1;
+        cuurent.style.zIndex = 2;
+        next.style.zIndex = 0;
+    }
+
+    function sliderX() {
+        let prev = getPrev();
+        let cuurent = getCuurent();
+        let next = getNext();
+        prev.style.left = -prev.offsetWidth + 'px';
+        cuurent.style.left = 0;
+        next.style.left = next.offsetWidth + 'px';
+    }
+
+    function getPrev() {
+        if (currentIndex > 0) {
+            return items[currentIndex - 1]
+        } else {
+            return items[lastIndex];
+        }
+    }
+
+    function getCuurent() {
+        return items[currentIndex];
+    }
+
+    function getNext() {
+        if (currentIndex < lastIndex) {
+            return items[currentIndex + 1]
+        } else {
+            return items[0];
+        }
+    }
+</script>
