@@ -1,0 +1,18 @@
+<!-- <div onclick="console.log('yo')">yo</div> -->
+<div id="a">yo</div>
+<script>
+ a.onclick=function(){
+   console.log('yo2')
+ }
+</script>
+<div id="b">
+  yo3
+</div>
+<script>
+ b.addEventListener('click', () => {
+    console.log('Yo3');
+  });
+ b.addEventListener('click', () => {
+    console.log('Yo8');
+  });
+</script>

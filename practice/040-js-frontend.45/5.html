@@ -1,0 +1,44 @@
+<style>
+    .dropdown {
+        padding: 10px;
+        display: inline-block;
+        background: #666;
+        color: #fff;
+    }
+
+    .dropdown a {
+        color: inherit;
+        display: block;
+        min-width: 100px;
+        text-decoration: none;
+        padding: 5px 10px;
+    }
+
+    [hidden] {
+        display: none !important;
+    }
+</style>
+<button class="trigger">更多</button>
+<br>
+<div class="dropdown" hidden>
+    <a href="#">A</a>
+    <a href="#">B</a>
+    <a href="#">C</a>
+    <a href="#">D</a>
+</div>
+<script>
+    const dropdown=document.querySelector('.dropdown');
+    const trigger=document.querySelector('.trigger');
+    document.body.addEventListener('click',(e)=>{
+        // 如果事件来源是按钮则进行状态判断,并且返回不在执行下面的函数
+        if(e.target===trigger){
+            dropdown.hidden=!dropdown.hidden
+            return
+        }
+        //如果事件来源为非下拉及其子项,就隐藏下拉菜单
+        if(!e.target.closest('.dropdown')){
+            dropdown.hidden=true;
+      
+        }
+    })
+</script>
