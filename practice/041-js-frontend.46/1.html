@@ -1,0 +1,196 @@
+<style>
+    .biao-popup {
+        padding: 30px;
+        border: 2px solid;
+        position: fixed;
+        /* display: inline-block; */
+        background: #fff;
+        z-index: 1000;
+    }
+
+    .biao-mask {
+        background: rgba(0, 0, 0, .3);
+        position: fixed;
+        bottom: 0;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 999;
+    }
+
+    [hidden] {
+        display: none !important;
+    }
+</style>
+<button id='toggle'>收藏</button>
+<div id="popup">
+    <div>
+        你确定要收藏吗?
+    </div>
+    <!-- <button id="yes">确定</button>
+    <button id="no">取消</button> -->
+</div>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere inventore maiores nam natus necessitatibus nihil
+    quasi quibusdam sit tempora, vel? Dolores eos est itaque, laborum numquam obcaecati vitae voluptate voluptatibus!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere inventore maiores nam natus necessitatibus nihil
+    quasi quibusdam sit tempora, vel? Dolores eos est itaque, laborum numquam obcaecati vitae voluptate voluptatibus!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere inventore maiores nam natus necessitatibus nihil
+    quasi quibusdam sit tempora, vel? Dolores eos est itaque, laborum numquam obcaecati vitae voluptate voluptatibus!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere inventore maiores nam natus necessitatibus nihil
+    quasi quibusdam sit tempora, vel? Dolores eos est itaque, laborum numquam obcaecati vitae voluptate voluptatibus!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere inventore maiores nam natus necessitatibus nihil
+    quasi quibusdam sit tempora, vel? Dolores eos est itaque, laborum numquam obcaecati vitae voluptate voluptatibus!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere inventore maiores nam natus necessitatibus nihil
+    quasi quibusdam sit tempora, vel? Dolores eos est itaque, laborum numquam obcaecati vitae voluptate voluptatibus!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere inventore maiores nam natus necessitatibus nihil
+    quasi quibusdam sit tempora, vel? Dolores eos est itaque, laborum numquam obcaecati vitae voluptate voluptatibus!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis debitis dolore ducimus eaque ex id,
+    ipsa itaque modi nisi, odit optio perspiciatis quos recusandae reiciendis tempore vel voluptatem, voluptates. Lorem
+    ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis debitis dolore ducimus eaque ex id, ipsa
+    itaque modi nisi, odit optio perspiciatis quos recusandae reiciendis tempore vel voluptatem, voluptates. Lorem
+    ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis debitis dolore ducimus eaque ex id, ipsa
+    itaque modi nisi, odit optio perspiciatis quos recusandae reiciendis tempore vel voluptatem, voluptates. Lorem
+    ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis debitis dolore ducimus eaque ex id, ipsa
+    itaque modi nisi, odit optio perspiciatis quos recusandae reiciendis tempore vel voluptatem, voluptates. Lorem
+    ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis debitis dolore ducimus eaque ex id, ipsa
+    itaque modi nisi, odit optio perspiciatis quos recusandae reiciendis tempore vel voluptatem, voluptates. Lorem
+    ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis debitis dolore ducimus eaque ex id, ipsa
+    itaque modi nisi, odit optio perspiciatis quos recusandae reiciendis tempore vel voluptatem, voluptates. Lorem
+    ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis debitis dolore ducimus eaque ex id, ipsa
+    itaque modi nisi, odit optio perspiciatis quos recusandae reiciendis tempore vel voluptatem, voluptates. Lorem
+    ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis debitis dolore ducimus eaque ex id, ipsa
+    itaque modi nisi, odit optio perspiciatis quos recusandae reiciendis tempore vel voluptatem, voluptates. Lorem
+    ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis debitis dolore ducimus eaque ex id, ipsa
+    itaque modi nisi, odit optio perspiciatis quos recusandae reiciendis tempore vel voluptatem, voluptates.</p>
+
+<script>
+    // 声明全文变量,为了全文可见
+    let toggle, popup, mask;
+    // 默认配置 
+    const defaultConfig = {
+        position: 'center',
+        offsetX: 0,
+        offsetY: 0,
+        openOn: 'click',
+        closeOn: 'click',
+        keyToHide: 'Escape',
+    };
+    // 用户的配置
+    let config = {
+        position: 'upRight',
+        offsetX: 0,
+        offsetY: -300,
+        openOn: 'click',
+        closeOn: 'click',
+        keyToHide: 'q',
+    }
+    // 用户定义的js 设置必要的弹出层信息
+    boot('#toggle', '#popup', )
+
+    function boot(toggleSelector, popupSelector) {
+        // 拿到 toggle和popup的元素对象
+        toggle = document.querySelector(toggleSelector);
+        popup = document.querySelector(popupSelector);
+        // 载入用户的配置
+        loadConfig()
+        // 初始化popup
+        initPopup()
+        // 添加遮罩
+        initMask()
+        // 绑定打开事件
+        bindOpen()
+        // 绑定关闭事件
+        bindClose()
+    }
+
+    function loadConfig() {
+        // 通过合并数组,加载默认配置跟用户配置
+        config = Object.assign({}, defaultConfig, config);
+    }
+
+    function initPopup() {
+        // 给popup添加指定的样式 popup一开始不应该显示
+        popup.classList.add('biao-popup');
+        popup.hidden = true;
+    }
+
+    function initMask() {
+        // 创建一个遮罩层,并且一开始是隐藏的
+        mask = document.createElement('div');
+        mask.classList.add('biao-mask');
+        mask.hidden = true;
+        document.body.appendChild(mask);
+    }
+      
+    function bindOpen() {
+
+        toggle.addEventListener(config.openOn, () => {
+            //popup跟遮罩打开
+            isVisibel(true);
+            //因为popup默认是不可见的,所以没有宽高,就应该在打开的时候执行
+            positionPopup();
+        })
+    }
+
+    function bindClose(keyToHide) {
+        mask.addEventListener('click', () => {
+            //popup跟遮罩关闭
+            isVisibel(false);
+        })
+        // 检测到按什么健时,弹出层关闭
+        window.addEventListener('keyup', (e) => {
+            if (e.key === config.keyToHide)
+                isVisibel(false);
+        })
+    }
+    // 控制弹出层和遮罩打开和关闭
+    function isVisibel(show=false) {
+        popup.hidden = mask.hidden = !show
+    }
+   // 控制popup在网页的位置
+    function positionPopup() {
+        // 获取popup的宽度
+        let width = popup.offsetWidth;
+        // 获取当前浏览器可视窗口的宽度
+        let windowWidth = window.innerWidth;
+        // 获取popup的高度
+        let height = popup.offsetHeight;
+        // 获取当前浏览器可视窗口的高度
+        let windowHeight = window.innerHeight;
+        // 浏览器正中间
+        if (config.position == 'center') {
+            popup.style.top = windowHeight / 2 - height / 2 + config.offsetY+'px';
+            popup.style.left = windowWidth / 2 - width / 2 + config.offsetX+'px';
+        }
+        // 浏览器上左
+        if (config.position == 'upLeft') {
+            popup.style.top = 0;
+            popup.style.left = 0;
+        }
+        // 浏览器上中
+        if (config.position == 'upCenter') {
+            popup.style.top = 0;
+            popup.style.left = windowWidth / 2 - width / 2 + config.offsetX;
+        }
+        //浏览器上右
+        if (config.position == 'upRight') {
+            popup.style.top = 0;
+            popup.style.right = 0;
+        }
+        // 浏览器下右
+        if (config.position == 'downRight') {
+            popup.style.bottom = 0;
+            popup.style.right = 0;
+        }
+        // 浏览器下中
+        if (config.position == 'downCenter') {
+            popup.style.bottom = 0;
+            popup.style.left = windowWidth / 2 - width / 2 + config.offsetX;
+        }
+        // 浏览器下左
+        if (config.position == 'downLeft') {
+            popup.style.bottom = 0;
+            popup.style.left = 0;
+        }
+    }
+</script>
