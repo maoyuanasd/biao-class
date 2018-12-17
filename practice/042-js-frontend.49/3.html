@@ -1,0 +1,87 @@
+<style>
+    .popout {
+        background: #fff;
+        padding: 10px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        display: inline-block;
+        position: fixed;
+        border-radius: 3px;
+
+    }
+
+    [hidden] {
+        display: none !important;
+    }
+</style>
+<button data-popout="Yo yo yo..." data-position="top">Yo</button>
+<button data-popout="Yo ha ha..." data-position="right">Ha</button>
+<script>
+    let triggers = new Set();
+    let lastTrigger;
+    boot();
+
+    function boot() {
+        bindEvents();
+    }
+
+    function bindEvents() {
+        document.addEventListener('click', (e) => {
+            let el = e.target;
+            let content = el.dataset.popout;
+            if (content) {
+                lastTrigger && hide(lastTrigger);
+                lastTrigger = el;
+                triggers.add(el);
+                show(el, content);
+            } else {
+                hideAll(el)
+            }
+        })
+    }
+
+    function show(button, content) {
+        if (!button.$popout) {
+            let popout = document.createElement('div');
+            popout.classList.add('popout');
+            popout.innerHTML = content;
+            button.$popout = popout;
+            document.body.appendChild(popout);
+        } else {
+            button.$popout.hidden = false;
+        }
+        reposition(button);
+    }
+
+    function hideAll(button) {
+        triggers.forEach(button => {
+            button.$popout.hidden = true;
+        });
+    }
+
+    function hide(button) {
+        button.$popout.hidden = true;
+    }
+
+    function reposition(button) {
+        let p = button.$popout;
+        let buttonPosition = button.getBoundingClientRect();
+        switch (button.dataset.position) {
+            case 'top':
+                p.style.left = buttonPosition.left + 'px';
+                p.style.top = buttonPosition.top - p.offsetHeight - 5 + 'px';
+                break;
+            case 'bottom':
+                p.style.left = buttonPosition.left + 'px';
+                p.style.top = buttonPosition.top + button.offsetHeight + 5 + 'px';
+                break;
+            case 'left':
+                p.style.left = buttonPosition.left - p.offsetWidth - 5 + 'px';
+                p.style.top = buttonPosition.top + 'px';
+                break;
+            case 'right':
+                p.style.left = buttonPosition.left + button.offsetWidth + 5 + 'px';
+                p.style.top = buttonPosition.top + 'px';
+
+        }
+    }
+</script>

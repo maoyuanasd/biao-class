@@ -1,0 +1,85 @@
+<style>
+    .popout {
+        background: #fff;
+        padding: 10px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        display: inline-block;
+        position: fixed;
+        border-radius: 3px;
+
+    }
+
+    [hidden] {
+        display: none !important;
+    }
+</style>
+<button data-popout="Yo yo yo..." data-position="right">Yo</button>
+<button data-popout="Yo ha ha...">Ha</button>
+<script>
+    let triggers = new Set();
+    let lastTrigger;
+    boot();
+
+    function boot() {
+        document.body.addEventListener('click', (e) => {
+            let el = e.target;
+            let content = el.dataset.popout;
+            if (content) {
+                if (lastTrigger)
+                    hide(lastTrigger);
+                lastTrigger = el;
+                show(el, content);
+                triggers.add(el);
+            } else {
+                hideAll();
+            }
+        })
+    }
+
+    function show(el, content) {
+        if (!el.$popout) {
+            let popout = document.createElement('div');
+            popout.classList.add('popout');
+            popout.innerHTML = content;
+            el.$popout = popout;
+            document.body.appendChild(popout);
+        } else {
+            el.$popout.hidden = false;
+
+        }
+        reposition(el);
+    }
+
+    function hide(el) {
+        el.$popout.hidden = true;
+    }
+
+    function hideAll() {
+        triggers.forEach(el => {
+            el.$popout.hidden = true;
+        })
+    }
+
+    function reposition(el) {
+        let p = el.$popout;
+        let elPosition = el.getBoundingClientRect();
+        switch (el.dataset.position) {
+            case 'top':
+                p.style.left = elPosition.left + 'px';
+                p.style.top = elPosition.top - p.offsetHeight - 5 + 'px';
+
+                break;
+            case 'bottom':
+                p.style.left = elPosition.left + 'px';
+                p.style.top = elPosition.top + el.offsetHeight + 5 + 'px';
+                break;
+            case 'left':
+                p.style.left = elPosition.left - p.offsetWidth - 5 + 'px';
+                p.style.top = elPosition.top;
+            case 'right':
+                p.style.left = elPosition.left + el.offsetWidth + 5 + 'px';
+                p.style.top = elPosition.top;
+                break;
+        }
+    }
+</script>
