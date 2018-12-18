@@ -1,0 +1,54 @@
+<style>
+    #dropdown{
+        min-width: 5em;
+        display: inline-block;
+        border: 2px solid;
+    }
+    #dropdown a{
+        display: block;
+    }
+</style>
+<div id="dropdown">
+    
+</div>
+<script>
+    let list=[
+        {
+            text :'a',
+            href:'http://baidu.com'
+        },
+        {
+            text :'b',
+            href:'http://biaoyansu.com'
+        },
+        {
+            text :'a',
+            href:'http://z.cn'
+        },
+        {
+            text :'a',
+            href:'http://taobao.com'
+        }
+    ]
+    boot();
+    function boot(){
+        render();
+        setInterval(()=>{
+            list.push({
+                text:'e',
+                href:'http://douban.com'
+            })
+        render();
+        },1000)
+    }
+
+    function render(){
+        list.forEach(e => {
+            list=[];
+            let a=document.createElement('a');
+            a.innerText=e.text;
+            a.href=e.href;
+            dropdown.appendChild(a);
+        });
+    }
+</script>
