@@ -1,0 +1,83 @@
+<style>
+  :root {
+  font-size: 16px;
+}
+
+input, button {
+  font-size: inherit;
+  padding: .2em .3em;
+  margin: .2em auto;
+}
+
+input {
+  width: 100%;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  width: auto;
+}
+</style>
+<form id="b">
+  <input type="text" name="name" placeholder="姓名">
+  <input type="number" name="age" placeholder="年龄">
+  <input type="email" name="email" placeholder="邮箱">
+  <input type="date" name="birthday" placeholder="生日">
+  <div>
+    性别
+    <label>
+      男<input type="radio" name="gender" value="male">
+    </label>
+    <label>
+      女<input type="radio" name="gender" value="female">
+    </label>
+  </div>
+  <div>
+    取向
+    <label>
+      男 <input type="checkbox" name="orientation" value="male">
+    </label>
+    <label>
+      女 <input type="checkbox" name="orientation" value="female">
+    </label>
+    <label>
+      车 <input type="checkbox" name="orientation" value="car">
+    </label>
+  </div>
+  <input type="number" name="balance" placeholder="余额">
+  <button type="submit">提交</button>
+</form>
+<script>
+  let user = {
+    name: '王花花',
+    age: 18,
+    email: '8888@qq.com',
+    birthday: '1991-02-03',
+    gender: 'female',
+    orientation: ['male', 'car', ],
+    balance: 1000,
+  }
+  let form = document.querySelector('form');
+
+  function setData(data, form) {
+    for (let key in data) {
+      let inputs = form.querySelector(`[name=${key}]`);
+      switch (inputs.type) {
+        case 'radio':
+          let radio = form.querySelector(`[type=radio][name=${key}][value=${data[key]}]`);
+          radio && (radio.checked = true);
+          break;
+        case 'checkbox':
+          data[key].forEach(it => {
+            let checkbox = form.querySelector(`[type=checkbox][name=${key}][value=${it}]`);
+            checkbox && (checkbox.checked = true);
+          });
+          break;
+        default:
+          inputs.value = data[key];
+          break;
+      }
+    }
+  }
+  setData(user, form);
+</script>
