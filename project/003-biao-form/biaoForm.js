@@ -3,6 +3,11 @@ window.biaoForm={
     setData, 
 }
 
+/**
+ * 通过纯数据填充表单（存值）
+ * @param {Object} data
+ * @param {HTMLFormElement} form
+ */
 
 function getData(form) {
     let data = {};
@@ -36,7 +41,11 @@ function getData(form) {
     });
     return data
 }
-
+/**
+ * 通过纯数据填充表单（存值）
+ * @param {Object} data
+ * @param {HTMLFormElement} form
+ */
 function setData(data, form) {
     for (let key in data) {
         let val = data[key];
