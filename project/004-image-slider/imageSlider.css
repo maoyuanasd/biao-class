@@ -1,0 +1,10 @@
+.slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.item {
+    display: block;
+    position: absolute;
+    transition: all 1000ms;
+}

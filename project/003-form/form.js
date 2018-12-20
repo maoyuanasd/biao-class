@@ -1,4 +1,4 @@
-window.biaoForm={
+window.form={
     getData,
     setData, 
 }

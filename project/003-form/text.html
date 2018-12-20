@@ -81,9 +81,9 @@
     <input type="number" name="balance" placeholder="余额">
     <button type="submit">提交</button>
 </form>
-<script src="biaoForm.js"></script>
+<script src="form.js"></script>
 <script>
-  let data=  biaoForm.getData(a);
+  let data=form.getData(a);
     console.log(data);
     let user = {
     name: '王花花',
@@ -94,5 +94,5 @@
     orientation: ['male', 'car', ],
     balance: 1000,
   };
-  biaoForm.setData(user,b);
+  form.setData(user,b);
 </script>
