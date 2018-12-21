@@ -1,69 +1,113 @@
-window.form={
-    getData,
-    setData, 
-}
-
-/**
- * 通过纯数据填充表单（存值）
- * @param {Object} data
- * @param {HTMLFormElement} form
- */
-
-function getData(form) {
-    let data = {};
-    let inputs = form.querySelectorAll('[name]');
-    inputs.forEach(it => {
-        switch (it.type) {
-            case 'number':
-                data[it.name] = parseFloat(it.value);
-                break;
-            case 'date':
-                data[it.name] = it.valueAsDate;
-                break;
-            case 'week':
-                data[it.name] = it.valueAsDate;
-                break;
-            case 'radio':
-                if (!it.checked)
-                    return;
-                data[it.name] = it.value;
-                break;
-            case 'checkbox':
-                if (!Array.isArray(data[it.name]))
-                    data[it.name] = [];
-                if (it.checked == true)
-                    data[it.name].push(it.value);
-                break;
-            default:
-                data[it.name] = it.value;
-                break;
-        }
-    });
-    return data
-}
-/**
- * 通过纯数据填充表单（存值）
- * @param {Object} data
- * @param {HTMLFormElement} form
- */
-function setData(data, form) {
-    for (let key in data) {
-        let val = data[key];
-        let inputs = form.querySelector(`[name=${key}]`);
-        switch (inputs.type) {
-            case 'radio':
-                let radio = form.querySelector(`[type=radio][name=${key}][value=${val}]`);
-                radio && (radio.checked = true);
-                break;
-            case 'checkbox':
-                val.forEach(it => {
-                    let checkbox = form.querySelector(`[type=checkbox][name=${key}][value=${it}]`);
-                    checkbox && (checkbox.checked = true);
-                });
-                break;
-            default:
-                inputs.value = val;
-                break;
+;(function(){
+    'use strict';
+    // 将biaoForm暴露出去，否则别的文件访问不到
+    window.form = {
+        getData, // 相当于 getData: getData
+        setData, // 相当于 setData: setData
+    }
+    
+    /**
+     * 通过纯数据填充表单（存值）
+     * @param {Object} data
+     * @param {HTMLFormElement} form
+     */
+    
+    function getData(form) {
+        // 初始化纯数据，否则解析后的数据没地方存
+        let data = {};
+        // 取到所有输入组件，也就是所有有name属性的元素
+        // 如<input name="xxx">或者<textarea name="xxx">...
+        let inputs = form.querySelectorAll('[name]');
+        // 循环所有的输入组件
+        inputs.forEach(it => {
+            // 检查组件的类型
+            switch (it.type) {
+                // 如果是数字，就将值转换为数字类型
+                case 'number':
+                    data[it.name] = parseFloat(it.value);
+                    break;
+                    //  如果是以下任意类型,就将值转化为date对象    
+                case 'date':
+                case 'time':
+                case 'week':
+                case 'month':
+                case 'datetime':
+                case 'datetime-local':
+                    data[it.name] = it.valueAsDate;
+                    break;
+                    // 如果是单选框
+                case 'radio':
+                    // 检查它当前是否打钩了，如果没打勾就跳过
+                    if (!it.checked)
+                        return;
+                    // 否则就存到data中      
+                    data[it.name] = it.value;
+                    break;
+                    // 如果是复选框，那么取到的值就应该是个数组，
+                    // 因为可能会选中多项
+                case 'checkbox':
+                    // 第一次碰到复选框，就应该将data中对应的那一项初始化为空数组
+                    // 否则后面没法推入选中的值
+                    if (!Array.isArray(data[it.name]))
+                        data[it.name] = [];
+                    if (it.checked == true)
+                        /*
+              如果当前的复选框打钩了，就应该推入到数组中
+              <input value=a checked>
+              <input value=b checked> ==> ['a', 'b']
+              <input value=c>
+            */
+                        data[it.name].push(it.value);
+                    break;
+                    // 默认情况下直接取字符串
+                default:
+                    data[it.name] = it.value;
+                    break;
+            }
+        });
+        return data
+    }
+    /**
+     * 通过纯数据填充表单（存值）
+     * @param {Object} data
+     * @param {HTMLFormElement} form
+     */
+    function setData(data, form) {
+        // 循环数据中的每一项
+        for (let key in data) {
+            // 取到每项的值，方便后面调用
+            let val = data[key];
+            // 取到本项对应的输入组件
+            let inputs = form.querySelector(`[name=${key}]`);
+            // 检查组件的类型
+            switch (inputs.type) {
+                // 如果是单选框
+                case 'radio':
+                    // 选中类型为"radio"，且name为本项的键，且值为本项值的元素
+                    // 以 gender: 'male' 为例（比如说循环到{... gender: 'male', ...}这一项）
+                    // radio 就等于 <input type=radio name=gender value=male>
+                    let radio = form.querySelector(`[type=radio][name=${key}][value=${val}]`);
+                    // 如果radio存在，就将其勾上
+                    radio && (radio.checked = true);
+                    break;
+                    // 如果是复选框
+                case 'checkbox':
+                    // 如果是复选框说明值是数组
+                    // 以 orientation: ['male', 'female'] 为例（比如说循环到{... orientation: ['male', 'female'], ...}这一项）
+                    val.forEach(it => {
+                        // 选中类型为"checkbox"，且name为本项的键，且值为本项的值的元素
+                        // 以 'male' 为例
+                        // checkbox 就等于 <input type=checkbox name=orientation value=male>
+                        let checkbox = form.querySelector(`[type=checkbox][name=${key}][value=${it}]`);
+                        // 如果checkbox存在，就将其勾上
+                        checkbox && (checkbox.checked = true);
+                    });
+                    break;
+                    // 如果是其他类型的输入组件，就直接存值
+                default:
+                    inputs.value = val;
+                    break;
+            }
         }
     }
-}
+})();

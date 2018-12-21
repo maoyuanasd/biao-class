@@ -1,0 +1,82 @@
+<style>
+  :root {
+      font-family: sans-serif;
+  }
+
+  table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+
+  td,
+  th {
+      text-align: left;
+      border: 1px solid;
+      padding: .5em;
+  }
+
+  
+</style>
+<table  id="user">
+  <thead></thead>
+  <tbody></tbody>
+</table>
+<br>
+<table  id="order">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+<script src="table2.js"></script>
+<script>
+  let users = [{
+            name: '王花花',
+            gender: '男',
+            score: 100,
+            interest:'搞基',
+        },
+        {
+            name: '李拴蛋',
+            gender: '女',
+            score: 79,
+            interest:'吃饭',
+        },
+        {
+            name: '赵可爽',
+            gender: '男',
+            score: 59,
+        },
+    ];
+    let thead ={
+      name:'姓名',
+      gender:'性别',
+      score:'分数',
+      interest:'兴趣',
+    }
+  let orderList = [{
+    name:'拖鞋',
+      origin:'中国',
+      price:'199',
+      hotPrice:'19',
+        },
+        {
+          name:'拖把',
+      origin:'英国',
+      price:'188',
+      hotPrice:'',
+        },
+        {
+          name:'马桶',
+      origin:'日本',
+      price:'888',
+      hotPrice:'666',
+        },
+    ];
+    let orderThead ={
+      name:'商品名',
+      origin:'产地',
+      price:'价格',
+      hotPrice:'特价',
+    }
+  table.boot('#user',thead,users);
+  table.boot('#order',orderThead,orderList);
+</script>
