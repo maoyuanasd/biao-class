@@ -1,0 +1,108 @@
+<style>
+    :root {
+      font-family: sans-serif;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+  
+    td,
+    th {
+      text-align: left;
+      border: 1px solid;
+      padding: .5em;
+    }
+  
+    button {
+      padding: .5em;
+      border: 1px solid #000;
+  
+      background: #fff;
+      border-radius: 3px;
+      margin: 0 3px;
+    }
+  
+    button:hover {
+      background: #000;
+      color: #fff;
+    }
+  
+    .biao-highlight {
+      background: royalblue;
+      color: white;
+    }
+  </style>
+  
+  <table id="order">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+  <script src="table.js"></script>
+  <script>
+    let orderList = [{
+        name: '拖鞋',
+        origin: '中国',
+        price: '199',
+        hotPrice: '19',
+      },
+      {
+        name: '拖把',
+        origin: '英国',
+        price: '188',
+        hotPrice: '',
+      },
+      {
+        name: '马桶',
+        origin: '日本',
+        price: '888',
+        hotPrice: '666',
+      },
+    ];
+    let orderThead = {
+      name: '商品名',
+      origin: '产地',
+      price: '价格',
+      hotPrice: '促销价',
+  
+    }
+  
+    table.boot('#order', orderThead, orderList, [{
+      name: '删除',
+      class: 'delet',
+      action: (id, tr, i) => {
+        orderList.forEach((el, index) => {
+          if (el.id == id) {
+            orderList.splice(index, 1);
+          }
+        });
+        tr.remove();
+        console.log(orderList)
+      }
+    }, {
+      name: '修改',
+      class: 'change',
+      action: (id, tr, i) => {
+        let children = tr.children;
+        let startIndex = 0;
+        for (let key in orderThead) {
+          let td = children[startIndex];
+          order = orderList[i]
+          val = order[key];
+          td.innerHTML = `<input value=${val}>`;
+          let input = td.querySelector('input');
+          input.addEventListener('keyup', e => {
+            if (e.key != 'Enter')
+              return;
+            let newVal = input.value;
+            let inputs=tr.querySelectorAll('input')
+            
+            td.innerHTML = val = newVal;
+          })
+          startIndex++;
+        }
+  
+      }
+    }]);
+  </script>

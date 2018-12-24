@@ -1,0 +1,162 @@
+<style>
+  :root {
+    font-family: sans-serif;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  td,
+  th {
+    text-align: left;
+    border: 1px solid;
+    padding: .5em;
+  }
+
+  button {
+    padding: .5em;
+    border: 1px solid #000;
+
+    background: #fff;
+    border-radius: 3px;
+    margin: 0 3px;
+  }
+
+  button:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .biao-highlight {
+    background: royalblue;
+    color: white;
+  }
+</style>
+
+<table id="order">
+  <thead></thead>
+  <tbody></tbody>
+</table>
+<script src="table2.js"></script>
+<script>
+  let orderList = [{
+      name: '拖鞋',
+      origin: '中国',
+      price: '199',
+      hotPrice: '19',
+    },
+    {
+      name: '拖把',
+      origin: '英国',
+      price: '188',
+      hotPrice: '',
+    },
+    {
+      name: '马桶',
+      origin: '日本',
+      price: '888',
+      hotPrice: '666',
+    },
+  ];
+  let orderThead = {
+    name: '商品名',
+    origin: '产地',
+    price: '价格',
+    hotPrice: '促销价',
+
+  }
+
+  table.boot('#order', orderThead, orderList, [{
+    name: '删除',
+    class: 'delete',
+    action: function (tr, i) {
+      orderList.i = null;
+      tr.remove();
+
+    }
+  }, {
+    name: '5折',
+    class: 'discount',
+    action: function (tr, i, it) {
+      let pri = it.price;
+      tri = pri * 0.5;
+      tr.cells[2].innerText = tri;
+      // it.price = tri;
+    }
+  }, {
+    name: '原价',
+    class: 'origin',
+    action: function (tr, i, it) {
+      let pri = orderList[i].price;
+      console.log(pri)
+      tr.cells[2].innerText = pri;
+      // it.price = pri;
+    }
+  }, {
+    name: '高亮',
+    class: 'highlight',
+    action: (tr) => {
+      if (tr.classList.contains('biao-highlight')) {
+        tr.classList.remove('biao-highlight');
+      } else {
+        tr.classList.add('biao-highlight');
+      }
+    },
+  }, {
+    name: '上移',
+    class: 'up',
+    action: (tr, i) => {
+      let up = i - 1;
+      if (up < 0)
+        return;
+      let tmp = orderList[up];
+      orderList[up] = orderList[i];
+      orderList[i] = tmp;
+      let bother = tr.previousElementSibling;
+      if (bother)
+        bother.insertAdjacentElement('beforebegin', tr);
+    }
+  }, {
+    name: '下移',
+    class: 'down',
+    action: (tr, i) => {
+      let down = i + 1;
+      if (down > orderList.length)
+        return;
+      let tmp = orderList[down];
+      orderList[down] = orderList[i];
+      orderList[i] = tmp;
+      let bother = tr.nextElementSibling;
+      if (bother)
+        bother.insertAdjacentElement('afterend', tr);
+    }
+  }, {
+    name: '修改',
+    class: 'change',
+    action: (tr, i, it) => {
+      let children = tr.children;
+      let order = orderList[i];
+      let startIndex = 0;
+
+      for (let key in order) {
+        let val = order[key];
+        let td = children[startIndex];
+        td.innerHTML = `<input value=${val}>`;
+        let input = td.querySelector('input');
+       console.log(input)
+
+         input.addEventListener('keyup',e=>{
+           if(e.key !='Enter')
+           return;
+           let newVal=input.value;
+           td.querySelector('input').remove();
+           order[key]=td.innerHTML=newVal;
+           console.log(newVal)
+         })
+        startIndex++;
+      }
+    }
+  }]);
+</script>
