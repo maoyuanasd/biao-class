@@ -1,0 +1,158 @@
+<style>
+    :root{
+        font-family: sans-serif;
+        font-size: 14px;
+    }
+    main{
+        padding: 3em;
+        max-width: 40em;
+        margin: 0 auto;
+    }
+    input,button{
+        width: 100%;
+        padding: .8em;
+        margin-bottom: .5em;
+        border: 1px solid;
+    }
+    .error-item{
+        background: pink;
+        color: brown;
+        font-size: 13px;
+        padding: 0.1em .8em;
+        
+    }
+    .error-container{
+        margin-bottom: .5em;
+
+    }
+    input.error-style{
+        border: 1px solid brown;
+        outline: 0; 
+    }
+    [hidden]{
+        display: none !important;
+    }
+</style>
+<main>
+    <h1>注册</h1>
+    <form id="user" novalidate>
+        <input type="text" name="username" placeholder="username" value="whH">
+        <input type="email" name="email" placeholder="email" value="whhqqqq.com">
+        <input type="text" name="phone" placeholder="phone" value="1889999990000">
+        <input type="password" name="password" placeholder="username" value="123456789">
+        <div class="error-container" hidden></div>
+        <button>提交</button>
+    </form>
+</main>
+<script src="form.js"></script>
+<script src="validateUtils.js"></script>
+<script>
+    let errorContainer = user.querySelector('.error-container');
+
+    boot();
+    let error = {
+            username: [],
+            email: [],
+            phone: [],
+            password: [],
+        };
+    function boot() {
+        bindEvents();
+    }
+
+    function bindEvents() {
+        bindSubmit();
+        // bindKeyup();
+    }
+
+    function bindSubmit() {
+        user.addEventListener('submit', e => {
+            e.preventDefault();
+            if (validate()) {
+                hideError();
+            } else {
+                showError();
+
+            }
+        });
+    }
+
+    function validate() {
+        let valid = true;
+        error = {
+            username: [],
+            email: [],
+            phone: [],
+            password: [],
+        };
+        let data = form.getData(user);
+        if (!vali.isUsername(data.username)) {
+
+            valid = false;
+            error.username.push('用户名有误,长度应在4和8位之间');
+        }
+        if (!vali.isEmail(data.email)) {
+
+            valid = false;
+            error.email.push('邮箱格式错误');
+        }
+        if (!vali.isPhone(data.phone)) {
+
+            valid = false;
+            error.phone.push('电话格式有误');
+        }
+        if (!vali.isPassword(data.password)) {
+            valid = false;
+            error.password.push('密码长度有误,应介于8到64位之间');
+        }
+        return valid;
+    }
+
+    function showError() {
+
+        errorContainer.innerHTML = '';
+        for (let key in error) {
+            let it = error[key];
+            let input=document.querySelector(`[name=${key}]`);
+            if (it.length) {
+                it.forEach(str => {
+                    let errorStyle = document.querySelector(`[name=${key}]`).classList;
+                    let errorItem = document.createElement('div');
+                    errorItem.classList.add('error-item');
+                    errorItem.innerText = str;
+                    errorContainer.appendChild(errorItem);
+                    errorStyle.add('error-style');
+
+                });
+            }else{
+
+                input.classList.remove('error-style');
+            }
+        }
+        errorContainer.hidden = false;
+    }
+   function resetErrorInput(){
+    document.querySelectorAll('.error-style')
+            .forEach(it => {
+                it.classList.remove('error-style');
+            });
+   }
+   function errorItemRemove(){
+    document.querySelectorAll('.error-item')
+            .forEach(it => {
+                it.remove();
+            });
+   }
+    function hideError() {
+        resetErrorInput();
+        errorItemRemove();
+        
+        errorContainer.hidden = true;
+    }
+    function bindKeyup(){
+      user.addEventListener('keyup',e=>{
+          if(e.key!='Enter')
+          resetErrorInput();
+      });
+    }
+</script>

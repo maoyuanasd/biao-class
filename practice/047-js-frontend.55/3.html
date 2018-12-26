@@ -1,0 +1,158 @@
+<style>
+    :root{
+        font-family: sans-serif;
+        font-size: 14px;
+    }
+    main{
+        padding: 3em;
+        max-width: 40em;
+        margin: 0 auto;
+    }
+    input,button{
+        width: 100%;
+        padding: .8em;
+        margin-bottom: .5em;
+        border: 1px solid;
+    }
+    .error-item{
+        background: pink;
+        color: brown;
+        font-size: 13px;
+        padding: 0.1em .8em;
+        
+    }
+    .error-container{
+        margin-bottom: .5em;
+
+    }
+    input.error-style{
+        border: 2px solid brown;
+        outline: 0; 
+    }
+    [hidden]{
+        display: none !important;
+    }
+</style>
+<main>
+    <h1>注册</h1>
+    <form id="user" novalidate>
+        <input type="text" name="username" placeholder="username" value="whH">
+        <input type="email" name="email" placeholder="email" value="whhqqqq.com">
+        <input type="text" name="phone" placeholder="phone" value="1889999990000">
+        <input type="password" name="password" placeholder="username" value="123456789">
+        <div class="error-container" hidden></div>
+        <button>提交</button>
+    </form>
+</main>
+<script src="form.js"></script>
+<script src="validateUtils.js"></script>
+<script>
+    let user = document.querySelector('#user');
+    let errorContainer = user.querySelector('.error-container');
+
+    let error = {
+        username: [],
+        email: [],
+        phone: [],
+        password: [],
+    };
+    boot();
+
+    function boot() {
+        bindEvents();
+    }
+
+    function bindEvents() {
+        bindSubmit();
+        bindKeyup();
+    }
+
+    function bindSubmit() {
+        user.addEventListener('submit', it => {
+            it.preventDefault();
+            if (validate()) {
+                hideError()
+            } else(
+                showError()
+            )
+        })
+    }
+
+    function validate() {
+        error = {
+            username: [],
+            email: [],
+            phone: [],
+            password: [],
+        };
+        let data = form.getData(user);
+
+        let valid = true;
+
+        if (!vali.isUsername(data.username)) {
+            valid = false;
+            error.username.push('用户名有误,长度应在4到8位之间');
+        }
+        if (!vali.isEmail(data.email)) {
+            valid = false;
+            error.email.push('邮箱格式有误');
+        }
+        if (!vali.isPhone(data.phone)) {
+            valid = false;
+            error.phone.push('手机格式有误');
+        }
+        if (!vali.isPassword(data.password)) {
+            valid = false;
+            error.password.push('密码有误,长度应在8到64位之间');
+        }
+        return valid;
+    }
+
+    function showError() {
+        errorContainer.innerHTML = '';
+        for (let key in error) {
+            let it = error[key];
+            let klass = user.querySelector(`[name=${key}]`).classList;
+            if (it.length) {
+                klass.add('error-style');
+            } else {
+                klass.remove('error-style');
+            }
+            it.forEach(str => {
+                let errorItem = document.createElement('div');
+                errorItem.classList.add('error-item');
+                errorItem.innerText = str;
+                errorContainer.appendChild(errorItem);
+            });
+            console.log(it)
+            errorContainer.hidden = false;
+        }
+    }
+
+    function hideError() {
+        errorItemRmove();
+        resetInputStyle();
+        errorContainer.hidden = true;
+    }
+
+    function errorItemRmove() {
+        document.querySelectorAll('.error-item')
+            .forEach(it => {
+                it.remove();
+            })
+    }
+
+    function resetInputStyle() {
+        document.querySelectorAll('.error-style')
+            .forEach(it => {
+                it.classList.remove('error-style')
+            });
+    }
+
+    function bindKeyup() {
+        user.addEventListener('keyup', e => {
+            if (e.key != 'Enter')
+                resetInputStyle();
+        });
+    }
+</script>
