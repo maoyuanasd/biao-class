@@ -1,0 +1,159 @@
+<style>
+    :root{
+        font-family: sans-serif;
+        font-size: 14px;
+    }
+    main{
+        padding: 3em;
+        max-width: 40em;
+        margin: 0 auto;
+    }
+    input,button{
+        width: 100%;
+        padding: .8em;
+        margin-bottom: .5em;
+        border: 1px solid;
+    }
+    table button{
+        width: 40%;
+    }
+    button{
+        background: #000;
+        color: #fff;
+    }
+    table{
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th,td{
+        border-bottom: solid 1px #888;
+        padding: .5em;
+    }
+    th{
+        text-align: left;
+        border-bottom: solid 2px #000;
+    }
+</style>
+<main>
+    <h2>添加用户</h2>
+    <form id="user-form">
+        <input type="text" name="username" placeholder="用户名">
+        <input type="text" name="email"" placeholder=" 邮箱">
+        <input type="number" name="balance" placeholder="余额">
+        <button>提交</button>
+    </form>
+    <table id="user">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</main>
+<script src="form.js"></script>
+<script src="table.js"></script>
+<script>
+    let list = [{
+        username: '王花花',
+        email: 'whh@qq.com',
+        balance: 120
+    }, {
+        username: '李拴蛋',
+        email: 'lsd@qq.com',
+        balance: 125
+    }, ];
+    let listHead = {
+        username: '用户名',
+        email: '邮箱',
+        balance: '余额',
+    };
+    let user = document.getElementById('user');
+    let tbody = user.querySelector('tbody');
+    let userForm = document.getElementById('user-form');
+    let indexData;
+    boot();
+
+    function boot() {
+        bindEvents();
+        render();
+    }
+
+    function render() {
+        tbody.innerHTML = '';
+        table.boot('#user', listHead, list, [{
+            name: '删除',
+            class: 'delet',
+            action: (id, tr, i) => {
+                list.forEach((it, index) => {
+                    if (it.id == id) {
+                        list.splice(index, 1);
+                    }
+                    tr.remove();
+                })
+            }
+        }, {
+            name: '修改',
+            class: 'amend',
+            action: (id, tr, it) => {
+                for (let key in listHead) {
+                    let input = userForm.querySelector(`[name=${key}]`);
+                    input.value = it[key];
+                    indexData = it;
+                }
+            }
+        }]);
+    }
+
+    function bindEvents() {
+        bindSubmit();
+    }
+
+    function bindSubmit() {
+        userForm.addEventListener('submit', (it) => {
+            it.preventDefault();
+            let inputs = userForm.querySelectorAll('input');
+            let timeNull = 0;
+            if (isAllNull(inputs) == true) {
+                return
+            } else {
+
+                let data = form.getData(userForm);
+
+                if (typeof (indexData) == 'undefined') {
+                    submitState(data);
+                } else {
+                    amendState(data);
+                    indexData = undefined;
+                }
+                render();
+                userForm.reset();
+            }
+
+        })
+    }
+
+    function submitState(data) {
+        list.push(data);
+    }
+
+    function amendState(data) {
+        list.forEach((item,i) => {
+            if (item.id == indexData.id) {
+                list[i]=data;
+                // for (let key in item) {
+                //     item[key] = data[key];
+                // }
+                return;
+            }
+        })
+    }
+    function isAllNull(data) {
+        let timeNull = 0;
+        data.forEach(el => {
+            if (el.value == '')
+                timeNull += 1;
+        });
+        let allNull;
+        if (timeNull == data.length)
+            return allNull = true;
+        else
+            return allNull = false;
+    }
+</script>

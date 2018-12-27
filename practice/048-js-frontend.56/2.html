@@ -1,0 +1,158 @@
+<style>
+    :root{
+        font-family: sans-serif;
+        font-size: 14px;
+    }
+    main{
+        padding: 3em;
+        max-width: 40em;
+        margin: 0 auto;
+    }
+    input,button{
+        width: 100%;
+        padding: .8em;
+        margin-bottom: .5em;
+        border: 1px solid;
+    }
+    table button{
+        width: 40%;
+    }
+    button{
+        background: #000;
+        color: #fff;
+    }
+    table{
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th,td{
+        border-bottom: solid 1px #888;
+        padding: .5em;
+    }
+    th{
+        text-align: left;
+        border-bottom: solid 2px #000;
+    }
+</style>
+<main>
+    <h2>添加用户</h2>
+    <form id="user-form">
+            <input type="number" name="id" hidden>
+        <input type="text" name="username" placeholder="用户名">
+        <input type="text" name="email"" placeholder=" 邮箱">
+        <input type="number" name="balance" placeholder="余额">
+        <button>提交</button>
+    </form>
+    <table id="user">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</main>
+<script src="form.js"></script>
+<script>
+    let list = [{
+        username: '王花花',
+        email: 'whh@qq.com',
+        balance: '120'
+    }, {
+        username: '李拴蛋',
+        email: 'lsd@qq.com',
+        balance: '125'
+    }, ];
+    let listHead = {
+        username: '用户名',
+        email: '邮箱',
+        balance: '余额',
+    };
+    let table = document.getElementById('user');
+    let tbody = user.querySelector('tbody');
+    let thead = user.tHead;
+    let userForm = document.getElementById('user-form');
+    let inputs = userForm.querySelectorAll('input');
+    let idInput=userForm.querySelector('[name=id]');
+    boot();
+
+    function boot() {
+        render();
+        bindEvents();
+    }
+
+    function render() {
+        renderHead();
+        renderBody();
+    }
+
+    function renderHead() {
+        let html = '';
+        for (let key in listHead) {
+            html += `<th>${listHead[key]}</th>`;
+        }
+        html += '<th>操作</th>'
+        thead.innerHTML = html;
+    }
+
+    function renderBody() {
+        tbody.innerHTML = '';
+        list.forEach((it,index) => {
+            it.id=index;
+            if(!it)
+            return;
+            let tr = document.createElement('tr');
+            let html = '';
+            for (let key in listHead) {
+                html += `<td>${it[key]}</td>`;
+            }
+            html += '<td class=operation><button class=delete>删除</button><button class=change>修改</button><td>'
+            tr.innerHTML = html;
+            tbody.appendChild(tr);
+            let btn = tr.querySelector('.operation');
+            btn.addEventListener('click', e => {
+                switch (e.target.classList.value) {
+                    case 'delete':
+                    list[index]=null;
+                    tr.remove();
+                        break;
+                    case 'change':
+                     form.setData( list[index],userForm); 
+                     idInput.value=index;
+                      break;
+                }
+            })
+        })
+    }
+
+    function bindEvents() {
+        bindSubmit();
+    }
+
+    function bindSubmit() {
+        userForm.addEventListener('submit', it => {
+            it.preventDefault();
+            if (isAllNull() == true)
+                return;
+            else {
+                let data=form.getData(userForm);
+                let index=idInput.value;
+                if(index){
+                    list[index]=form.getData(userForm);
+                }else{
+                    list.push(data);
+                }
+                renderBody();
+            }
+            userForm.reset();
+        })
+    }
+
+    function isAllNull() {
+        let nullTime = 0;
+        inputs.forEach(it => {
+            if (it.value == '')
+                nullTime++;
+        })
+        if (nullTime == inputs.length)
+            return true;
+        else
+            return false;
+    }
+</script>
