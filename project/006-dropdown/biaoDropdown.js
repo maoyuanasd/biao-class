@@ -1,6 +1,6 @@
 ;(function(){
     'use strict'
-    window.dropdown={
+    window.biaoDropdown={
         boot
     }
     

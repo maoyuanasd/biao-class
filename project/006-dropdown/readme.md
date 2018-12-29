@@ -3,10 +3,10 @@
 ## 上手
 
 ```html
-<link rel="stylesheet" href="dropdown.css">
-<script src="dropdown.js"></script>
+<link rel="stylesheet" href="biaoDropdown.css">
+<script src="biaoDropdown.js"></script>
 <script>
-    dropdown.boot('a','b') // 变量1 开关的类目  变量2 弹出层的类名
+    biaoDropdown.boot('a','b') // 变量1 开关的类目  变量2 弹出层的类名
 </script>
 ```
 ### 选项

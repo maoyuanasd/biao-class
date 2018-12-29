@@ -10,20 +10,21 @@
 
 ```js
 // 取数据
-let data=form.getData(你的form的名字);
+let bfa=biaoForm('你的from的名字');
+    let data=bfa.getData();
     console.log(data);
-
 // 存数据
 let user = {
-    name: '王花花',
-    age: 18,
-    email: '8888@qq.com',
-    birthday: '1991-02-03',
-    gender: 'female',
-    orientation: ['male', 'car', ],
-    balance: 1000,
-  };
-  form.setData(user,你的form的名字);
+        name: '王花花',
+        age: 18,
+        email: '8888@qq.com',
+        birthday: '1991-02-03',
+        gender: 'female',
+        orientation: ['male', 'car', ],
+        balance: 1000,
+    };
+    let bfb=biaoForm('你的from的名字');
+    bfb.setData(user);
 ```
 
 ## 注意事项

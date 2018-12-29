@@ -1,6 +1,6 @@
  ;(function(){
      'use strict'
-         window.popout={
+         window.biaoPopout={
             boot
          }
          

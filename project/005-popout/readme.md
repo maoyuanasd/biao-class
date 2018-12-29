@@ -3,9 +3,9 @@
 ## 上手
 
 ```html
-<link rel="stylesheet" href="popup.css">
+<link rel="stylesheet" href="biaoPopup.css">
 
-<script src="popup.js"></script>
+<script src="biaoPopup.js"></script>
 <script>
   popup.boot('#trigger', '#popup'});
 </script>

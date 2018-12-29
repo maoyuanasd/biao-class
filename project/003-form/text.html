@@ -81,18 +81,20 @@
     <input type="number" name="balance" placeholder="余额">
     <button type="submit">提交</button>
 </form>
-<script src="form.js"></script>
+<script src="biaoForm.js"></script>
 <script>
-  let data=form.getData(a);
+    let bfa=biaoForm('#a');
+    let data=bfa.getData();
     console.log(data);
     let user = {
-    name: '王花花',
-    age: 18,
-    email: '8888@qq.com',
-    birthday: '1991-02-03',
-    gender: 'female',
-    orientation: ['male', 'car', ],
-    balance: 1000,
-  };
-  form.setData(user,b);
+        name: '王花花',
+        age: 18,
+        email: '8888@qq.com',
+        birthday: '1991-02-03',
+        gender: 'female',
+        orientation: ['male', 'car', ],
+        balance: 1000,
+    };
+    let bfb=biaoForm('#b');
+    bfb.setData(user);
 </script>
