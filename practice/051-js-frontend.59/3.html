@@ -1,0 +1,57 @@
+<style>
+    :root{
+        font-family: sans-serif;
+        font-size: 14px;
+    }
+    main{
+        padding: 3em;
+        max-width: 40em;
+        margin: 0 auto;
+    }
+    input,button{
+        width: 100%;
+        padding: .8em;
+        margin:.5em 0;
+        border: 1px solid;
+    }
+    table button{
+        width: 40%;
+    }
+    button{
+        background: #000;
+        color: #fff;
+    }
+    .err-box{
+        background: pink;
+        color: brown;
+        font-size: 13px;
+        padding: 0.3em .8em;
+        
+    }
+    [disabled] {
+       opacity: .4;
+       cursor: not-allowed;
+    }
+</style>
+<main>
+    <nav>
+        <input id="search" type="search" data-rule="numeric|min:3|max:6" placeholder="独苗">
+    </nav>
+    <form id='user'>
+        <h2>表单验证</h2>
+        <input data-rule="numeric|min:1|max:12" type="text" name="month" placeholder="month">
+        <input data-rule="numeric|min:1|max:7" type="text" name="week" placeholder="week">
+        <input data-rule="numeric|positive|min:1" type="text" name="age" placeholder="age">
+        <input data-rule="in:male,female" type="text" name="gender" placeholder="gender">
+        <input data-rule="phone:zh" type="text" name="phone" placeholder="phone">
+        <input data-rule="regex:^\w{4,12}$" type="text" name="username" placeholder="username">
+        <input data-rule="email" type="text" name="email" placeholder="email">
+        <input data-rule="numeric|nullable" type="text" name="balance" placeholder="balance">
+        <button type="submit">提交</button>
+    </form>
+</main>
+<script src="validateUtils3.js"></script>
+<script>
+    biaoValid.boot('#user')
+    biaoValid.boot('#search')
+</script>

@@ -33,21 +33,30 @@
         text-align: left;
         border-bottom: solid 2px #000;
     }
+    [disabled] {
+       opacity: .4;
+       cursor: not-allowed;
+    }
 </style>
 <main>
     <h2>添加用户</h2>
     <form id="user-form">
             <input type="number" name="id" hidden>
-        <input type="text" name="username" placeholder="用户名">
-        <input type="text" name="email"" placeholder=" 邮箱">
-        <input type="number" name="balance" placeholder="余额">
-        <button>提交</button>
+        <input data-rule="regex:^[A-Za-z0-9\u4e00-\u9fa5]{3,15}$" type="text" name="username" placeholder="用户名">
+        <input data-rule="email" type="text" name="email"" placeholder=" 邮箱">
+        <input data-rule="numeric|nullable" type="text" name="balance" placeholder="余额">
+        <button type="submit">提交</button>
     </form>
     <table id="user">
         <thead></thead>
         <tbody></tbody>
     </table>
 </main>
+<script src="validateUtilsV2.js"></script>
+
+<script>
+    biaoValid.boot('#user-form');
+</script>
 <script src="biaoForm.js"></script>
 <script src="biaoTable.js"></script>
 <script src="main.js"></script>
