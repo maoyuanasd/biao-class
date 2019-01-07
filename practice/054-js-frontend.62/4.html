@@ -1,0 +1,356 @@
+<style>table {
+        width: 100%;
+        text-align: left;
+        border-collapse: collapse;
+      }
+      
+      td, th {
+        padding: .5em;
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+      }
+      
+      th {
+        border-width: 2px;
+        border-color: #888;
+      }
+      
+      [hidden] {
+        display: none;
+      }
+      
+      [disabled] {
+        opacity: .4;
+        cursor: not-allowed;
+      }
+      
+      .text-right {
+        text-align: right;
+      }
+      
+      .error {
+        color: #b10;
+        margin-bottom: .5em;
+      }
+      
+      .item {
+        font-size: 0;
+        border: 1px solid rgba(0, 0, 0, .2);
+        -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+        -moz-box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+        box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+        margin-bottom: .5rem;
+        background: #fff;
+      }
+      
+      .item > * {
+        display: inline-block;
+        font-size: 1rem;
+        vertical-align: top;
+      }
+      
+      .item .avatar {
+        width: 15%;
+      }
+      
+      .item .detail {
+        width: 85%;
+        padding: .5em;
+        color: #aaa;
+      }
+      
+      .item a {
+        color: inherit;
+      }
+      
+      .item .detail strong {
+        color: #444;
+      }
+      
+      .item .detail > * {
+        margin: .1em 0;
+      }
+      
+      .biao-page-active {
+        background: #000;
+        color: #fff;
+      }
+      
+      .biao-page button {
+        border: 1px solid #000;
+      }
+      
+      .biao-page .page-list > button{
+        border-left-width: 0;
+      }
+      
+      .biao-page .page-list > button:first-child {
+        border-left-width: 1px;
+      }</style>
+      <main>
+            <h1>GayHub用户搜索</h1>
+            <form id="search-form">
+              <input type="search" name="keyword" autofocus>
+              <button type="submit" hidden></button>
+            </form>
+          
+            <div id="user-list"></div>
+          
+            <div id="page-container"></div>
+          </main>
+          <script src="biaoPage.3.js"></script>
+          <script>
+              /*
+|--------------------------------------------------------------------------
+| biaoPage翻页插件
+|--------------------------------------------------------------------------
+*/
+
+// ;(function () {
+//   'use strict';
+
+//   const DEFAULT_CONFIG = {
+//     limit       : 10,
+//     currentPage : 1,
+//   };
+
+//   window.biaoPage = {
+//     boot, render,
+//   };
+
+//   function boot (settings) {
+//     let config = { ...DEFAULT_CONFIG, ...settings };
+//     let state  = { config };
+
+//     state.currentPage = config.currentPage;
+
+//     prepare(state);
+//     render(state);
+//     bindEvents(state);
+//     setCurrentPage(state, state.currentPage);
+//   }
+
+//   function prepare (state) {
+//     let el = document.createElement('div');
+//     el.classList.add('biao-page');
+//     el.innerHTML = `
+//     <span class="shortcuts">
+//       <button class="prev">上一页</button>
+//       <button class="first">第一页</button>
+//     </span>
+
+//     <span class="page-list"></span>
+
+//     <span class="shortcuts">
+//       <button class="last">最后一页</button>
+//       <button class="next">下一页</button>
+//     </span>`;
+
+//     state.root           = document.querySelector(state.config.selector);
+//     state.el             = el;
+//     state.pageList       = el.querySelector('.page-list');
+//     state.root.innerHTML = '';
+//     state.root.appendChild(el);
+//   }
+
+//   function render (state) {
+//     let pageAmount =
+//           state.pageCount =
+//             Math.ceil(state.config.amount / state.config.limit);
+
+//     let list       = state.pageList;
+//     list.innerHTML = '';
+
+//     for (let i = 0; i < pageAmount; i++) {
+//       let page   = i + 1;
+//       let button = document.createElement('button');
+
+//       button.classList.add('biao-page-item');
+
+//       // if (state.currentPage === page)
+//       //   button.classList.add('active');
+//       button.innerText = page;
+//       button.$page     = page;
+//       state.pageList.appendChild(button);
+//     }
+
+//     state.buttons = state.pageList.querySelectorAll('.biao-page-item');
+//   }
+
+//   function bindEvents (state) {
+//     state.el.addEventListener('click', e => {
+//       let target = e.target;
+//       let page   = target.$page;
+//       let klass  = target.classList;
+
+//       if (page)
+//         setCurrentPage(state, page);
+
+//       if (klass.contains('next')){
+//         console.log(state);
+//         setCurrentPage(state, state.currentPage + 1);
+//       }
+
+//       if (klass.contains('prev'))
+//         setCurrentPage(state, state.currentPage - 1);
+
+//       if (klass.contains('first'))
+//         setCurrentPage(state, 1);
+
+//       if (klass.contains('last'))
+//         setCurrentPage(state, state.pageCount);
+//     });
+//   }
+
+//   function setCurrentPage (state, page) {
+//     if (page < 1)
+//       return setCurrentPage(state, 1);
+
+//     if (page > state.pageCount)
+//       return setCurrentPage(state, state.pageCount);
+
+//     state.currentPage = page;
+
+//     let onChange = state.config.onChange;
+//     onChange && onChange(page, state);
+
+//     state.buttons.forEach(it => {
+//         console.log(state.buttons.length);
+//       if (it.$page != page) {
+//         it.classList.remove('active');
+//         return;
+//       }
+
+//       it.classList.add('active');
+//     });
+//   }
+// })();
+
+// /*
+// |--------------------------------------------------------------------------
+// | 业务逻辑
+// |--------------------------------------------------------------------------
+// */
+
+
+;(function () {
+  'use strict';
+
+  let form        = document.getElementById('search-form');
+  let input       = form.querySelector('[name=keyword]');
+  let userList    = document.getElementById('user-list');
+  // 每页显示多少用户（每页取多少数据）
+  let limit       = 10;
+  // 当前页，默认为第一页
+  let currentPage = 1;
+  let pageLimit=8;
+
+  boot();
+
+  /**
+   * 启动
+   */
+  function boot () {
+    bindEvents();
+  }
+
+  /**
+   * 绑定必要初始事件
+   */
+  function bindEvents () {
+    // 当用户回车搜索时
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      // 取到搜索关键词
+      let keyword = input.value;
+      // 搜索用户
+      search(keyword);
+    });
+  }
+
+  /**
+   * 通过关键词搜索用户
+   * @param {string} keyword
+   */
+  function search (keyword) {
+    // 实例请求对象
+    let http = new XMLHttpRequest();
+    // 准备地址
+    http.open('get', `https://api.github.com/search/users?q=${keyword}&page=${currentPage}&per_page=${limit}`);
+    // 发射
+    http.send();
+
+    // 当搜索结构返回
+    http.addEventListener('load', $ => {
+      // 取到json结果
+      let json = http.responseText;
+      // 解析json字符串
+      let data = JSON.parse(json);
+      biaoPage.boot({
+        selector: '#page-container',
+        amount:  data.total_count,
+        limit: limit,
+        pageLimit: pageLimit,
+        currentPage: 1,
+        onChange(page, state) {
+          if (page == currentPage)
+          return;
+          currentPage = page;
+          search(keyword);
+        //  searchData(data);
+        // console.log(state)
+        },
+      });
+
+      // 使用翻页插件
+      // biaoPage.boot({
+      //   limit,
+      //   currentPage,
+      //   selector : '#page-container',
+      //   amount   : data.total_count,
+      //   // 当页面发生改变时
+      //   onChange (page) {
+      //     // 如果页面没有发生改变就算了
+      //     if (page == currentPage)
+      //       return;
+
+      //     // 如果改变了就设置当前页并搜索
+      //     currentPage = page;
+      //     search(keyword);
+      //   },
+      // });
+
+      // 渲染数据至页面
+      render(data.items);
+    });
+  }
+
+  /**
+   * 渲染用户列表
+   * @param {Array} users
+   */
+  function render (users) {
+    // 清空前一次渲染
+    userList.innerHTML = '';
+    // 循环所有用户
+    users.forEach(it => {
+      // 每个用户都是个<div>
+      let item = document.createElement('div');
+      // 加类：<div class=item>
+      item.classList.add('item');
+      // 填充用户信息
+      item.innerHTML = `
+      <div class="avatar">
+        <img src="${it.avatar_url}">
+      </div>
+      <div class="detail">
+        <strong>${it.login}</strong>
+        <div><a target="_blank" href="${it.html_url}">${it.html_url}</a></div>
+      </div>
+      `;
+
+      // 追加至用户列表
+      userList.appendChild(item);
+    });
+  }
+})();
+          </script>

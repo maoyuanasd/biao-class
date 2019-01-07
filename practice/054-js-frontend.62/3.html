@@ -1,0 +1,13 @@
+<form id="abc">
+     <input id="yyy" type="number">
+    <button type="submit">提交</button>
+</form>
+<script src="3.js"></script>
+<script>
+    abc.addEventListener('submit',e=>{
+        e.preventDefault();
+        aaa.boot(yyy.value,'#abc');
+        yyy.value='';
+    })
+   
+</script>

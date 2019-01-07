@@ -1,0 +1,242 @@
+<style>
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    font-family: sans-serif;
+    font-size: 15px;
+    color: #444;
+    background: #eee;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  img {
+    width: 100%;
+    display: block;
+  }
+  
+  input, button {
+    border: 1px solid rgba(0, 0, 0, .3);
+    padding: .5em;
+    font-size: inherit;
+    margin-bottom: .5em;
+    outline: 0;
+  }
+  
+  input:focus, button:focus {
+    border-color: transparent;
+    outline: 3px solid rgba(130, 64, 255, 0.4);
+  }
+  
+  form input,
+  form button {
+    width: 100%;
+  }
+  
+  button {
+    background: #000;
+    color: #fff;
+  }
+  
+  main {
+    padding: .5em;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50em;
+  }
+  
+  .error-container {
+    font-size: 90%;
+    padding: .5em;
+    background: pink;
+    color: #c10;
+    margin-bottom: .5em;
+  }
+  
+  input.error {
+    border: 2px solid #c10;
+    outline: 0;
+  }
+  
+  table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+  }
+  
+  td, th {
+    padding: .5em;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+  }
+  
+  th {
+    border-width: 2px;
+    border-color: #888;
+  }
+  
+  [hidden] {
+    display: none;
+  }
+  
+  [disabled] {
+    opacity: .4;
+    cursor: not-allowed;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  .error {
+    color: #b10;
+    margin-bottom: .5em;
+  }
+  
+  .item {
+    font-size: 0;
+    border: 1px solid rgba(0, 0, 0, .2);
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+    margin-bottom: .5rem;
+    background: #fff;
+  }
+  
+  .item > * {
+    display: inline-block;
+    font-size: 1rem;
+    vertical-align: top;
+  }
+  
+  .item .avatar {
+    width: 15%;
+  }
+  
+  .item .detail {
+    width: 85%;
+    padding: .5em;
+    color: #aaa;
+  }
+  
+  .item a {
+    color: inherit;
+  }
+  
+  .item .detail strong {
+    color: #444;
+  }
+  
+  .item .detail > * {
+    margin: .1em 0;
+  }
+  
+  .biao-page-active {
+    background: #fff;
+    color: #000;
+  }
+  </style>
+<main>
+  <h1>Gaygub用户搜索</h1>
+  <form id="search-form">
+    <input type="search" name="keyword" autofocus>
+    <button type="submit" hidden></button>
+  </form>
+  <div id="user-list">
+  </div>
+  <div id="footer-container"></div>
+</main>
+<script src="biaoPage.3.js"></script>
+<script>
+  let form = document.querySelector('#search-form');
+  let input = form.querySelector('[name="keyword"]');
+  let list = document.querySelector('#user-list');
+  let data;
+  let totalCount;
+  let limit = 10;
+  let currentPage = 1;
+  let pageLimit = 9;
+  boot();
+
+  function boot() {
+    bindevents();
+    
+  }
+
+  function bindevents() {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let keyword = input.value;
+      let http = new XMLHttpRequest();
+      searchData(data);
+    })
+  }
+
+  function renderNull() {
+    list.innerHTML = '';
+    list.innerHTML = '没有搜索结果!!!'
+  }
+
+  function renderData(data) {
+    list.innerHTML = '';
+    let items = data.items;
+    items.forEach(it => {
+      let item = document.createElement('div');
+      item.classList.add('item');
+      item.innerHTML =
+        `<div class="avatar"><img src="${it.avatar_url}"></div>
+          <div class="detail">
+            <strong>${it.login}</strong>
+            <div>
+              <a target="_blank" href="${it.html_url}">${it.html_url}</a>
+            </div>`;
+      list.appendChild(item);
+    });
+  }
+
+  function searchData(data) {
+    let keyword = input.value;
+      let http = new XMLHttpRequest();
+      http.open('get', `https://api.github.com/search/users?q=${keyword}&page=${currentPage}&per_page=${limit}`);
+      http.send();
+      http.addEventListener('load', () => {
+        data = JSON.parse(http.responseText);
+        if (data.items.length == 0) {
+          renderNull();
+          return;
+        }
+        totalCount = data.total_count;
+        paging(data);
+        renderData(data);
+      })
+  }
+  function paging(data){
+    // let config = {
+    //     selector: '#footer-container',
+    //     amount: totalCount,
+    //     limit: limit,
+    //     pageLimit: pageLimit,
+    //     currentPage: 1,
+    //     onChange(page, state) {
+    //     //  searchData(data);
+    //     console.log(state)
+    //     },
+    //   };
+      biaoPage.boot({
+        selector: '#footer-container',
+        amount: totalCount,
+        limit: limit,
+        pageLimit: pageLimit,
+        currentPage: 1,
+        onChange(page, state) {
+          currentPage=page;
+         searchData(data);
+        },
+      });
+    }
+</script>

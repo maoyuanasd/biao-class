@@ -48,7 +48,7 @@ main {
   padding: .5em;
   margin-left: auto;
   margin-right: auto;
-  max-width: 40em;
+  max-width: 50em;
 }
 
 .error-container {
@@ -136,7 +136,7 @@ th {
   margin: .1em 0;
 }
 
-.biao-page button.active {
+.biao-active {
   background: #fff;
   color: #000;
 }
@@ -149,12 +149,24 @@ th {
     </form>
     <div id="user-list">
     </div>
+    <div id="footer-container"></div>
   </main>
+  <script src="biaoPage.1.js"></script>
   <script>
     let form=document.querySelector('#search-form');
     let input=form.querySelector('[name="keyword"]');
     let list=document.querySelector('#user-list');
-    console.log(list)
+    let totalCount;
+    let limit=10;
+    let currentPage=1;
+    let pageLimit=8;
+    // let config = {
+    //     selector: '#footer-container',
+    //     amount: totalCount,
+    //     limit: 10,
+    //     pageLimit: 10,
+    //     currentPage: 1,
+    //   }
     boot();
     function boot(){
       bindevents();
@@ -164,14 +176,42 @@ th {
         e.preventDefault();
         let keyword=input.value;
         let http=new XMLHttpRequest();
-        http.open('get',`https://api.github.com/search/users?q=${keyword}`);
+        http.open('get',`https://api.github.com/search/users?q=${keyword}&page=${currentPage}&per_page=${limit}`);
         http.send();
         http.addEventListener('load',()=>{
           let data=JSON.parse(http.responseText);
-          console.log(data)
+          if(data.items.length==0){
+            renderNull();
+            return;
+          }
+          totalCount= data.total_count;
+          renderData(data);
+         let config = {
+        selector: '#footer-container',
+        amount: totalCount,
+        limit: limit,
+        pageLimit: pageLimit,
+        currentPage: 1,
+        onChange(page, state) {
+          let keyword=input.value;
+        let http=new XMLHttpRequest();
+          http.open('get',`https://api.github.com/search/users?q=${keyword}&page=${page}&per_page=${config.limit}`);
+        http.send();
+        http.addEventListener('load',()=>{
+          let data=JSON.parse(http.responseText);
+          console.log(state)
+          totalCount= data.total_count;
           renderData(data);
         })
+        },
+      };
+      biaoPage.boot(config);
+        })
       })
+    }
+    function renderNull(){
+      list.innerHTML='';
+      list.innerHTML='没有搜索结果!!!'      
     }
     function renderData(data){
       list.innerHTML='';
@@ -188,4 +228,8 @@ th {
           list.appendChild(item);
       });
     }
+    function searchData(data){
+      
+    }
   </script>
+  

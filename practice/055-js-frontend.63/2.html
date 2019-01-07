@@ -1,0 +1,25 @@
+<style>
+  .biao-page-active {
+    background: #000;
+    color: #fff;
+  }
+</style>
+<meta charset="UTF-8">
+
+<h2>测试3</h2>
+<div class="footer">
+</div>
+<script src="biaoPage.3.js"></script>
+<script>
+  let config1 = {
+    selector: '.footer',
+    amount: 1000,
+    limit: 15,
+    pageLimit: 9,
+    currentPage: 1,
+    onChange(page, state) {
+      console.log(page,state);
+    },
+  }
+  biaoPage.boot(config1);
+</script>
