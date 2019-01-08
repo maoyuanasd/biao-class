@@ -1,0 +1,205 @@
+<style>
+    * {
+  -webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;
+}
+
+:root {
+  font-family: sans-serif;
+  color: #444;
+}
+
+body {
+  margin: 0;
+}
+
+input, button, textarea {
+  color: inherit;
+}
+
+form input, form button {
+  width: 100%;
+  padding: 1em;
+  border: 1px solid #ccc;
+  outline: 0;
+}
+
+form {
+  margin: 0;
+}
+
+form input:focus, form button:focus {
+  border-color: transparent;
+  -webkit-box-shadow: 0 0 0 3px #c1a7ff;-moz-box-shadow: 0 0 0 3px #c1a7ff;box-shadow: 0 0 0 3px #c1a7ff;
+}
+
+.container,
+.container-sm {
+  max-width: 50em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: .5em;
+  padding-right: .5em;
+}
+
+.container-sm {
+  max-width: 30em;
+}
+
+:root {
+  background: #eee;
+}
+
+input, button, .todo-item {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#todo-form, .todo-item {
+  margin-bottom: .5rem;
+}
+
+.todo-item {
+  background: #fff;
+  font-size: 0;
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, .2);-moz-box-shadow: 0 0 2px rgba(0, 0, 0, .2);box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+}
+
+.todo-item > * {
+  font-size: 1rem;
+  display: inline-block;
+  vertical-align: middle;
+  padding: .5em;
+}
+
+.todo-item > .checkbox {
+  width: 10%;
+}
+
+.todo-item > .title {
+  width: 60%;
+}
+
+.todo-item > .operations {
+  width: 30%;
+  text-align: right;
+}
+
+</style>
+<div style="margin-top: 2em; text-align: center;" class="container-sm">
+    <h1>表清单</h1>
+    <form id="todo-form">
+        <input type="search" name="title" autofocus placeholder="如不可用请将appKey替换为自己的创建的appKey">
+        <button type="submit" hidden></button>
+    </form>
+
+    <div id="todo-list">
+
+    </div>
+</div>
+</div>
+<script src="api.js"></script>
+<script>
+    let form = document.getElementById('todo-form');
+    let input = form.querySelector('[name=title]');
+    let list = document.getElementById('todo-list');
+    let $list;
+    let $currentId = null;
+    boot();
+
+    function boot() {
+        read();
+        bindEvents();
+    }
+
+    function read() {
+        api('todo/read', null, r => {
+            $list = r.data;
+            console.log($list)
+            render();
+
+        })
+    }
+
+    function bindEvents() {
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            let title = input.value;
+            if($currentId){
+                update($currentId,{title})
+            }else{
+                create({
+                    title
+                })
+            }
+        })
+    }
+
+    function create(row) {
+        api('todo/create', row, r => {
+            if (r.success) {
+                read();
+                form.reset();
+            }
+        });
+    }
+    function remove(id){
+        api('todo/delete',{id},r=>{
+            read();
+        })
+    }
+    function update(id,row){
+        api('todo/update',{id,...row},r=>{
+            if (r.success) {
+        $currentId = null;
+        read();
+        form.reset();
+      }
+        })
+        isuUpdata=false;
+    }
+    function setCompleted(id, completed) {
+        api('todo/update', {
+            id,
+            completed
+        }, r => {
+            read();
+        })
+    }
+
+    function render() {
+        list.innerHTML = '';
+        if($list){
+            $list.forEach(it => {
+                let item = document.createElement('div');
+                item.classList.add('todo-item');
+                item.innerHTML =
+                    `<div  class="checkbox">
+                    <input class="completed" type="checkbox" ${it.completed ? 'checked' : ''}>
+                </div>
+                <div class="title">
+                    ${it.title}
+                </div>
+                <div class="operations">
+                    <button class="fill">更新</button>
+                    <button class="delete">删除</button>
+                </div>`;
+                let checkbox = item.querySelector('.completed');
+                let operations=item.querySelector('.operations');
+                checkbox.addEventListener('change', e => {
+                    setCompleted(it.id, checkbox.checked);
+                });
+                operations.addEventListener('click', e => {
+                   let target=e.target;
+                   if(target.classList.contains('delete'))
+                   remove(it.id);
+                   if(target.classList.contains('fill')){
+                       input.value=it.title;
+                        $currentId = it.id;
+                   }
+                })
+                list.appendChild(item);
+            });
+        }
+    }
+</script>
