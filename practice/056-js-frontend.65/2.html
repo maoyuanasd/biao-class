@@ -1,0 +1,463 @@
+<style>
+    * {
+  -webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;
+}
+
+:root {
+  font-family: sans-serif;
+  color: #444;
+}
+
+body {
+  margin: 0;
+}
+
+input, button, textarea {
+  color: inherit;
+}
+
+form input, form button {
+  width: 100%;
+  padding: 1em;
+  border: 1px solid #ccc;
+  outline: 0;
+}
+
+form {
+  margin: 0;
+}
+
+form input:focus, form button:focus {
+  border-color: transparent;
+  -webkit-box-shadow: 0 0 0 3px #c1a7ff;-moz-box-shadow: 0 0 0 3px #c1a7ff;box-shadow: 0 0 0 3px #c1a7ff;
+}
+
+button.primary {
+  background: #c1a7ff;
+  color: #fff;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.container,
+.container-sm {
+  max-width: 50em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: .5em;
+  padding-right: .5em;
+}
+
+.container-sm {
+  max-width: 30em;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+:root {
+  background: #eee;
+}
+
+input, button, .todo-item, .sidebar-section > * {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#todo-form, .todo-item {
+  margin-bottom: .5rem;
+}
+
+.container-sm > * {
+  float: left;
+}
+
+.container-sm > .left {
+  width: 30%;
+}
+
+.container-sm > .right {
+  width: 70%;
+}
+
+.sidebar-section {
+  padding: 0 .5em;
+  font-size: .8em;
+  text-align: left;
+  color: #666;
+}
+
+.sidebar-section > * {
+  width: 100%;
+  cursor: pointer;
+  padding: .3em .5em;
+  margin-bottom: .2em;
+}
+
+.sidebar-section > *:hover {
+  background: rgba(0, 0, 0, .1);
+}
+
+.sidebar-section > .active {
+  color: #fff;
+  background: #c1a7ff;
+}
+
+#cat-list .item {
+  position: relative;
+}
+
+#cat-list .operations {
+  right: 0;
+  display: none;
+  font-size: .5rem;
+  position: absolute;
+}
+
+#cat-list .operations button {
+  border: 0;
+  background: transparent;
+  padding: .1em;
+  color: #aaa;
+}
+
+#cat-list .operations button:hover {
+  color: #222;
+}
+
+#cat-list > .item:hover .operations {
+  display: inline-block;
+}
+
+#cat-list button {
+  font-size: inherit;
+}
+
+#cat-form button {
+  width: 50%;
+  float: left;
+}
+
+.todo-item {
+  background: #fff;
+  font-size: 0;
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, .2);-moz-box-shadow: 0 0 2px rgba(0, 0, 0, .2);box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+}
+
+.todo-item > * {
+  font-size: 1rem;
+  display: inline-block;
+  vertical-align: middle;
+  padding: .5em;
+}
+
+.todo-item > .checkbox {
+  width: 10%;
+}
+
+.todo-item > .title {
+  width: 60%;
+  text-align: left;
+}
+
+.todo-item > .operations {
+  width: 30%;
+  text-align: right;
+}
+
+/*.todo-item > {*/
+/*}*/
+</style>
+<h1 style="margin-top: 1em; font-size: 1.5rem;" class="text-center">表清单</h1>
+<div class="container-sm">
+    <div class="left">
+        <div id="cat-head" class="sidebar-section">
+            <span id="look-all">查看全部</span>
+        </div>
+        <div id="cat-list" class="sidebar-section">
+        </div>
+        <div class="sidebar-section">
+            <button id="add-cat">+</button>
+        </div>
+        <form id="cat-form" class="sidebar-section" hidden>
+            <input type="search" name="name">
+            <button class="primary" type="submit">确定</button>
+            <button class="cancel" type="button">取消</button>
+        </form>
+    </div>
+    <div class="right">
+        <form id="todo-form">
+            <input type="search" name="title" autofocus placeholder="如不可用请将appKey替换为自己的创建的appKey">
+            <button type="submit" hidden></button>
+        </form>
+        <div id="todo-list">
+        </div>
+    </div>
+</div>
+<script src="api.js"></script>
+<script>
+    let leftBar = document.querySelector('.left');
+    let addCat = document.getElementById('add-cat');
+    let lookAll = document.getElementById('look-all');
+    let catForm = document.getElementById('cat-form');
+    let catInput = leftBar.querySelector('[name=name]');
+    let catList = document.getElementById('cat-list');
+    let todoList = document.getElementById('todo-list');
+    let todoForm = document.getElementById('todo-form');
+    let todoInput = todoForm.querySelector('[name=title]');
+    let $catList;
+    let $todoList;
+    let $updatingTodoId = null;
+    let $updatingCatId = null;
+    let params;
+    boot();
+
+    function boot() {
+        // readTodo();
+        readCat();
+        lookatAll();
+        bindEvents();
+    }
+
+    function bindEvents() {
+        bindLeftBar();
+        bindRightBar();
+    }
+
+    function bindLeftBar() {
+        addCat.addEventListener('click', e => {
+            isVisibel(true);
+            catInput.focus();
+        });
+        catForm.addEventListener('click', e => {
+            let klass = e.target.classList;
+            if (klass.contains('cancel')) {
+                isVisibel(false);
+            }
+        });
+        catForm.addEventListener('submit', e => {
+            e.preventDefault();
+            let name = catInput.value;
+            if ($updatingCatId) {
+                updateCat($updatingCatId, {
+                    name
+                });
+            } else {
+                createCat(name);
+            }
+        });
+        lookAll.addEventListener('click', e => {
+            lookatAll();
+        })
+    }
+
+    function lookatAll() {
+        $updatingCatId = null;
+        setCatItemActive();
+        lookAll.classList.add('active');
+        params = null;
+        readTodo(params);
+    }
+
+    function setCatItemActive() {
+        let itemList = catList.children;
+        for (let i = 0; i < itemList.length; i++) {
+            if (itemList[i].$id == $updatingCatId) {
+                itemList[i].classList.add('active');
+            } else {
+                itemList[i].classList.remove('active');
+            }
+
+        }
+    }
+
+    function isVisibel(visibel = false) {
+        catForm.hidden = !visibel;
+        addCat.hidden = visibel;
+    }
+
+    function bindRightBar() {
+        todoForm.addEventListener('submit', e => {
+            e.preventDefault();
+            let title = todoInput.value;
+            if ($updatingTodoId) {
+                updateTodo($updatingTodoId, {
+                    title
+                });
+            } else {
+                createTodo({
+                    title
+                });
+            }
+        })
+    }
+
+    function readCat() {
+        api('cat/read', null, r => {
+            $catList = r.data || [];
+            renderCat();
+        })
+    }
+
+    function createCat(name) {
+        api('cat/create', {
+            name
+        }, r => {
+            if (r.success) {
+                readCat();
+                catForm.reset();
+                isVisibel(false);
+            }
+        })
+    }
+
+    function updateCat(id, row) {
+        api('cat/update', {
+            id,
+            ...row
+        }, r => {
+            if (r.success) {
+                readCat();
+                catForm.reset();
+                $updatingCatId = null;
+                isVisibel(false);
+            }
+        })
+    }
+
+    function removeCat(id) {
+        api('cat/delete', {
+            id
+        }, r => {
+            readCat();
+        })
+    }
+
+    function renderCat() {
+        catList.innerHTML = '';
+        $catList.forEach(it => {
+            let item = document.createElement('div');
+            item.classList.add('item');
+            item.$id = it.id;
+            item.innerHTML =
+                `<span class="name">${it.name}</span>
+                <span class="operations">
+                    <button class="fill">更新</button>
+                    <button class="delete">删除</button>
+                </span>`;
+            item.addEventListener('click', e => {
+                let klass = e.target.classList;
+                if (klass.contains('delete'))
+                    removeCat(it.id);
+                if (klass.contains('fill')) {
+                    isVisibel(true);
+                    $updatingCatId = it.id;
+                    catInput.value = it.name;
+                    return;
+                }
+                $updatingCatId = it.id;
+                setCatItemActive();
+                params = `where("cat_id" = "${$updatingCatId}")`;
+                readTodo(params);
+                lookAll.classList.remove('active');
+            })
+            catList.appendChild(item);
+        })
+    }
+    // todo
+    function createTodo(row) {
+        row.cat_id = $updatingCatId;
+        api('todo/create', row, r => {
+            if (r.success) {
+                readTodo(params);
+                todoForm.reset();
+            }
+        })
+    }
+
+    function updateTodo(id, row) {
+        api('todo/update', {
+            id,
+            ...row
+        }, r => {
+            if (r.success) {
+                readTodo(params);
+                todoForm.reset();
+                $updatingTodoId = null;
+            }
+        })
+    }
+
+    function removeTodo(id) {
+        api('todo/delete', {
+            id
+        }, r => {
+            readTodo(params);
+        })
+    }
+
+    function setCompletedTodo(id, completed) {
+        api('todo/update', {
+            id,
+            completed
+        }, r => {
+            if (r.success) {
+                readTodo(params);
+            }
+        })
+    }
+
+    function readTodo(par) {
+        let pr={};
+        pr.query=par;
+        api('todo/read', pr, r => {
+            $todoList = r.data || [];
+            console.log(r);
+            renderTodo( $todoList);
+        })
+    }
+
+    function renderTodo(data) {
+        todoList.innerHTML = '';
+        $todoList.forEach(it => {
+            let item = document.createElement('div');
+            item.classList.add('todo-item');
+            item.innerHTML =
+                ` <div class="checkbox">
+                    <input class="completed" type="checkbox" ${it.completed? 'checked':''}>
+                </div>
+                <div class="title">
+                    ${it.title} 
+                </div>
+                <div class="operations">
+                    <button class="fill">更新</button>
+                    <button class="delete">删除</button>
+                </div>`;
+            todoList.appendChild(item);
+            let checkbox = item.querySelector('.completed');
+            item.addEventListener('click', e => {
+                let klass = e.target.classList;
+                if (klass.contains('completed'))
+                    setCompletedTodo(it.id, checkbox.checked);
+                if (klass.contains('delete'))
+                    removeTodo(it.id);
+                if (klass.contains('fill')) {
+                    $updatingTodoId = it.id;
+                    todoInput.value = it.title;
+                }
+            })
+        })
+    }
+</script>
