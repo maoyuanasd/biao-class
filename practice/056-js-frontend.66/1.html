@@ -1,0 +1,88 @@
+<style>
+    .biao-alert-container {
+        font-family: sans-serif;
+        position: fixed;
+        right: 1em;
+        top: 1em;
+    }
+
+    .biao-alert {
+        margin-bottom: .2em;
+    }
+
+    .biao-alert.info .inner {
+        background: royalblue;
+    }
+
+    .biao-alert.danger .inner {
+        background: darkred;
+    }
+
+    .biao-alert.warn .inner {
+        background: orange;
+    }
+
+    .biao-alert.success .inner {
+        background: darkgreen;
+    }
+
+    .biao-alert .inner {
+        color: #fff;
+        -webkit-border-radius: .2em;
+        -moz-border-radius: .2em;
+        border-radius: .2em;
+        cursor: pointer;
+    }
+
+    .biao-alert .inner>* {
+        padding: .3em .8em;
+    }
+
+    .biao-alert .title {
+        font-weight: bold;
+    }
+
+    .biao-alert .desc {
+        font-weight: lighter;
+    }
+</style>
+
+<body>
+</body>
+<script src="biaoAlert.1.js">
+</script>
+<script>
+    // biaoAlert('yo', {
+    //     desc: 'muhaha',
+    //     type: 'info',
+    //     timeout: 3000,
+    //     onclick(a) {
+    //         console.log(a.el)
+    //         document.body.appendChild(a.el);
+    //     },
+    //     onclose() {
+    //         console.log('关闭');
+    //     },
+    //     onopen(){
+    //         console.log('打开');
+    //     }
+    // })
+    // biaoAlert('ha')
+    biaoAlert('Yo');
+
+biaoAlert('余额不足，请充值', {
+  desc    : '请前往我的余额进行充值',
+  type    : 'warn',
+  timeout : 5000,
+  onclick (config) {
+    document.body.appendChild(config.el);
+    console.log(config);
+  },
+  onopen () {
+    console.log('打开');
+  },
+  onclose () {
+    console.log('关闭');
+  },
+});
+</script>
