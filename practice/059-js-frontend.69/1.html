@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="biaoAlert.css">
+<link rel="stylesheet" href="main.css">
+<h1 style="margin-top: 1em; font-size: 1.5rem;" class="text-center">表清单</h1>
+<div class="container-sm">
+  <div class="left">
+    <div id="cat-list" class="sidebar-section"></div>
+    <div class="sidebar-section">
+      <button id="add-cat">+</button>
+    </div>
+    <form id="cat-form" class="sidebar-section" hidden>
+      <input type="search" name="name">
+      <button class="primary" type="submit">确定</button>
+      <button class="cancel" type="button">取消</button>
+    </form>
+  </div>
+  <div class="right">
+    <form id="todo-form">
+      <fieldset>
+        <input type="search" name="title" autofocus placeholder="如不可用请将appKey替换为自己的创建的appKey">
+        <div id="more-trigger">展开</div>
+        <div id="more" hidden>
+          <label>
+            <span class="title">提醒时间 <button class="small" id="set-as-current"
+              type="button">当前时间</button></span>
+            
+            <span class="control">
+              <input type="date" name="notify_date">
+              <input type="time" name="notify_time">
+            </span>
+          </label>
+          <label>
+            <span class="title">描述</span>
+            <span class="control">
+              <textarea name="todo-desc"></textarea>
+            </span>
+          </label>
+              <label>
+                  <button class="primary" type="submit">提交</button>
+                </label>
+          <button type="submit" hidden></button>
+        </div>
+      </fieldset>
+      </form>
+    <div id="todo-list"></div>
+    <audio src="notify.mp3" id="sound" hidden></audio>
+  </div>
+</div>
+<script src="biaoAlert-oop.js"></script>
+<script src="api.js"></script>
+<script src="main.js"></script>
