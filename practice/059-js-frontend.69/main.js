@@ -281,7 +281,6 @@ function bindTodoSubmit() {
 
         if (row.title == '')
             return;
-            console.log(todoFieldset)
             todoFieldset.disabled=true;
         if ($updatingTodoId) {
             updateTodo($updatingTodoId, row);
