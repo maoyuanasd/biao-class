@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="biaoAlert.css">
+<body>
+</body>
+<script src="biaoAlert-oop.js">
+</script>
+<script>
+   
+ let a=  new biaoAlert('Yo');
+
+let b= new biaoAlert('余额不足，请充值', {
+  desc    : '请前往我的余额进行充值',
+  type    : 'warn',
+  timeout : 2000,
+  onclick (config) {
+    document.body.appendChild(config.el);
+    console.log(config);
+  },
+  onopen () {
+    console.log('打开');
+  },
+  onclose () {
+    console.log('关闭');
+  },
+});
+</script>
