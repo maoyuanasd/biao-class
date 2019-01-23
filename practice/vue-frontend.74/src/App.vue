@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  <nav>
+    <nav>
       <router-link to="/">首页</router-link>
       <router-link to="/admin/post">管理页</router-link>
     </nav>
@@ -9,17 +9,18 @@
 </template>
 
 <script>
-import './css/global.css';
+import './css/global.css'
 export default {
   name: 'app',
   components: {
     // HelloWorld
   }
+ 
 }
 </script>
 
 <style>
-nav a{
+nav>*{
   margin: .5em;
 }
 </style>
