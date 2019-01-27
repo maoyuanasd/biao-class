@@ -1,5 +1,5 @@
 <template>
-  <div class="main container">
+  <div class="container main col">
     <form @submit.prevent="onSubmit">
       <h2>添加/更新文章</h2>
       <div class="input-control">
@@ -9,7 +9,7 @@
       <div class="input-control">
         <label>分类</label><br>
         <select v-model="current.cat_id">
-          <option v-for="it in catList" :value="it.id">{{it.name}}</option>
+          <option v-for="it in catList" :value="it.id" >{{it.name}}</option>
         </select>
       </div>
       <div class="input-control">
@@ -25,14 +25,14 @@
         <th>标题</th>
         <th>分类</th>
         <th>内容</th>
-        <th>id</th>
+        <th>ID</th>
         <th>操作</th>
       </thead>
       <tbody>
-        <tr v-for="it in postList">
+        <tr v-for="it in list">
           <td>{{it.title}}</td>
           <td>{{it.$cat? it.$cat.name:'-'}}</td>
-          <td :title="it.content">{{it.content |cut(it.content)}}</td>
+           <td :title="it.content">{{it.content |cut}}</td>
           <td>{{it.id}}</td>
           <td>
             <button @click="current=it">更新</button>
@@ -44,69 +44,69 @@
   </div>
 </template>
 <script>
-import "../css/admin.css";
-import api from "../lib/api.js";
+import '../css/admin.css';
+import api from '../lib/api.js';
 export default {
   data() {
     return {
+      list: [],
       current: {},
-      postList: [],
       catList:[],
     };
   },
   filters:{
-    cut(value){
-         return value.length<12 ? value:value.substring(0,12)+'...';
-    }
+      cut (value){
+          if(!value)
+          return;
+          return value.length<12 ? value : value.substring(0,12)+'...';
+      }
   },
   mounted() {
     this.read();
-      this.readCat();
-
+    this.readCat();
   },
   methods: {
     onSubmit() {
-      this.createOrupdate();
-      this.current={};
-    },
-    createOrupdate() {
-      let action;
-      action = this.current.id ? "update" : "create";
-      api(`post/${action}`, this.current).then(r => {
-        this.read();
-      });
-    },
-    remove(id) {
-      if(!confirm('确认删除'))
-      return;
-      
-      api('post/delete', {id}).then(r=>{
-        if(r.success)
-        this.read();
-      });
+      this.createOrUpdate();
     },
     read() {
-      let param={
+       let param = {
         with:`belongs_to:cat`,
-      }
+       
+      };
       api('post/read',param).then(r => {
-        this.postList = r.data;
+        if (r.success) {
+          this.list = r.data;
+        }
       });
     },
-    readCat() {
-      api('cat/read').then(r => {
-        this.catList = r.data;
+    createOrUpdate() {
+      let action;
+      action = this.current.id ? 'update' : 'create';
+      api(`post/${action}`, this.current).then(r => {
+        if (r.success) {
+          this.read();
+          this.current = {};
+        }
       });
     },
+    remove(id){
+        if(!confirm('确认删除'))
+        return;
+        api('post/delete',{id}).then(r=>{
+            if(r.success)
+            this.read();
+        })
+    },
+    readCat(){
+      api('cat/read').then(r=>{
+        if(r.success)
+        this.catList=r.data;
+      })
+    }
   }
 };
 </script>
 <style>
-.main {
-  max-width: 500px;
-}
-.main > * {
-  margin: 1em;
-}
-</style>
 
+</style>

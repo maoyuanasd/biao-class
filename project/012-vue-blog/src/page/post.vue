@@ -1,6 +1,7 @@
 <template>
   <div class="main container">
       <h2>{{row.title}}</h2>
+      <h3>分类:{{row.$cat? row.$cat.name:'-'}}</h3>
       <div class="post-content">{{row.content}}</div>
       <div class="comment-area">
         <button @click="commentFormVisible=!commentFormVisible">评论</button>
@@ -11,9 +12,10 @@
         </form>
         <div class="comment-list">
           <div class="comment" v-for="it in commentList">
-            <div class="email">{{it.email}} <span v-if="it.reply_to">回复{{it.$reply_to.email}}的评论</span></div>
+            <div class="email">{{it.email}} <span v-if="it.reply_to">回复{{it.$reply_to? it.$reply_to.email:'null'}}的评论</span></div>
             <div class="content">{{it.content}}</div>
             <button @click="fillReply(it.id)">回复</button>
+            <button @click="removeComment(it.id)">删除</button>
           </div>
         </div>
       </div>
@@ -39,7 +41,11 @@ export default {
   },
   methods: {
    findPost(id){
-       api('post/find',{id}).then(r=>{
+     let param={
+       id,
+       with:`belongs_to:cat`,
+     }
+       api('post/find',param).then(r=>{
          if(r.success)
          this.row=r.data;
        })
@@ -75,7 +81,13 @@ export default {
    fillReply(id){
   this.commentFormVisible=true;
   this.commentForm.reply_to=id;
-  console.log(this.commentForm)
+   },
+   removeComment(id){
+     if(!confirm('确认删除'))
+     return;
+        api('comment/delete',{id}).then(r=>{
+          this.readComment();
+        })
    }
 
   }
