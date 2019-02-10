@@ -64,7 +64,7 @@ export default {
           this.error.invalidMatch = true;
           return;
         }
-        session.login(user.id, user);
+        session.login(user.id, user,'/');
       });
     }
   }

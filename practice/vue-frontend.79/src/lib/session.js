@@ -7,6 +7,7 @@ function loggedIn() {
 function login(sessionId, user, redirect) {
     localStorage.setItem('sessionId', sessionId);
     store.set('user', user);
+    console.log(redirect)
     if (!redirect){
         location.reload();
         return;
@@ -15,9 +16,10 @@ function login(sessionId, user, redirect) {
     location.href = redirect;
 }
 
-function logout(redirect = '/') {
+function logout(redirect = '/#/login') {
     localStorage.removeItem('sessionId');
     localStorage.removeItem('user');
+    // location.reload();
     location.href = redirect;
 }
 

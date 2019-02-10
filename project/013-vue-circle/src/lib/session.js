@@ -9,16 +9,16 @@ function login(sessionId, user, redirect) {
     store.set('user', user);
     if (!redirect){
        location.reload();
-        return;
+       return;
     }
     location.href = redirect;
 }
 
-function logout(redirect='/') {
+function logout(redirect='/login') {
     localStorage.removeItem('sessionId')
     localStorage.removeItem('user')
-    location.href = redirect;
-
+    location.hash = redirect;
+    location.reload();
 }
 
 function user() {
