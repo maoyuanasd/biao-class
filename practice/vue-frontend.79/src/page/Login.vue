@@ -35,10 +35,24 @@ export default {
       },
       error: {
         invalidMatch: false
+      },
+      admin: {
+        username: "admin",
+        password: "123456"
       }
     };
   },
   methods: {
+    isAdmin() {
+      let current = this.current;
+      let admin = this.admin;
+      if (
+        current.username !== admin.username ||
+        current.password !== admin.password
+      )
+        return false;
+      return true;
+    },
     login() {
       let current = this.current;
       let username = current.username;
@@ -47,23 +61,30 @@ export default {
         this.error.invalidMatch = true;
         return;
       }
+      if(this.isAdmin()){
+        let user={...this.current};
+        user.IS_ADMIN =true;
+         console.log(user.id)
+         session.login(user.id,user,'/#/admin/user');
+         return;
+      }
       let param = {
         where: {
           and: {
             username,
             password
-          },
+          }
         },
-          only: ['id','username','name']
+        only: ["id", "username", "name"]
       };
       api("user/first", param).then(r => {
         let user = r.data;
-             if(!user){
-                   this.error.invalidMatch=true;
-                  return;
-             }
+        if (!user) {
+          this.error.invalidMatch = true;
+          return;
+        }
 
-          session.login(user.id, user,'/')
+        session.login(user.id, user, "/");
       });
     }
   }

@@ -9,18 +9,18 @@
   <div class="time-line">
     <div v-for="it in threadList" class="activity">
       <div class="user row">
-        <strong>{{it.$user? (it.$user.name || it.$user.username):'已注销'}}</strong>
         <div class="tool">
-          <span v-if="it.$user && it.$user.id===user.id">
+          <span v-if="user && it.$user && it.$user.id===user.id">
             <button @click="threadForm=it">编辑</button>
             <button @click="threadDelete(it.id)">删除</button>
           </span>
         </div>
       </div>
-      <div class="title">{{it.title}}</div>
+      <router-link :to="'/thread/'+it.id" class="title">{{it.title}}</router-link>
       <div class="content">{{it.content}}</div>
       <div class="others">
-      <span>发布于:{{it.create_at}}</span>
+        <strong>{{it.$user? (it.$user.name || it.$user.username):'已注销'}}</strong>
+      <span class="small muted">发布于:{{it.create_at}}</span>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@ export default {
       })
     },
    threadRead(){
-     api('thread/read',{with:['belongs_to:user']}).then(r=>{
+     api('thread/read',{where:{and:{parent_id:null}}, with:['belongs_to:user']}).then(r=>{
        this.threadList=r.data;
      })
    }
@@ -93,8 +93,15 @@ export default {
     right: .5rem;
     top: .5rem;
   }
-
+ .title{
+   font-size: 1.3rem;
+   font-weight: bold;
+ }
   .tool * {
     display: inline-block;
     width: auto;
-  }</style>
+  }
+  .others > * {
+    margin-right: .3rem;
+  }
+  </style>

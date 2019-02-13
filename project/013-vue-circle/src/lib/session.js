@@ -11,6 +11,7 @@ function login(sessionId, user, redirect) {
        location.reload();
        return;
     }
+    location.reload();
     location.href = redirect;
 }
 
@@ -20,7 +21,9 @@ function logout(redirect='/login') {
     location.hash = redirect;
     location.reload();
 }
-
+function isAdmin(){
+    return user().IS_ADMIN;
+}
 function user() {
     return store.get('user');
 }
@@ -28,5 +31,6 @@ export default {
     loggedIn,
     login,
     logout,
-    user
+    user,
+    isAdmin
 }

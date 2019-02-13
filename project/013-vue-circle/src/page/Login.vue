@@ -37,11 +37,31 @@ export default {
       current: {},
       error: {
         invalidMatch: false
+      },
+      admin: {
+        username: "admin",
+        password: "123456"
       }
     };
   },
   methods: {
+    isAdmin() {
+      let admin = this.admin;
+      let current = this.current;
+      if (
+        admin.username === current.username &&
+        admin.password === current.password
+      )
+        return true;
+      return false;
+    },
     login() {
+      if(this.isAdmin()){
+        let user = {...this.current};
+        user.IS_ADMIN=true;
+        session.login(user.id,user,'/#/admin/user');
+        return;
+      }
       let c = this.current;
       let username = c.username;
       let password = c.password;
@@ -64,7 +84,7 @@ export default {
           this.error.invalidMatch = true;
           return;
         }
-        session.login(user.id, user,'/');
+        session.login(user.id, user, "/");
       });
     }
   }

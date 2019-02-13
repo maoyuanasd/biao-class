@@ -20,10 +20,13 @@ body {
   line-height: 1.6;
 }
 
+h1, h2, h3 {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
 h1 {
   font-size: 24px;
-  margin-top: 0;
-  margin-bottom: 0;
 }
 
 a {
@@ -36,7 +39,6 @@ img {
 }
 
 input, button, textarea {
-  width: 100%;
   font-size: 1em;
   padding: .5rem;
   /*border: 1px solid rgba(0, 0, 0, 0.1)*/
@@ -44,6 +46,7 @@ input, button, textarea {
 }
 
 form input,
+form textarea,
 form [type=submit] {
   width: 100%;
 }
@@ -83,8 +86,41 @@ fieldset {
   border: 0;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table td,
+table th {
+  text-align: left;
+  border: 0;
+  padding: .3rem .5rem;
+}
+
+table th {
+  border-bottom: 1px solid;
+}
+
+table td {
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+table th:last-of-type,
+table td:last-of-type {
+  text-align: right;
+}
+
 [disabled] {
   opacity: .5;
+}
+
+.small {
+  font-size: 80%;
+}
+
+.muted {
+  opacity: .6;
 }
 
 .block {
@@ -306,3 +342,37 @@ fieldset {
 .setting-content dt {
   margin-right: .5em;
 }
+
+.anchor {
+  color: #555;
+  display: inline-block;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  margin-right: .2rem;
+  cursor: pointer;
+}
+
+.anchor:hover {
+  color: #222;
+}
+
+.empty-holder {
+  opacity: .6;
+  font-size: 85%;
+  text-align: center;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+.btn-group > * {
+  border-right-width: 0;
+}
+
+.btn-group > *:last-of-type {
+  border-right-width: 2px;
+}
+
+/*.setting-content .card {*/
+/*padding: 1rem;*/
+/*}*/

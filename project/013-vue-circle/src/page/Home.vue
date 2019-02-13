@@ -11,16 +11,21 @@
     </form>
     <div class="time-line">
       <div v-for="it in threadList" class="activity">
-       <div class="user"><strong>{{it.$user ? (it.$user.name || it.$user.username):'已注销'}}</strong></div>
-       <div class="tool" v-if="it.user_id==user.id">
-         <button @click="threadForm=it">更新</button>
-         <button @click="removeThread(it.id)">删除</button>
-       </div>
-       <div class="title">{{it.title}}</div>
-       <div class="content">{{it.content}}</div>
-       <div class="others">
-         <span>发布于:{{it.create_at}}</span>
-       </div>
+        <div class="user">
+          <!-- <strong>{{it.$user ? (it.$user.name || it.$user.username):'已注销'}}</strong> -->
+        </div>
+        <div class="tool" v-if="it.user && it.user_id==user.id">
+          <button @click="threadForm=it">更新</button>
+          <button @click="removeThread(it.id)">删除</button>
+        </div>
+        <router-link :to="'/thread/'+it.id" class="title">{{it.title}}</router-link>
+        <div class="content">{{it.content}}</div>
+        <div class="others">
+          <span>
+          <strong>{{it.$user ? (it.$user.name || it.$user.username):'已注销'}}</strong>
+          </span>
+          <span class="small mute">发布于:{{it.create_at}}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -38,7 +43,7 @@ export default {
       error: {
         titleExists: false
       },
-      threadList:{},
+      threadList: {}
     };
   },
   mounted() {
@@ -47,7 +52,7 @@ export default {
   methods: {
     onSubmit() {
       let form = this.threadForm;
-      let url='thread/create';
+      let url = "thread/create";
       if (!form.title) {
         this.error.titleExists = true;
         return;
@@ -56,30 +61,30 @@ export default {
       form.cat_id = 1;
       form.create_at = dateFormmatter.format(new Date());
       form.user_id = this.user.id;
-      if(form.id){
-        url='thread/update';
+      if (form.id) {
+        url = "thread/update";
       }
       api(url, this.threadForm).then(r => {
-        if(r.success){
-          this.threadForm={};
+        if (r.success) {
+          this.threadForm = {};
           this.readThread();
         }
       });
     },
-    readThread(){
-      api('thread/read',{with:['belongs_to:user']}).then(r=>{
-        if(r.success)
-        this.threadList=r.data;
-      })
+    readThread() {
+      api("thread/read", {
+        where: { and: { parent_id: null } },
+        with: ["belongs_to:user"]
+      }).then(r => {
+        if (r.success) this.threadList = r.data;
+      });
     },
-    removeThread(id){
-      if(!confirm('确认删除'))
-      return;
-      api('thread/delete',{id}).then(r=>{
-        if(!r.success)
-        return;
+    removeThread(id) {
+      if (!confirm("确认删除")) return;
+      api("thread/delete", { id }).then(r => {
+        if (!r.success) return;
         this.readThread();
-      })
+      });
     }
   }
 };
@@ -87,19 +92,27 @@ export default {
 
 <style scoped>
 .activity {
-    margin: .5rem 0;
-    border: 2px solid;
-    padding: .5rem;
-    position: relative;
-  }
+  margin: 0.5rem 0;
+  border: 2px solid;
+  padding: 0.5rem;
+  position: relative;
+}
 
-  .tool {
-    position: absolute;
-    right: .5rem;
-    top: .5rem;
-  }
+.tool {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+}
 
+.title{
+   font-size: 1.3rem;
+   font-weight: bold;
+ }
   .tool * {
     display: inline-block;
     width: auto;
-  }</style>
+  }
+  .others > * {
+    margin-right: .3rem;
+  }
+</style>
