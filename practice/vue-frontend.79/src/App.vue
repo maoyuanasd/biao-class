@@ -8,6 +8,7 @@
 <script>
 import './css/global.css'
 import Nav from './components/Nav'
+
 export default {
   name: 'app',
   components: {

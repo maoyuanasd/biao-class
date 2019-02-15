@@ -113,6 +113,7 @@ table td:last-of-type {
 
 [disabled] {
   opacity: .5;
+  cursor: not-allowed;
 }
 
 .small {
