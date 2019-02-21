@@ -38,11 +38,50 @@ img {
   max-width: 100%;
 }
 
-input, button, textarea {
+.btn, input, button, textarea {
   font-size: 1em;
   padding: .5rem;
   /*border: 1px solid rgba(0, 0, 0, 0.1)*/
-  border: 2px solid;
+  border: 1px solid;
+  color: inherit;
+}
+
+.btn, button {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.2);
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  -ms-transition: all .2s;
+  -o-transition: all .2s;
+  transition: all .2s;
+}
+
+.btn:hover, button:hover {
+  background: #eee;
+  color: #000;
+}
+
+.btn.primary, button.primary {
+  background: #2994f3;
+  color: #f4f9fd;
+}
+
+.btn.primary:hover, button.primary:hover {
+  background: #268ae2;
+  color: #fff;
+}
+
+.btn,
+button,
+.card {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+
+form [type=submit] {
+  background: #000;
+  color: #fff;
 }
 
 form input,
@@ -99,7 +138,7 @@ table th {
 }
 
 table th {
-  border-bottom: 1px solid;
+  border-bottom: 2px solid;
 }
 
 table td {
@@ -113,7 +152,6 @@ table td:last-of-type {
 
 [disabled] {
   opacity: .5;
-  cursor: not-allowed;
 }
 
 .small {
@@ -272,8 +310,8 @@ table td:last-of-type {
 .container {
   padding-left: .5rem;
   padding-right: .5rem;
-  overflow: auto;
-  max-width: 900px;
+  /*overflow: auto;*/
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -303,6 +341,7 @@ table td:last-of-type {
   overflow: auto;
   background: #fff;
   margin-bottom: .5rem;
+  -webkit-box-shadow:  0 1px 3px rgba(0,0,0,0.2);-moz-box-shadow:  0 2px 3px rgba(0,0,0,0.2);box-shadow:  0 2px 3px rgba(0,0,0,0.2);
 }
 
 .card .title {
@@ -367,11 +406,16 @@ table td:last-of-type {
 }
 
 .btn-group > * {
+  border-radius: 0;
   border-right-width: 0;
 }
 
+.btn-group > *:first-of-type {
+  border-radius: 2px 0 0 2px;
+}
 .btn-group > *:last-of-type {
-  border-right-width: 2px;
+  border-radius: 0 2px 2px 0;
+  border-right-width: 1px;
 }
 
 /*.setting-content .card {*/

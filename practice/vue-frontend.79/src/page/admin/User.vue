@@ -66,164 +66,68 @@
       </thead>
       <tbody>
         <tr v-for="it in list">
-          <th>{{it.name || '-'}}</th>
-          <th>{{it.username || '-'}}</th>
-          <th>{{it.intro || '-'}}</th>
-          <th>{{it.password}}</th>
-          <th>
+          <td>{{it.name || '-'}}</td>
+          <td>{{it.username || '-'}}</td>
+          <td>{{it.intro || '-'}}</td>
+          <td>{{it.password}}</td>
+          <td>
             <div class="btn-group">
               <button @click="fill(it)">更新</button>
               <button @click="remove(it.id)">删除</button>
             </div>
-          </th>
+          </td>
         </tr>
       </tbody>
     </table>
+    <pagination :total="total" :limit="readParams.limit" :onChange="filp"/>
   </div>
 </template>
 
 <script>
-import api from '../../lib/api.js';
-import { call as valee } from '../../lib/valee';
+import adminMixin from "../../mixin/admin.js";
 export default {
+  mixins:[adminMixin],
   data() {
     return {
-      form: {},
-      ui: {
-        showForm: true
-      },
-      list: [],
+      model: 'user',
       rules: {
         username: {
           lengthBetween: {
             params: [4, 12],
-            msg: '最小长度需在4至12位之间'
+            msg: "最小长度需在4至12位之间"
           },
           regex: {
             params: [/^[a-zA-Z]+[0-9]*$/],
-            msg: '用户名格式不合法,需包含字母'
+            msg: "用户名格式不合法,需包含字母"
           },
           required: {
-            msg: '此项为必填项'
+            msg: "此项为必填项"
           },
           unique: {
-            params: ['user', 'exists', 'username'],
-            msg: '用户名已存在'
+            params: ["user", "exists", "username"],
+            msg: "用户名已存在"
           }
         },
         name: {
           required: {
-            msg: '此项为必填项'
+            msg: "此项为必填项"
           }
         },
         password: {
           lengthBetween: {
             params: [6, 24],
-            msg: '最小长度需在4至12位之间'
+            msg: "最小长度需在4至12位之间"
           },
           regex: {
-            params:[/(?=[^0-9]*[0-9]+)(?=[^a-zA-Z]*[a-zA-Z]+)/] ,
-            msg: '密码必须包含字母和数字'
+            params: [/(?=[^0-9]*[0-9]+)(?=[^a-zA-Z]*[a-zA-Z]+)/],
+            msg: "密码必须包含字母和数字"
           },
           required: {
-            msg: '密码为必填项'
+            msg: "密码为必填项"
           }
         }
-      },
-      errors: {
-        // username:{
-        //   lengthBetween:true,
-        //   regex:true,
-        // }
-      },
-      timer: null
+      }
     };
-  },
-  mounted() {
-    this.read();
-  },
-  methods: {
-    debounceValidate(field) {
-      if (this.timer) clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
-        this.validate(field);
-      }, 500);
-    },
-    validate(field) {
-      let value = this.form[field];
-      let rules = this.rules[field];
-      let fieldValid = true;
-      for (let key in rules) {
-        let rule = rules[key];
-        let params = rule.params || [];
-        let valid = valee(key, value, ...params);
-        if (typeof valid == 'boolean') {
-          this.afterValidate(field,key,valid);
-          if(!valid)
-          fieldValid = false;
-        }else{
-          valid.then(r=>{
-            this.afterValidate(field,key,r);
-          })
-        }
-      }
-      return fieldValid;
-    },
-    validateForm(){
-      let rules=this.rules;
-      for(let field in rules){
-       if(!this.validate(field)) 
-       return false;
-      }
-       return true;
-    },
-  
-    afterValidate(field,key,valid) {
-      let fieldObj = this.errors[field];
-      if (!fieldObj) {
-        fieldObj = this.$set(this.errors, field, {});
-      }
-
-      this.$set(fieldObj, key, !valid);
-    },
-    createOrUpdate() {
-      this.validateForm();
-       if (!this.validateForm())
-          return;
-      let action = 'create';
-      let isUpdate = this.form.id;
-      if (isUpdate) action = 'update';
-      api(`user/${action}`, this.form).then(r => {
-        this.resetForm();
-        this.read();
-        this.hideForm();
-      });
-    },
-    hideForm() {
-      this.ui.showForm = false;
-    },
-    showForm() {
-      this.ui.showForm = true;
-    },
-    resetForm() {
-      this.form = {};
-      this.errors={};
-    },
-    read() {
-      api('user/read').then(r => {
-        this.list = r.data;
-      });
-    },
-    fill(it) {
-      this.form = it;
-      this.showForm();
-    },
-    remove(id) {
-      if (!confirm('确认删除')) return;
-      api('user/delete', { id }).then(r => {
-        this.read();
-      });
-    }
   }
 };
 </script>

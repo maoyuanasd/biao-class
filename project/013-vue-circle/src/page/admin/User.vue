@@ -76,22 +76,17 @@
         </tr>
       </tbody>
     </table>
+    <Pagination :total="total" :limit="readParams.limit" :onChange="flip"/>
   </div>
 </template>
 
 <script>
-import api from "../../lib/api.js";
-import { call as valee } from "../../lib/valee";
-
+import adminMixin from '../../mixin/admin.js'
 export default {
+  mixins:[adminMixin],
   data() {
     return {
-      fieldValid:false,
-      form: {},
-      ui: {
-        showForm: true
-      },
-      list: [],
+     model:'user',
       rules: {
         username: {
           unique: {
@@ -129,99 +124,9 @@ export default {
             },
         }
       },
-      errors: {},
-      timer: null
     };
   },
-  mounted() {
-    this.read();
-  },
-  methods: {
-    debounceValidate(field) {
-      if (this.timer) clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
-        this.validate(field);
-        this.validateForm();
-      }, 500);
-    },
-    validate(field) {
-      let rules = this.rules[field];
-     let  fieldValids=true;
-      for (let key in rules) {
-        let rule = rules[key];
-        let value = this.form[field];
-        let params = rule.params || [];
-        let valid = valee(key, value, ...params);
-        if (typeof valid === "boolean") {
-          this.afterValidate(field, valid, key);
-          if(!valid)
-          fieldValids=false;
-        } else {
-          valid.then(r => {
-            this.afterValidate(field, r, key);
-          });
-        }
-      }
-      return fieldValids;
-    },
-    validateForm(){
-      let rules=this.rules;
-      for(let field in rules){
-        if(!this.validate(field))
-      return  this.fieldValid=false;
-      }
-      return this.fieldValid=true;
-    },
-    afterValidate(field, valid, key) {
-      let fieldObj = this.errors[field];
-      if (!fieldObj) fieldObj = this.$set(this.errors, field, {});
-      this.$set(fieldObj, key, !valid);
-    },
-    createOrUpdate() {
-      this.validateForm();
-      let action = "create";
-      let isUpdate = this.form.id;
-      if (isUpdate) action = "update";
-      api(`user/${action}`, this.form).then(r => {
-        this.resetForm();
-        this.hideForm();
-      });
-    },
-    resetForm() {
-      this.form = {};
-      this.errors={};
-      this.fieldValid=false;
-    },
-    toggleForm (){
-      if(this.ui.showForm){
-        this.hideForm();
-      }else{
-        this.showForm();
-        this.resetForm();
-      }
-    },
-    hideForm() {
-      this.ui.showForm = false;
-    },
-    showForm() {
-      this.ui.showForm = true;
-    },
-    read() {
-      api("user/read").then(r => {
-        this.list = r.data;
-      });
-    },
-    fill(it) {
-      this.form = it;
-      this.showForm();
-    },
-    remove(id) {
-      if (!confirm("确认删除")) return;
-      api("user/delete", { id }).then(r => {
-        this.read();
-      });
-    }
-  }
+  
 };
 </script>
 

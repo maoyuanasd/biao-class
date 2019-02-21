@@ -10,10 +10,12 @@ import SettingMe from './page/SettingMe.vue'
 import Setting from './page/Setting.vue'
 import SettingSecurity from './page/SettingSecurity.vue'
 import Thread from './page/Thread'
+import About from './page/About'
 
 import AdminBase from './page/admin/Base.vue'
 import AdminUser from './page/admin/User.vue'
 import AdminThread from './page/admin/Thread.vue'
+import AdminCat from './page/admin/Cat.vue'
 Vue.use(Router)
 Vue.config.productionTip = false
 
@@ -29,6 +31,10 @@ const router = new Router({
     {
       path: '/thread/:id',
       component: Thread
+    },
+    {
+      path: '/about',
+      component: About
     },
     {
       path: '/login',
@@ -57,6 +63,10 @@ const router = new Router({
         {
           path: 'thread',
           component: AdminThread
+        },
+        {
+          path: 'cat',
+          component: AdminCat
         },
       ]
     },

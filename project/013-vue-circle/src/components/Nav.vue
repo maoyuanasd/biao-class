@@ -10,7 +10,7 @@
       </div>
       <div class="col-16 text-right">
         <div class="search">
-          <input type="search">
+          <input type="search" placeholder="此功能暂未实现">
         </div>
         <div v-if="session.loggedIn()">
           <router-link to="/setting/me" class="nav-item" id="navItemName">{{session.user().name || session.user().username}}</router-link>

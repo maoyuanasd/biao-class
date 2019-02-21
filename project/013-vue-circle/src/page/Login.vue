@@ -25,6 +25,17 @@
           </label>
         </div>
       </form>
+      <div class="card">
+        <div class="title">测试用户账号</div>
+        <dl>
+          <dt>用户名</dt>
+          <dd>admin</dd>
+        </dl>
+        <dl>
+          <dt>密码</dt>
+          <dd>123456</dd>
+        </dl>
+      </div>
     </div>
   </div>
 </template>
@@ -59,6 +70,7 @@ export default {
       if(this.isAdmin()){
         let user = {...this.current};
         user.IS_ADMIN=true;
+        user.id=0;
         session.login(user.id,user,'/#/admin/user');
         return;
       }
@@ -91,7 +103,11 @@ export default {
 };
 </script>
 <style scoped>
-h1 {
-  text-align: center;
-}
+ h1 {
+    text-align: center;
+  }
+
+  dl {
+    padding: .5rem !important;
+  }
 </style>

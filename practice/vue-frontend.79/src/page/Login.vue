@@ -20,6 +20,19 @@
           <button type="submit">提交</button>
         </div>
       </form>
+      <div class="card">
+         <div class="title">测试用户账号</div>
+        <div class="content">
+          <dl>
+            <dt>用户名</dt>
+            <dd>admin</dd>
+          </dl>
+          <dl>
+            <dt>密码</dt>
+            <dd>123456</dd>
+          </dl>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -38,7 +51,8 @@ export default {
       },
       admin: {
         username: "admin",
-        password: "123456"
+        password: "123456",
+        
       }
     };
   },
@@ -64,7 +78,7 @@ export default {
       if(this.isAdmin()){
         let user={...this.current};
         user.IS_ADMIN =true;
-         console.log(user.id)
+        user.id=0;
          session.login(user.id,user,'/#/admin/user');
          return;
       }
@@ -90,3 +104,12 @@ export default {
   }
 };
 </script>
+<style scoped>
+h1 {
+    text-align: center;
+  }
+
+  dl {
+    padding: .5rem !important;
+  }
+</style>
