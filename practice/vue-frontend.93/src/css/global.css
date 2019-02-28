@@ -1,0 +1,88 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    font-size: sans-serif;
+    color: #333;
+    font-size: 15px;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+.form-container,
+.container{
+    max-width: 1080px;
+    margin: 0 auto;
+}
+.form-container{
+  max-width: 600px;
+}
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+.anchor{
+    display: inline-block;
+    padding: .3em .5em;
+    color: #555;
+    text-decoration: none;
+}
+.anchor:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
+.vertical-gutter .el-col {
+    margin-bottom: .5em;
+  }
+
+  .pair {
+    margin: .2em 0;
+  }
+  
+  .pair > * {
+    display: inline-block;
+    margin: 0 1em 0 0;
+    vertical-align: top;
+  }
+  
+  .pair > *:nth-child(odd) {
+    opacity: .6;
+  }
+  
+  .well {
+    background: rgba(0,0,0,.1);
+    padding: .5em;
+  }
+  
+  .hot {
+    color: #e10;
+    font-weight: bold;
+  }
+  
+  .cny:before {
+    content: '￥';
+  }
+  form label {
+    display: block;
+    margin: .5em 0;
+  }
+  
+  form .title {
+    display: inline-block;
+    margin: .5em 0;
+    font-size: 110%;
+  }
+  [disabled] *
+ {
+    opacity: .8;
+    cursor:  no-drop  !important;
+  }
+  fieldset {
+    border: 0;
+    margin:0;
+    padding: 0;
+  }
