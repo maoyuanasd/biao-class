@@ -86,3 +86,7 @@ img {
     margin:0;
     padding: 0;
   }
+  .error{
+    color: #e10;
+    padding: .5em
+  }

@@ -11,8 +11,14 @@
           <el-menu-item index="/admin/user">
             <span slot="title">用户管理</span>
           </el-menu-item>
-          <el-menu-item index="/my/order">
-            <span slot="title">订单管理</span>
+          <el-menu-item index="/admin/brand">
+            <span slot="title">品牌管理</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/cat">
+            <span slot="title">分类管理</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/product">
+            <span slot="title">商品管理</span>
           </el-menu-item>
           <el-menu-item index="/my/setting">
             <span slot="title">设置</span>
@@ -27,6 +33,7 @@
 </template>
 
 <script>
+  import '../../css/admin.css';
 export default {
     data() {
         return {

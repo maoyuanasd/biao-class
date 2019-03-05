@@ -8,7 +8,7 @@
                 </el-col>
                 <el-col :span="12" class="text-right">
                     <span v-if="session.loggedIn()">
-                    <router-link to="/my/setting" class="anchor">{{session.user().nickname || session.user().phone || session.user().mail }}</router-link>
+                    <router-link :to="session.isAdmin()? '/admin/user':'/my/setting'" class="anchor">{{session.user().nickname || session.user().phone || session.user().mail }}</router-link>
                     <span @click="session.logout()" class="anchor">登出</span>
                     </span>
                     <span v-else>

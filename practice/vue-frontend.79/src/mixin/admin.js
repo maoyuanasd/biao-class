@@ -95,7 +95,7 @@ export default {
                 this.afterCreateOrUpdate();
                 this.resetForm();
                 this.read();
-                this.hideForm();
+                // this.hideForm();
             });
         },
         hideForm() {

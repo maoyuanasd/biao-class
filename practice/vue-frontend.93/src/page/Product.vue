@@ -2,24 +2,24 @@
   <div>
     <RegularNav/>
     <div class="container">
-      <el-row :gutter="10">
-        <el-col :span="10">
+      <el-row style="margin-top: .5em;" :gutter="10" class="overview">
+        <el-col class="preview" :span="10">
           <el-carousel indicator-position="outside">
-            <el-carousel-item v-for="item in 4" :key="item">
-              <h3>{{ item }}</h3>
+         <el-carousel-item v-for="it in row.main_img" :key="it.id">
+             <img :src="fileUrl(it)" alt="">
             </el-carousel-item>
           </el-carousel>
         </el-col>
         <el-col class="text" :span="14">
-          <h1 class="title">烤面筋串儿时辣条味小零食90后怀旧辣片</h1>
+          <h1 class="title">{{row.title}}</h1>
           <div class="well">
             <dl class="pair">
               <dt>价格</dt>
-              <dd class="hot cny">19.9</dd>
+              <dd class="hot cny">{{row.price}}</dd>
             </dl>
             <dl class="pair">
               <dt>运费</dt>
-              <dd class="cny">10.0</dd>
+              <dd class="cny">{{row.shipping_fee}}</dd>
             </dl>
           </div>
           <el-row>
@@ -29,16 +29,14 @@
             <el-col :span="8">累计评价
               <span class="hot">9999</span>
             </el-col>
-            <el-col :span="8">累计评价
-              <span class="hot">9999</span>
+            <el-col :span="8">库存
+              <span class="hot">{{row.total}}</span>
             </el-col>
           </el-row>
-          <dl class="pair">
-            <dt>口味</dt>
+          <dl class="pair"  v-for="(option,key) in row.prop">
+            <dt >{{key}}</dt>
             <dd>
-              <div class="pill-option">辣</div>
-              <div class="pill-option selected">甜</div>
-              <div class="pill-option">麻</div>
+              <div v-for="it in option" class="pill-option">{{it}}</div>
             </dd>
           </dl>
           <dl class="pair">
@@ -118,10 +116,12 @@
         </el-row>
         </div>
         <div class="content">
-          yo
-          <img src="http://dummyimage.com/1000x2000">
-          yo
-          <img src="http://placekitten.com/500/1000">
+        <div v-for="it in row.detail">
+          <div v-if="it.type=='text'">{{it.value}}</div>
+          <div v-else>
+            <img :src="fileUrl(it.value)" alt="">
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -129,8 +129,41 @@
 
 <script>
 import RegularNav from "../component/RegularNav.vue";
+import api from '../lib/api.js';
+import {fileUrl} from '../lib/helper.js'
+
 export default {
-  components: { RegularNav }
+  components: { RegularNav },
+  data() {
+    return {
+      row:{
+        id:null
+      },
+    fileUrl
+
+    }
+  },
+  mounted() {
+          this.row.id = this.$route.params.id;
+
+    this.find();
+  },
+  methods: {
+    find(){
+      api('product/find',this.row).then(r=>{
+        this.row=r.data;
+        this.normalize ();
+      })
+    },
+    normalize (){
+      let arr=[];
+      let p=this.row.prop
+      for(let key in p){
+          arr=p[key].split('|');
+          p[key]=arr;
+      }
+    }
+  },
 };
 </script>
 

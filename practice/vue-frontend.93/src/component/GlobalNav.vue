@@ -10,8 +10,8 @@
                     <a href="#" class="anchor">item</a>
                     <a href="#" class="anchor">item</a>
                     <span  v-if="session.loggedIn()">
-                    <router-link class="anchor" to="/my/setting">{{session.user().nickname ||session.user().phone || session.user().mail}}</router-link>
-                    <span class="anchor" @click="session.logout">登出</span>
+                    <router-link class="anchor" :to="session.isAdmin()? '/admin/user' : '/my/setting'">{{session.user().nickname ||session.user().phone || session.user().mail}}</router-link>
+                    <span class="anchor" @click="session.logout()">登出</span>
                     </span>
                     <span v-else>
                     <router-link to="/signup" class="anchor">注册</router-link>

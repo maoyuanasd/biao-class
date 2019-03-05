@@ -218,13 +218,11 @@ export let is = {
    */
   phone(value, country = 'zh') {
     let re;
-
     switch (country) {
       case 'zh':
-        re = /^(?:\+?(?:86))?(\s|-)?1\d{10}$/;
+      re = /^(?:\+?(?:86))?(\s|-)?1\d{10}$/;
         break;
     }
-
     if (!re.test(value))
       return false;
     return true;

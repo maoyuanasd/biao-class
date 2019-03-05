@@ -5,6 +5,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'normalize.css/normalize.css';
 import Router from 'vue-router';
 import './css/global.css';
+import session from './lib/session'
 
 import Home from './page/Home.vue'
 import Product from './page/Product.vue'
@@ -21,6 +22,9 @@ import Cart from './page/Cart';
 
 import AdminBase from './page/admin/Base';
 import AdminUser from './page/admin/User';
+import AdminBrand from './page/admin/Brand';
+import AdminCat from './page/admin/Cat';
+import AdminProduct from './page/admin/Product';
 Vue.config.productionTip = false
 
 Vue.use(ElementUI);
@@ -71,15 +75,36 @@ const router = new Router({
     {
       path: '/admin',
       component: AdminBase,
-      children: [{
+      children: [
+        {
         path: 'user',
         component: AdminUser,
-      }]
+      },
+        {
+        path: 'brand',
+        component: AdminBrand,
+      },
+        {
+        path: 'cat',
+        component: AdminCat,
+      },
+        {
+        path: 'product',
+        component: AdminProduct,
+      },
+    ]
     }
   ]
 })
 
-
+router.beforeEach((to,from,next)=>{
+let isAdmin=to.matched[0].path=='/admin';
+if(isAdmin && !session.isAdmin()){
+  return;
+}
+next()
+})
+  
 
 new Vue({
   router,

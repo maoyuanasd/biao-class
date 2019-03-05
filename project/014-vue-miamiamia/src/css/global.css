@@ -75,3 +75,12 @@ img {
     opacity: .8;
     cursor: no-drop;
   }
+  form label {
+    display: block;
+    margin: .5em 0;
+  }
+  .error{
+    color: #e10;
+    padding: .5em;
+  }
+  

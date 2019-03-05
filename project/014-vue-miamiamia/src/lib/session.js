@@ -22,7 +22,7 @@ function logout(redirect = '/#/login') {
     location.href = redirect;
 }
 function isAdmin(){
-    return user().IS_ADMIN;
+    return user() && user().IS_ADMIN;
 }
 function user() {
     return store.get('user');
