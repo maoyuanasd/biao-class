@@ -63,7 +63,7 @@ const router = new Router({
           component: Cart
         },
         {
-          path: 'order',
+          path: 'order/:id?',
           component: Order
         },
         {

@@ -36,18 +36,18 @@
           <dl class="pair" v-for="(option,key) in row.prop">
             <dt>{{key}}</dt>
             <dd>
-              <div class="pill-option selected" v-for="it in option">{{it}}</div>
+              <div @click="setProp(key,it)" :class="'pill-option '+(it==form.prop[key]? 'selected':'')" v-for="it in option">{{it}}</div>
             </dd>
           </dl>
           <dl class="pair">
             <dt>数量</dt>
             <dd>
-              <el-input-number size="mini" :min="1" :max="10" label="描述文字"></el-input-number>
+              <el-input-number v-model="form.count" size="mini" :min="1" :max="999" label="描述文字"></el-input-number>
             </dd>
           </dl>
           <div class="text-center">
-            <el-button size="small" type="danger">立即购买</el-button>
-            <el-button size="small" type="primary">加入购物车</el-button>
+            <el-button :disabled="!allPropsChecked()" @click="createOrder" size="small" type="danger">立即购买</el-button>
+            <el-button :disabled="!allPropsChecked()" size="small" type="primary">加入购物车</el-button>
           </div>
           <dl class="pair">
             <dt>服务承诺</dt>
@@ -130,12 +130,17 @@
 <script>
 import RegularNav from "../component/RegularNav.vue";
 import api from '../lib/api.js'
-import {fileUrl} from '../lib/helper.js';
+import {fileUrl,orderSum} from '../lib/helper.js';
+import session from '../lib/session.js';
 export default {
   components: { RegularNav },
   data() {
     return {
       row:{},
+      form:{
+        count:1,
+        prop:{},
+      },
       fileUrl
     }
   },
@@ -156,7 +161,32 @@ export default {
        arr=p[key].split('|');
        p[key]=arr;
       }
-      console.log(p)
+    },
+    createOrder(){
+      let p=this.row;
+      let f=this.form;
+      f.product_id=p.id;
+      f.product_snapshot=p;
+      let order={detail:[f]};
+      order.user_id=session.user().id;
+      order.sum=orderSum(order.detail);
+      api('order/create',order).then(r=>{
+        this.$router.push(`/my/order/${r.data.id}`)
+      })
+
+    },
+    setProp(key,value){
+      let p=this.form.prop;
+      this.$set(p,key,value);
+    },
+    allPropsChecked(){
+      let valid=true;
+     for(let key in this.row.prop){
+       if(!this.form.prop[key]){
+         valid=false;
+       }
+     }
+      return valid;
     }
   },
 };

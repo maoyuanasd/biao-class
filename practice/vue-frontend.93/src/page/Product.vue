@@ -5,8 +5,8 @@
       <el-row style="margin-top: .5em;" :gutter="10" class="overview">
         <el-col class="preview" :span="10">
           <el-carousel indicator-position="outside">
-         <el-carousel-item v-for="it in row.main_img" :key="it.id">
-             <img :src="fileUrl(it)" alt="">
+            <el-carousel-item v-for="it in row.main_img" :key="it.id">
+              <img :src="fileUrl(it)" alt>
             </el-carousel-item>
           </el-carousel>
         </el-col>
@@ -23,31 +23,34 @@
             </dl>
           </div>
           <el-row>
-            <el-col :span="8">月销量
+            <el-col :span="8">
+              月销量
               <span class="hot">9999</span>
             </el-col>
-            <el-col :span="8">累计评价
+            <el-col :span="8">
+              累计评价
               <span class="hot">9999</span>
             </el-col>
-            <el-col :span="8">库存
+            <el-col :span="8">
+              库存
               <span class="hot">{{row.total}}</span>
             </el-col>
           </el-row>
-          <dl class="pair"  v-for="(option,key) in row.prop">
-            <dt >{{key}}</dt>
+          <dl class="pair" v-for="(option,key) in row.prop">
+            <dt>{{key}}</dt>
             <dd>
-              <div v-for="it in option" class="pill-option">{{it}}</div>
+              <div @click="setProp(key,it)" v-for="it in option" :class="(it==form.prop[key]? 'selected ':'')+'pill-option'">{{it}}</div>
             </dd>
           </dl>
           <dl class="pair">
             <dt>数量</dt>
             <dd>
-              <el-input-number size="mini" :min="1" :max="10" label="描述文字"></el-input-number>
+              <el-input-number v-model="form.count"  size="mini" :min="1" :max="10" label="描述文字"></el-input-number>
             </dd>
           </dl>
           <div class="text-center">
-            <el-button size="small" type="danger">立即购买</el-button>
-            <el-button size="small" type="primary">加入购物车</el-button>
+            <el-button @click="createOrder" size="small" type="danger" :disabled="!allPropsChecked()">立即购买</el-button>
+            <el-button size="small" :disabled="!allPropsChecked()" type="primary">加入购物车</el-button>
           </div>
           <dl class="pair">
             <dt>服务承诺</dt>
@@ -114,12 +117,12 @@
             <div>Q/YPXY 0002S</div>
           </el-col>
         </el-row>
-        </div>
-        <div class="content">
+      </div>
+      <div class="content">
         <div v-for="it in row.detail">
           <div v-if="it.type=='text'">{{it.value}}</div>
           <div v-else>
-            <img :src="fileUrl(it.value)" alt="">
+            <img :src="fileUrl(it.value)" alt>
           </div>
         </div>
       </div>
@@ -129,41 +132,72 @@
 
 <script>
 import RegularNav from "../component/RegularNav.vue";
-import api from '../lib/api.js';
-import {fileUrl} from '../lib/helper.js'
+import api from "../lib/api.js";
+import session from '../lib/session.js';
+import { fileUrl,orderSum } from "../lib/helper.js";
+
 
 export default {
   components: { RegularNav },
   data() {
     return {
-      row:{
-        id:null
+      form:{
+        count:1,
+        prop:{},
+        
       },
-    fileUrl
-
-    }
+      row: {
+        id: null
+      },
+      fileUrl
+    };
   },
   mounted() {
-          this.row.id = this.$route.params.id;
-
+    this.row.id = this.$route.params.id;
     this.find();
   },
   methods: {
-    find(){
-      api('product/find',this.row).then(r=>{
-        this.row=r.data;
-        this.normalize ();
-      })
+    find() {
+      api("product/find", this.row).then(r => {
+        this.row = r.data;
+        this.normalize();
+      });
     },
-    normalize (){
-      let arr=[];
-      let p=this.row.prop
-      for(let key in p){
-          arr=p[key].split('|');
-          p[key]=arr;
+    normalize() {
+      let arr = [];
+      let p = this.row.prop;
+      for (let key in p) {
+        arr = p[key].split("|");
+        p[key] = arr;
       }
+    },
+    createOrder(){
+     let f=this.form;
+     let p=this.row;
+     f.product_id=p.id;
+     f.product_snapshot=p;
+     
+     let order={detail:[f]};
+     order.user_id=session.user().id;
+     order.sum=orderSum(order.detail);
+    api('order/create',order).then(r=>{
+      this.$router.push(`/my/order/${r.data.id}`)
+    })
+    },
+    setProp(key,value){
+      // this.form.prop[key]=value
+      this.$set(this.form.prop,key,value);
+    },
+    allPropsChecked (){
+      let p=this.row.prop;
+      let valid=true
+      for(let key in p){
+        if(!this.form.prop[key])
+        valid=false;
+      }
+      return valid;
     }
-  },
+  }
 };
 </script>
 
