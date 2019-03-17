@@ -4,6 +4,7 @@
     <el-card class="detail" v-if="$route.params.id">
       <div slot="header" class="clearfix">
         <span>订单详情</span>
+     <router-link style="float: right;" to="/my/order">关闭</router-link>
       </div>
       <div class="card-content">
         <div class="pair">

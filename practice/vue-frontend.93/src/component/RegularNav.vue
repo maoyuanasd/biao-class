@@ -10,8 +10,8 @@
           </router-link>
         </el-col>
         <el-col class="text-right" :span="12">
-          <form class="search">
-            <el-input suffix-icon="el-icon-search"></el-input>
+          <form class="search" @submit.prevent="toSearch">
+            <el-input v-model="formSearch.keyword" suffix-icon="el-icon-search"></el-input>
           </form>
         </el-col>
         <el-col :span="6">
@@ -27,6 +27,20 @@
 <script>
 
 export default {
+  
+data() {
+  return {
+    formSearch:{},
+  }
+},
+mounted() {
+  
+},
+methods: {
+  toSearch(){
+    this.$router.push({path:'/search',query:this.formSearch});
+  }
+},
 
 }
 </script>

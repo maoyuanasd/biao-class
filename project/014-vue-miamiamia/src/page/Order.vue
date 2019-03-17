@@ -1,9 +1,10 @@
 <template>
   <div>
     <h1>我的订单</h1>
-    <el-card class="detail">
+    <el-card v-if="$route.params.id" class="detail">
       <div slot="header">
         <span>订单详情</span>
+        <router-link style="float: right;" to="/my/order">取消</router-link>
       </div>
       <div class="card-content">
         <div class="pair">

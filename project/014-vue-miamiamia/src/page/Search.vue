@@ -1,23 +1,31 @@
 <template>
   <div>
-    <RegularNav/>
+    <div class="container">
+      <el-row :gutter="10">
+        <el-col :span="6">
+          <router-link to="/">
+            <div class="logo">
+              <img src="../img/logo@2x.png" alt="Logo">
+            </div>
+          </router-link>
+        </el-col>
+        <el-col class="text-right" :span="12">
+          <form class="search" @submit.prevent="reSearch">
+            <el-input v-model="q.keyword" suffix-icon="el-icon-search"></el-input>
+          </form>
+        </el-col>
+        <el-col :span="6">
+          <div class="logo"></div>
+        </el-col>
+      </el-row>
+    </div>
     <div class="container">
       <div class="filter">
-        <div class="table">
-          <el-row>
-            <el-col :span="3" class="type">品牌</el-col>
-            <el-col :span="21">
-              <div class="option">三只松鼠</div>
-              <div class="option">百草味</div>
-              <div class="option">良品铺子</div>
-              <div class="option">奥利奥</div>
-              <div class="option">徐福记</div>
-              <div class="option">乐事</div>
-              <div class="option">周黑鸭</div>
-              <div class="option">稻香村</div>
-            </el-col>
-          </el-row>
-          <el-row>
+        <div class="table" >
+          <div v-for="(it,k) in propItem" v-if="it.filterList">
+          <FilterProp :initId="filterRestore[k]" @change="setProp($event,k)" @clear="removeProp($event,k)" :data="it.filterList" :propName="it.name"/>
+          </div>
+          <!-- <el-row>
             <el-col :span="3" class="type">分类</el-col>
             <el-col :span="21">
               <div class="option">糕点/点心</div>
@@ -29,46 +37,58 @@
               <div class="option">糖果</div>
               <div class="option">海味即食</div>
             </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="3" class="type">包装方式</el-col>
-            <el-col :span="21">
-              <div class="option">包装</div>
-              <div class="option">散装</div>
-            </el-col>
-          </el-row>
+          </el-row> -->
         </div>
         <div class="bar">
           <div class="group">
             <el-button-group>
-              <el-button size="mini">综合</el-button>
-              <el-button size="mini">新品</el-button>
-              <el-button size="mini">价格</el-button>
-              <el-button size="mini">销量</el-button>
+              <el-button @click="setSortBy('id')" :type="q.sortBy=='id'? 'primary':''" size="mini">新品
+               <span v-if="q.sortBy=='id'">
+                <i  v-if="q.sortByUp" class="el-icon-caret-top"></i>
+                <i v-else class="el-icon-caret-bottom"></i>
+                </span>
+              </el-button>
+              <el-button @click="setSortBy('price')" :type="q.sortBy=='price'? 'primary':''" size="mini">价格
+                <span v-if="q.sortBy=='price'">
+                <i  v-if="q.sortByUp" class="el-icon-caret-top"></i>
+                <i v-else class="el-icon-caret-bottom"></i>
+                </span>
+              </el-button>
+              <el-button @click="setSortBy('sales')" :type="q.sortBy=='sales'? 'primary':''" size="mini">销量
+                <span v-if="q.sortBy=='sales'">
+                <i  v-if="q.sortByUp" class="el-icon-caret-top"></i>
+                <i v-else class="el-icon-caret-bottom"></i>
+                </span>
+              </el-button>
             </el-button-group>
           </div>
           <div class="group">
-                <el-col :span="12">
-              <el-input
-                      size="mini"
-                      placeholder="最底价格"
-              >
-              </el-input>
+            <el-col :span="12">
+              <el-input @input="reload" v-model="q.minPrice" size="mini" placeholder="最低价格"></el-input>
             </el-col>
             <el-col :span="12">
-            <el-input
-                    size="mini"
-                    placeholder="最高价格"
-            >
-            </el-input>
+              <el-input @input="reload" size="mini" v-model="q.maxPrice" placeholder="最高价格"></el-input>
             </el-col>
           </div>
-            <div class="group">
-            <el-checkbox-group size="mini">
-              <el-checkbox label="包邮"></el-checkbox>
-              <el-checkbox label="折扣"></el-checkbox>
-              <el-checkbox label="货到付款"></el-checkbox>
-            </el-checkbox-group>
+          <div class="group">
+            <div size="mini">
+              <label>
+                <input
+                  @click="toggleBool('freeShipping')"
+                  :checked="q.freeShipping"
+                  type="checkbox"
+                >
+                包邮
+              </label>
+              <label>
+                <input @click="toggleBool('hasDiscount')" :checked="q.hasDiscount" type="checkbox">
+                折扣
+              </label>
+              <label>
+                <input @click="toggleBool('cod')" :checked="q.cod" type="checkbox">
+                货到付款
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -76,165 +96,153 @@
     <div class="container">
       <div class="result">
         <el-row :gutter="5" class="card-list vertical-gutter">
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card>
-              <img src="http://dummyimage.com/500x500" class="image">
-              <div style="padding: 14px;">
-                <span>好吃的汉堡</span>
-                <div class="bottom clearfix">
-                  <!--<time class="time">{{ currentDate }}</time>-->
-                  <el-button type="text" class="button">操作按钮</el-button>
-                </div>
-              </div>
-            </el-card>
+          <el-col :span="6" v-for="it in productList">
+            <ProductCard :data="it"/>
           </el-col>
         </el-row>
         <el-pagination
-                class="text-center"
-                layout="prev, pager, next"
-                :total="1000">
-        </el-pagination>
+          v-if="total!=0"
+          class="text-center"
+          layout="prev, pager, next"
+          :total="total"
+          @current-change="flip"
+          :current-page="parseInt(q.page)"
+          :page-size="parseInt(q.limit)"
+        ></el-pagination>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import RegularNav from "../component/RegularNav";
+import api from '../lib/api.js'
+import ProductCard from '../component/ProductCard'
+import FilterProp from '../component/search/FilterProp'
 export default {
-  components: { RegularNav }
+  components: { ProductCard,FilterProp },
+  data() {
+    return {
+      q: {
+        page: 1,
+        limit: 12,
+      },
+      productList: [],
+      total: 0,
+      propItem:{
+        brand:{
+          name:'品牌'
+        },
+        cat:{
+          name:'分类'
+        }
+      },
+     filterRestore:{}
+    }
+  },
+ mounted() {
+    this.q = { ...this.q, ...this.$route.query };
+    this.search();
+        this.forEachPropItem((key)=>{
+          this.filterRestore[key]=this.q[key];
+          this.read(key);
+        });
+  },
+  
+  methods: {
+    forEachPropItem(fn){
+      for(let key in this.propItem){
+        fn(key)
+      }
+    },
+    setProp(it,type){
+      this.q[type]=it.id;
+      this.q.page=1;
+      this.reload();
+    },
+    removeProp(it,type){
+      delete this.q[type];
+      this.reload();
+    },
+    read(type){
+    api(`${type}/read`).then(r=>{
+      
+       this.$set(this.propItem[type],'filterList',r.data)
+      //  this.propItem[type].filterList=r.data;
+
+      })
+    },
+    flip(page) {
+      this.q.page = page;
+      this.reload();
+    },
+    setSortBy(type) {
+      if (this.q.sortBy == type){
+           if(this.q.sortByUp)
+           delete this.q.sortByUp;
+           else
+           this.q.sortByUp=1;
+      }
+        // delete this.q[type];
+     
+        this.q.sortBy = type;
+      this.reload();
+    },
+    toggleBool(type) {
+      if (this.q[type])
+        delete this.q[type]
+      else
+        this.q[type] = 1;
+      this.reload();
+    },
+    reload() {
+      this.$router.push({ path: '/search', query: { ...this.q } })
+    },
+    reSearch() {
+      this.$router.push({ path: '/search', query: { keyword: this.q.keyword, page: 1, limit: 12 } })
+    },
+    search() {
+      let q = this.q;
+      let keywordQuery = `"title" contains "${q.keyword}"`;
+      let minPriceQuery = q.minPrice ? `and "price">= ${q.minPrice}` : '';
+      let maxPriceQuery = q.maxPrice ? `and "price"<= ${q.maxPrice}` : '';
+      let freeShippingQuery = q.freeShipping ? `and "shipping_fee" = 0` : '';
+      let hasDiscountQuery = q.hasDiscount ? `and "discount" > 0` : '';
+      let codQuery = q.cod ? `and "cod" = 1` : '';
+      let propFilterQuery='';
+      this.forEachPropItem((key)=>{
+         if (q[key])
+          propFilterQuery += ` and "${key}_id" = "${q[key]}" `;
+      })
+      let query = `where(
+        ${keywordQuery}
+        ${minPriceQuery}
+        ${maxPriceQuery}
+        ${freeShippingQuery}
+        ${hasDiscountQuery}
+        ${codQuery}
+        ${propFilterQuery}
+    )`;
+      let param = {
+        query,
+        sort_by: [(q.sortBy || 'id'),q.sortByUp? 'up':'down'],
+        page: q.page,
+        limit: q.limit
+      };
+      api('product/read', param).then(r => {
+        this.productList = r.data || [];
+        this.total = r.total;
+      })
+    }
+  },
+  watch: {
+    $route: {
+      deep: true,
+      handler(n, o) {
+        this.q = { ...this.q, ...n.query }
+        this.search();
+      }
+    }
+  },
 };
 </script>
 

@@ -1,172 +1,69 @@
 <template>
   <div>
-      <RegularNav/>
+    <RegularNav/>
     <div class="container carousel">
       <el-carousel :interval="4000" type="card" height="200px">
-        <el-carousel-item v-for="item in 6" :key="item">
-          <h3>{{ item }}</h3>
+        <el-carousel-item v-for="it in list_carousel" :key="it.id">
+          <router-link :to="`/product/${it.id}`">
+          <img
+            :src="it.carousel ?  fileUrl(it.carousel) : 'https://mock-cdn.biaoyansu.com/MOCK-FILE-5c81fe7b024292.83724495.jpeg'"
+          >
+          </router-link>
         </el-carousel-item>
       </el-carousel>
     </div>
     <div class="container">
       <h2>新品</h2>
       <el-row :gutter="5" class="vertical-gutter">
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
+        <el-col :span="6" v-for="it in list_new">
+          <ProductCard :data="it"/>
         </el-col>
       </el-row>
       <h2>促销</h2>
       <el-row :gutter="5" class="vertical-gutter">
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://dummyimage.com/500x500" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <!-- <time class="time">{{ currentDate }}</time> -->
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      
+        <el-row :gutter="5" class="vertical-gutter">
+          <el-col :span="6" v-for="it in  list_hot">
+            <ProductCard :data="it"/>
+          </el-col>
+        </el-row>
       </el-row>
     </div>
   </div>
 </template>
 <script>
 import RegularNav from '../component/RegularNav'
+import api from '../lib/api.js'
+import ProductCard from '../component/ProductCard'
+import { fileUrl } from '../lib/helper.js'
 export default {
-    components:{RegularNav}
+  components: { RegularNav, ProductCard },
+  data() {
+    return {
+      list_new: [],
+      list_hot: [],
+      list_carousel: [],
+      fileUrl
+    }
+  },
+  mounted() {
+    this.read('new');
+    this.read('hot');
+    this.read('carousel');
+  },
+  methods: {
+    read(type) {
+      let param = {
+        where: {
+          and: {
+            ['is_' + type]: true
+          }
+        }
+      }
+      api('product/read', param).then(r => {
+        this['list_' + type] = r.data;
+      })
+    }
+  },
 };
 </script>
 

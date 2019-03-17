@@ -1,4 +1,5 @@
 import store from './store';
+
 function loggedIn() {
     return localStorage.getItem('sessionId');
 }
@@ -6,11 +7,11 @@ function loggedIn() {
 function login(sessionId, user, redirect) {
     localStorage.setItem('sessionId', sessionId);
     store.set('user', user);
-    if (!redirect){
+    if (!redirect) {
         location.reload();
         return;
     }
-    
+
     location.reload();
     location.href = redirect;
 }
@@ -21,9 +22,11 @@ function logout(redirect = '/#/login') {
     location.reload();
     location.href = redirect;
 }
-function isAdmin(){
+
+function isAdmin() {
     return user() && user().IS_ADMIN;
 }
+
 function user() {
     return store.get('user');
 }

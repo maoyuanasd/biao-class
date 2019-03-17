@@ -17,7 +17,7 @@ export default {
       },
       errors: {},
       readParam: {
-        limit: 2,
+        limit: 10,
         page: 1
       },
       fileUrl
@@ -52,6 +52,7 @@ export default {
     fill(row) {
       this.form = row;
       this.originalForm = { ...this.form };
+      scrollTo(0,0);
     },
     createOrUpdate() {
       let f = this.form;

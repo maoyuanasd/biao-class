@@ -6,6 +6,8 @@ import 'normalize.css/normalize.css';
 import Router from 'vue-router';
 import './css/global.css';
 import session from './lib/session';
+import api from './lib/api';
+window.api=api;
 
 import Home from './page/Home.vue'
 import Product from './page/Product.vue'
@@ -29,6 +31,11 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI);
 Vue.use(Router);
+Vue.filter('cut', function (value, max) {
+  if (!value) return '';
+  value = value.toString();
+  return value.slice(0, max) + '...';
+});
 
 const router = new Router({
   routes: [{

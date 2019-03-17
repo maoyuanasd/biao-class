@@ -25,7 +25,7 @@ function isAdmin(){
     return user() && user().IS_ADMIN;
 }
 function user() {
-    return store.get('user');
+    return store.get('user') || '';
 }
 export default {
     user,

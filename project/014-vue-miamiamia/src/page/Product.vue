@@ -5,9 +5,16 @@
       <el-row :gutter="10">
         <el-col :span="10">
           <el-carousel indicator-position="outside">
+            <div v-if="row.main_img">
             <el-carousel-item v-for="it in row.main_img" :key="it.id">
               <img :src="fileUrl(it)" alt="">
             </el-carousel-item>
+            </div>
+            <div v-else>
+            <el-carousel-item>
+              <img src="https://mock-cdn.biaoyansu.com/MOCK-FILE-5c81fe7b024292.83724495.jpeg" alt="">
+            </el-carousel-item>
+            </div>
           </el-carousel>
         </el-col>
         <el-col class="text" :span="14">
@@ -24,7 +31,7 @@
           </div>
           <el-row>
             <el-col :span="8">月销量
-              <span class="hot">9999</span>
+              <span class="hot">{{row.sales}}</span>
             </el-col>
             <el-col :span="8">累计评价
               <span class="hot">9999</span>
@@ -47,7 +54,7 @@
           </dl>
           <div class="text-center">
             <el-button :disabled="!allPropsChecked()" @click="createOrder" size="small" type="danger">立即购买</el-button>
-            <el-button :disabled="!allPropsChecked()" size="small" type="primary">加入购物车</el-button>
+            <el-button :disabled="!allPropsChecked()" @click="cartService.change(row.id,form.count,row,form.prop,)" size="small" type="primary">加入购物车</el-button>
           </div>
           <dl class="pair">
             <dt>服务承诺</dt>
@@ -132,6 +139,8 @@ import RegularNav from "../component/RegularNav.vue";
 import api from '../lib/api.js'
 import {fileUrl,orderSum} from '../lib/helper.js';
 import session from '../lib/session.js';
+import cartService from '../service/cart.js';
+import {createOrder} from '../lib/order.js'
 export default {
   components: { RegularNav },
   data() {
@@ -141,7 +150,8 @@ export default {
         count:1,
         prop:{},
       },
-      fileUrl
+      fileUrl,
+      cartService
     }
   },
   mounted() {
@@ -167,13 +177,16 @@ export default {
       let f=this.form;
       f.product_id=p.id;
       f.product_snapshot=p;
-      let order={detail:[f]};
-      order.user_id=session.user().id;
-      order.sum=orderSum(order.detail);
-      api('order/create',order).then(r=>{
+      // let order={detail:[f]};
+      // order.user_id=session.user().id;
+      // order.sum=orderSum(order.detail);
+      // api('order/create',order).then(r=>{
+      //   this.$router.push(`/my/order/${r.data.id}`)
+      // })
+     createOrder([f]).then(r=>{
         this.$router.push(`/my/order/${r.data.id}`)
-      })
 
+     })
     },
     setProp(key,value){
       let p=this.form.prop;

@@ -5,9 +5,16 @@
       <el-row style="margin-top: .5em;" :gutter="10" class="overview">
         <el-col class="preview" :span="10">
           <el-carousel indicator-position="outside">
+            <div v-if="row.main_img">
             <el-carousel-item v-for="it in row.main_img" :key="it.id">
-              <img :src="fileUrl(it)" alt>
+              <img :src="fileUrl(it)">
             </el-carousel-item>
+            </div>
+            <div v-else>
+            <el-carousel-item>
+              <img src="https://mock-cdn.biaoyansu.com/MOCK-FILE-5c81fe7b024292.83724495.jpeg" alt>
+            </el-carousel-item>
+            </div>
           </el-carousel>
         </el-col>
         <el-col class="text" :span="14">
@@ -25,7 +32,7 @@
           <el-row>
             <el-col :span="8">
               月销量
-              <span class="hot">9999</span>
+              <span class="hot">{{row.sales}}</span>
             </el-col>
             <el-col :span="8">
               累计评价
@@ -50,7 +57,7 @@
           </dl>
           <div class="text-center">
             <el-button @click="createOrder" size="small" type="danger" :disabled="!allPropsChecked()">立即购买</el-button>
-            <el-button size="small" :disabled="!allPropsChecked()" type="primary">加入购物车</el-button>
+            <el-button size="small" @click="cartService.change(row.id,form.count,row,form.prop)" :disabled="!allPropsChecked()" type="primary">加入购物车</el-button>
           </div>
           <dl class="pair">
             <dt>服务承诺</dt>
@@ -134,7 +141,9 @@
 import RegularNav from "../component/RegularNav.vue";
 import api from "../lib/api.js";
 import session from '../lib/session.js';
-import { fileUrl,orderSum } from "../lib/helper.js";
+import { fileUrl } from "../lib/helper.js";
+import cartService from '../service/cart.js'
+import {createOrder} from '../lib/order.js'
 
 
 export default {
@@ -149,7 +158,8 @@ export default {
       row: {
         id: null
       },
-      fileUrl
+      fileUrl,
+      cartService
     };
   },
   mounted() {
@@ -176,13 +186,17 @@ export default {
      let p=this.row;
      f.product_id=p.id;
      f.product_snapshot=p;
-     
-     let order={detail:[f]};
-     order.user_id=session.user().id;
-     order.sum=orderSum(order.detail);
-    api('order/create',order).then(r=>{
-      this.$router.push(`/my/order/${r.data.id}`)
-    })
+  if(session.isAdmin()){
+    alert('管理员暂不可购买商品')
+    return;
+  }
+     createOrder([f], session.user().id).then(r=>{
+       console.log(r)
+         this.$router.push(`/my/order/${r.data.id}`);
+     });
+    // api('order/create',order).then(r=>{
+    //   this.$router.push(`/my/order/${r.data.id}`)
+    // })
     },
     setProp(key,value){
       // this.form.prop[key]=value

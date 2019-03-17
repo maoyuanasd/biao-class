@@ -27,6 +27,11 @@ import AdminCat from './page/admin/Cat';
 import AdminProduct from './page/admin/Product';
 Vue.config.productionTip = false
 
+Vue.filter('cut', function (value,max) {
+  if (!value) return ''
+  value = value.toString()
+  return value.slice(0, max) + '...';
+})
 Vue.use(ElementUI);
 Vue.use(Router);
 
