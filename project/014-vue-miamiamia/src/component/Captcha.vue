@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <button :class="className" @click="sendCode" :disabled="count!=0">
+    <div :class="className">
+        <button  @click="sendCode" :disabled="count!=0">
             <span v-if="count==0">发送验证码</span>
             <span v-else>{{count}}s</span>
         </button>
@@ -19,7 +19,6 @@ data() {
 },
 methods: {
     sendCode(){
-        console.log(this.receiver)
           this.count = this.countDown || 60;
       this.timer = setInterval(() => {
         this.count--;
@@ -36,5 +35,7 @@ methods: {
 </script>
 
 <style>
-
+/* dd{
+    width: 600px;
+} */
 </style>

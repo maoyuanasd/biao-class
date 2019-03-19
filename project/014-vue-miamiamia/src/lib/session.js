@@ -18,6 +18,7 @@ function login(sessionId, user, redirect) {
 function logout(redirect = '/#/login') {
     localStorage.removeItem('sessionId');
     localStorage.removeItem('user');
+    localStorage.removeItem('cart');
     location.reload();
     location.href = redirect;
 }

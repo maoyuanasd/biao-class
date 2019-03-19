@@ -9,6 +9,8 @@ let localCart = {};
 const callbackPool = [];
 const output = {
     change(product_id, count, product_snapshot, prop, sign, user_id) {
+        if(session.isAdmin())
+        return alert('管理员暂不可使用加入购物车功能')
         if (!user_id) {
             user_id = session.user().id;
         }
@@ -70,6 +72,8 @@ const output = {
         //   api('cart/create',localCart);
     },
     restoreCloud() {
+         if(session.isAdmin())
+        return;
         this.getCloud({
             key_by: 'product_id'
         }).then(r => {
@@ -79,6 +83,7 @@ const output = {
         })
     },
     getCloud(param = {}) {
+       
         return api('cart/read', { ...param,
             where: {
                 and: {
@@ -105,6 +110,7 @@ const output = {
     },
     remove(product_id) {
         delete localCart[product_id];
+        this.sync();
         this.callPool();
 
     },

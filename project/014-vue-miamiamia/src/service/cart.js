@@ -56,6 +56,8 @@ const output={
         return api('cart/read',{...param,where:{and:{user_id:session.user().id}}});
     },
     restoreCloud(){
+        if(session.isAdmin())
+        return;
         this.getCloud({key_by:'product_id'}).then(r=>{
             localCart=r.data ||{};
             this.syncLocal();
@@ -81,6 +83,7 @@ const output={
     },
     remove(product_id){
        delete localCart[product_id];
+       this.sync();
        this.callPool();
     },
     clear(){

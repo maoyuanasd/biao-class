@@ -16,7 +16,7 @@ export default {
       list: [],
       timer: null,
       readParam: {
-        limit: 2,
+        limit: 10,
         page: 1
       },
       total: 0,

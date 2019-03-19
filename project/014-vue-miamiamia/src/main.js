@@ -25,6 +25,7 @@ import AdminUser from './page/admin/User';
 import AdminBrand from './page/admin/Brand';
 import AdminCat from './page/admin/Cat';
 import AdminProduct from './page/admin/Product';
+import AdminOrder from './page/admin/Order';
 Vue.config.productionTip = false
 
 Vue.filter('cut', function (value,max) {
@@ -97,6 +98,10 @@ const router = new Router({
         path: 'product',
         component: AdminProduct,
       },
+      {
+        path:'order',
+        component:AdminOrder
+      }
     ]
     }
   ]

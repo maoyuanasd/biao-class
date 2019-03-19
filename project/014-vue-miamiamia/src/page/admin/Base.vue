@@ -20,6 +20,9 @@
           <el-menu-item index="/admin/product">
             <span slot="title">商品管理</span>
           </el-menu-item>
+          <el-menu-item index="/admin/order">
+            <span slot="title">订单管理</span>
+          </el-menu-item>
           <el-menu-item index="/admin/setting">
             <span slot="title">设置</span>
           </el-menu-item>

@@ -17,6 +17,9 @@
           <el-menu-item index="/admin/cat">
             <span slot="title">分类管理</span>
           </el-menu-item>
+          <el-menu-item index="/admin/order">
+            <span slot="title">订单管理</span>
+          </el-menu-item>
           <el-menu-item index="/admin/product">
             <span slot="title">商品管理</span>
           </el-menu-item>

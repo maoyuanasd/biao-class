@@ -8,6 +8,24 @@
       <el-form-item label="密码">
         <el-input v-model="form.password"></el-input>
       </el-form-item>
+       <div class="well">
+          <p>
+            <strong>管理员账号</strong>
+          </p>
+          <div class="pair">
+            <div>账号</div>
+            <div>admin</div>
+          </div>
+          <div class="pair">
+            <div>密码</div>
+            <div>123456</div>
+          </div>
+
+          <p>
+            <strong>常规账号</strong>
+          </p>
+          <router-link to="/signup" style="color:#409EFF">去注册</router-link>
+        </div>
       <div class="errors" v-for="e in errors">{{e}}</div>
       <el-button type="primary" style="width:100%" @click="login">登录</el-button>
       <el-button type="text">
