@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="col"><input [(ngModel)]="data.completed" #checkbox (change)="completedChange.emit(checkbox.checked)" type="checkbox"></div>
+  <div class="col">{{data.title}}</div>
+  <div class="col">
+    <button (click)="triggerUpdate()">更新</button>
+    <button (click)="triggerRemove()">删除</button>
+  </div>
+</div>

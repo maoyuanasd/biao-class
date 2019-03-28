@@ -1,0 +1,13 @@
+<div class="container-sm">
+  <h1>表事情</h1>
+  <form (ngSubmit)="createOrUpdate()">
+    <input type="text" name="title" [(ngModel)]="form.title">
+  </form>
+  <div>
+    <app-task (completedChange)="setCompleted(it.id,$event)"
+     *ngFor="let it of task.list" [data]="it"
+     (remove)="task.remove($event)"
+     (fill)="fill($event)"
+     ></app-task>
+  </div>
+</div>

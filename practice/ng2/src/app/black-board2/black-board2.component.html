@@ -1,0 +1,21 @@
+<div [style.width.px]="width">
+  <button (click)="visible=!visible">{{visible ? '收起':'展开'}}</button>
+  <div *ngIf="editorVisible">
+    <textarea [(ngModel)]="state.content" (input)="sync()"></textarea>
+    <button (click)="editorVisible=flase">完成修改</button>
+    <button (click)="doneEditing()">完成修改并提示</button>
+  </div>
+  <div class="board" [hidden]="!visible">
+    <h2>公告
+      <button (click)="editToggle()">编辑</button>
+    </h2>
+    <div>
+      {{expand? state.content : (state.content | slice:0:expandBoundary)}}
+      <button *ngIf="state.content.length>expandBoundary" (click)="expand=!expand">{{expand? '收起':'展开'}}</button>
+      <div class="toggle-bar">
+
+        <button (click)="readToggle()">{{state.read ? '设为未读':'已读'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

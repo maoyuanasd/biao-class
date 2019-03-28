@@ -1,0 +1,8 @@
+<div>
+  你的关键词是<strong [title]="keyword">{{keyword}} </strong>
+  <input type="text" [(ngModel)]="keyword">
+  <button (click)="search()">搜</button>
+</div>
+<div>
+  <app-result></app-result>
+</div>
