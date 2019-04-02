@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       ui:{
-        formVisible:true
+        formVisible:false
       },
       form: {},
       originalform: null,
@@ -92,6 +92,7 @@ export default {
       api(`${this.model}/${action}`, f).then(() => {
         this.resetForm();
         this.read();
+        this.ui.formVisible=false;
       });
     },
     resetForm() {
@@ -108,6 +109,9 @@ export default {
     fill(row) {
       this.form = row;
       this.originalform = row;
+      scrollTo(0,0);
+      this.ui.formVisible=true;
+
     },
     makeSelect(key){
        return it=>{

@@ -23,13 +23,22 @@
 
           <p>
             <strong>常规账号</strong>
+             <div class="pair">
+            <div>账号</div>
+            <div>13959743423</div>
+          </div>
+          <div class="pair">
+            <div>密码</div>
+            <div>a123456</div>
+            <div>或者你也可以试试自己注册个号码</div>
+          </div>
           </p>
-          <router-link to="/signup" style="color:#409EFF">去注册</router-link>
+          <router-link to="/signup" style="color:rgba(233, 38, 3, 0.8);">去注册</router-link>
         </div>
       <div class="errors" v-for="e in errors">{{e}}</div>
       <el-button type="primary" style="width:100%" @click="login">登录</el-button>
       <el-button type="text">
-        <router-link to="/recover">忘记密码？</router-link>
+        <router-link to="/recover" style="color:rgba(233, 38, 3, 0.8);">忘记密码？</router-link>
       </el-button>
     </el-form>
   </div>
@@ -69,6 +78,7 @@ export default {
           delete user.password;
           session.login(user.id,user,'/');
         }
+        
       })
     },
     validate() {

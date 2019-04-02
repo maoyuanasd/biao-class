@@ -1,4 +1,6 @@
 import store from './store';
+let url=document.scripts[0].baseURI;
+url=url.substring(0,url.indexOf('web'))
 function loggedIn() {
     return localStorage.getItem('sessionId');
 }
@@ -12,7 +14,7 @@ function login(sessionId, user, redirect) {
     }
     
     location.reload();
-    location.href = redirect;
+    location.href = url+'web/index.html#'+redirect;
 }
 
 function logout(redirect = '/#/login') {
@@ -20,7 +22,7 @@ function logout(redirect = '/#/login') {
     localStorage.removeItem('user');
     localStorage.removeItem('cart');
     location.reload();
-    location.href = redirect;
+    location.href = url+'web/index.html#'+redirect;
 }
 function isAdmin(){
     return user() && user().IS_ADMIN;

@@ -4,7 +4,7 @@
     <div class="container">
       <el-row :gutter="10">
         <el-col :span="10">
-          <el-carousel indicator-position="outside">
+          <el-carousel indicator-position="outside" height="420px">
             <div v-if="row.main_img">
             <el-carousel-item v-for="it in row.main_img" :key="it.id">
               <img :src="fileUrl(it)" alt="">
@@ -52,9 +52,9 @@
               <el-input-number v-model="form.count" size="mini" :min="1" :max="999" label="描述文字"></el-input-number>
             </dd>
           </dl>
-          <div class="text-center">
-            <el-button :disabled="!allPropsChecked()" @click="createOrder" size="small" type="danger">立即购买</el-button>
-            <el-button :disabled="!allPropsChecked()" @click="cartService.change(row.id,form.count,row,form.prop,)" size="small" type="primary">加入购物车</el-button>
+          <div >
+            <el-button :disabled="!allPropsChecked()" @click="createOrder" size="medium" type="danger">立即购买</el-button>
+            <el-button :disabled="!allPropsChecked()" @click="cartService.change(row.id,form.count,row,form.prop,)" size="medium" type="primary">加入购物车</el-button>
           </div>
           <dl class="pair">
             <dt>服务承诺</dt>
@@ -173,6 +173,14 @@ export default {
       }
     },
     createOrder(){
+      if(!session.loggedIn()){
+        this.$router.push( '/login')
+        return
+      }
+      if(session.isAdmin()){
+        alert('管理员暂不能购买商品')
+        return;
+      }
       let p=this.row;
       let f=this.form;
       f.product_id=p.id;

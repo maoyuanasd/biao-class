@@ -22,7 +22,6 @@
         <div class="pair">
           <div>订单状态</div>
           <div>{{form._paid? '已支付':'未支付'}}</div>
-          <p>测试用价格都是0.01元</p>
         </div>
         <div v-if="!form._paid">
           <div class="title">支付方式</div>
@@ -37,6 +36,12 @@
             <a :href="form.$payment.url">点击跳转支付宝扫码支付</a>
           </div>
           </div>
+        </div>
+        <div class="well" style="margin:1em 0">
+            测试用,所以价格写死了,都是0.01元
+            </br>
+            </br>
+            订单详情页的商品快照暂时未完成
         </div>
       </div>
     </el-card>

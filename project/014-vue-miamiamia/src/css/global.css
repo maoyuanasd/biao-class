@@ -1,9 +1,11 @@
 * {
     box-sizing: border-box;
 }
-
+/* body{
+  background-image: url(../img/cloudy-day.png);
+} */
 :root {
-    font-size: sans-serif;
+    font-family: sans-serif;
     color: #333;
     font-size: 15px;
 }
@@ -20,6 +22,7 @@ img {
 .container{
     max-width: 1080px;
     margin: 0 auto;
+    /* background-color: aliceblue */
 }
 .form-container{
   max-width: 600px;
@@ -76,7 +79,7 @@ img {
     border: 0;
     padding: 0;
   }
-  
+  [disabled],
   [disabled] *{
     opacity: .8;
     cursor: no-drop;
@@ -92,4 +95,24 @@ img {
   form .title{
     display: block;
 }
-  
+.el-button--primary:focus,
+.el-button--primary{
+ background-color: rgba(233, 38, 3, 0.8);
+ border:  rgba(233, 38, 3, 0.8);
+}
+.el-button--primary:hover {
+  background: rgba(233, 38, 3, 0.5);
+  border-color: rgba(77, 53, 49, 0.5);
+  color: #fff;
+}
+.el-input__inner:focus{
+  border-color: rgba(233, 38, 3, 0.8);
+}
+.el-tabs__item:hover,
+.el-tabs__item.is-active {
+  color: rgba(233, 38, 3, 0.8);
+}
+.el-tabs__active-bar{
+  background: rgba(233, 38, 3, 0.5);
+
+}

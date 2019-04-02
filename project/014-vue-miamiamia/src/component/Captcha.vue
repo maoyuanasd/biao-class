@@ -1,10 +1,10 @@
 <template>
-    <div :class="className">
-        <button  @click="sendCode" :disabled="count!=0">
+    <!-- <div > -->
+        <button :class="className"  @click="sendCode" :disabled="count!=0">
             <span v-if="count==0">发送验证码</span>
             <span v-else>{{count}}s</span>
         </button>
-    </div>
+    <!-- </div> -->
 </template>
 
 <script>
@@ -19,6 +19,14 @@ data() {
 },
 methods: {
     sendCode(){
+        if(!this.receiver){
+            if(this.sendBy=='phone')
+            alert('请输入手机')
+            else
+            alert('请输入邮箱')
+            return
+        }
+
           this.count = this.countDown || 60;
       this.timer = setInterval(() => {
         this.count--;

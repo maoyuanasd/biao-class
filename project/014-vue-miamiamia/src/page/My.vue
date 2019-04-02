@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <el-row>
       <el-col :gutter="0" :span="4">
         <el-menu :router="true"
@@ -8,11 +8,11 @@
           @open="handleOpen"
           @close="handleClose"
         >
-          <el-menu-item index="/my/cart">
+          <!-- <el-menu-item index="/my/cart">
             <span slot="title">购物车</span>
-          </el-menu-item>
+          </el-menu-item> -->
           <el-menu-item index="/my/order">
-            <span slot="title">订单</span>
+            <span slot="title">订单管理</span>
           </el-menu-item>
           <el-menu-item index="/my/setting">
             <span slot="title">设置</span>

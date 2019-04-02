@@ -1,0 +1,138 @@
+<h3>招聘管理</h3>
+<div>
+  <form>
+    <div class="form-group">
+      <label>标题</label>
+      <input type="text" 
+      class="form-control" 
+      [class.is-invalid]="title_.invalid && title_.touched"
+      [(ngModel)]="form.title"
+      name="title"
+      required
+      minlength="3"
+      #title_=ngModel
+      > 
+      <div class="invalid-feedback">
+        <div *ngIf=title_.errors?.required>此处不能为空</div>
+        <div *ngIf=title_.errors?.minlength>此项最小长度为{{title_.errors.minlength.requiredLength}}位</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>公司</label>
+      <select type="text" 
+      class="form-control" 
+      [class.is-invalid]="company_id_.invalid && company_id_.touched"
+      [(ngModel)]="form.company_id"
+      name="company_id"
+      required
+      #company_id_=ngModel
+      >
+      <option value="1">腾讯</option>
+      <option value="2">阿里</option>
+      <option value="3">百度</option>
+     </select>
+      <div class="invalid-feedback">
+        <div *ngIf=company_id_.errors?.required>此处不能为空</div>
+      </div>
+    </div>
+    <div class="form-group">
+        <label>薪资</label>
+        <div class="form-row">
+          <div class="col-6 mb-3">
+            <label>下限</label>
+            <input type="text" 
+            class="form-control" 
+            [class.is-invalid]="salary_min.invalid && salary_min.touched"
+            [(ngModel)]="form.salary.min"
+            name="salary.min"
+            required
+            pattern="^[0-9]+$"
+            #salary_min=ngModel
+            (change)="yo(salary_min)"
+            > 
+            <div class="invalid-feedback">
+              <div *ngIf=salary_min.errors?.required>此处不能为空</div>
+              <div *ngIf=salary_min.errors?.pattern>应该填数字</div>
+            </div>
+          </div>
+          <div class="col-6 mb-3">
+            <label>上限</label>
+            <input type="text" 
+            class="form-control" 
+            [class.is-invalid]="salary_max.invalid && salary_max.touched"
+            [(ngModel)]="form.salary.max"
+            name="salary.max"
+            required
+            pattern="^[0-9]+$"
+            #salary_max=ngModel
+            (change)="yo(salary_max)"
+            > 
+            <div class="invalid-feedback">
+              <div *ngIf=salary_max.errors?.required>此处不能为空</div>
+              <div *ngIf=salary_max.errors?.pattern>应该填数字</div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+      <div class="form-group">
+          <label>全职</label>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio"
+              value="true"
+              [(ngModel)]="form.fulltime"
+              class="form-check-input"
+              name="exampleRadios"
+              >
+               是
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio"
+              value="false"
+              [(ngModel)]="form.fulltime"
+              class="form-check-input"
+              name="exampleRadios"
+              >
+               否
+            </label>
+          </div>
+         
+        </div>
+        <div class="form-group">
+            <label>职位亮点</label>
+            <textarea type="text" 
+            class="form-control" 
+            [class.is-invalid]="job_highlight_.invalid && job_highlight_.touched"
+            [(ngModel)]="form.job_highlight"
+            name="job_highlight"
+            required
+            minlength="3"
+            #job_highlight_=ngModel
+            > </textarea>
+            <div class="invalid-feedback">
+              <div *ngIf=job_highlight_.errors?.required>此处不能为空</div>
+              <div *ngIf=job_highlight_.errors?.minlength>此项最小长度为{{job_highlight_.errors.minlength.requiredLength}}位</div>
+            </div>
+          </div>
+  </form>
+</div>
+<div>
+  <table class="table table-hover">
+    <thead>
+        <th>标题</th>
+        <th>公司</th>
+        <th>薪资</th>
+        <th>全职</th>
+        <th>位置</th>
+        <th>经验</th>
+        <th>学历</th>
+        <th>创建时间</th>
+    </thead>
+    <tbody>
+      <tr></tr>
+    </tbody>
+  </table>
+</div>

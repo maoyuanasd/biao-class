@@ -323,7 +323,32 @@ export default {
 }
 </script>
 <style scoped>
+
 .code {
   display: inline-block;
+}
+button{
+  margin: 0 .2em;
+  background: #409EFF;
+  color:#fff;
+  border:0;
+  padding:.5em;
+  border-radius: 3px;
+  font-size: 80%;
+  background-color: rgba(233, 38, 3, 0.8);
+ border:  rgba(233, 38, 3, 0.8);
+  
+}
+button:hover{
+  background-color: rgba(233, 38, 3, 1);
+  color:#fff;
+
+}
+.pair{
+  padding: .8em;
+  font-size: 120%;
+}
+input{
+  font-size: 80%;
 }
 </style>

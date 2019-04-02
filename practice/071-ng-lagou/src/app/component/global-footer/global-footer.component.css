@@ -1,0 +1,8 @@
+:host {
+    display: block;
+    background: #eee;
+  }
+
+  :host .container > * {
+    padding: .5em 0;
+  }

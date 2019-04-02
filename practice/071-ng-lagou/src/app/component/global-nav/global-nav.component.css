@@ -1,0 +1,15 @@
+:host {
+    display: block;
+    background: #333;
+  }
+
+  a {
+    color: #ddd;
+    text-decoration: none;
+    display: inline-block;
+    padding: .2em .3em;
+  }
+
+  a:hover {
+    color: #fff;
+  }

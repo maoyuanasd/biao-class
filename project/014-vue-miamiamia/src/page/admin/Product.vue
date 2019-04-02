@@ -186,6 +186,7 @@
       <h2>列表</h2>
       <p>总数:{{total}}</p>
       <el-table :data="list" stripe style="width: 100%">
+        <el-table-column prop="id" label="编号" width="180"></el-table-column>
         <el-table-column prop="title" label="标题" width="180"></el-table-column>
         <el-table-column label="独有属性" width="180">
           <template slot-scope="scope">

@@ -2,7 +2,7 @@
   <div>
     <RegularNav/>
     <div class="container carousel">
-      <el-carousel :interval="4000" type="card" height="200px">
+      <el-carousel :interval="4000" type="card" height="250px">
         <el-carousel-item v-for="it in list_carousel" :key="it.id">
           <router-link :to="`/product/${it.id}`">
           <img
@@ -12,6 +12,7 @@
         </el-carousel-item>
       </el-carousel>
     </div>
+    <div >
     <div class="container">
       <h2>新品</h2>
       <el-row :gutter="5" class="vertical-gutter">
@@ -27,6 +28,7 @@
           </el-col>
         </el-row>
       </el-row>
+    </div>
     </div>
   </div>
 </template>

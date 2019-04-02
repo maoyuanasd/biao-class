@@ -10,7 +10,7 @@
         </el-tab-pane>
         <el-tab-pane label="邮箱注册" name="mail">
           <el-form-item label="邮箱">
-            <el-input v-model="form.mail"></el-input>
+            <el-input v-model="form.mail" @blur="uniqueExist"></el-input>
           </el-form-item>
         </el-tab-pane>
       </el-tabs>
@@ -21,18 +21,14 @@
         </el-input> -->
         <fieldset :disabled="unique">
         <el-row>
-          <el-col :span="18">
             <el-input placeholder="请输入验证码" v-model="form.code">
-            </el-input>
-          </el-col>
-          <el-col :span="6">
-            <Captcha
+              <template slot="append"> <Captcha
               @send="setCode"
               className="el-button el-button--default"
               :sendBy="signupBy"
               :receiver="form[signupBy]" 
-            />
-          </el-col>
+            /></template>
+            </el-input>
         </el-row>
         </fieldset>
       </el-form-item>
@@ -49,6 +45,7 @@
 import Captcha from '../component/Captcha'
 import api from "../lib/api.js";
 import { is } from "../lib/valee.js";
+import session from '../lib/session.js';
 export default {
   components:{Captcha},
   data() {
@@ -73,8 +70,12 @@ export default {
            return
      }
      api('user/create',this.form).then(r=>{
-       this.$router.push('/');
+      //  this.$router.push('/');
+      let user=r.data;
        alert('注册成功')
+         delete user.password;
+          session.login(user.id,user,'/');
+
      })
     },
     validate() {
@@ -82,7 +83,7 @@ export default {
       let e = (this.errors = []);
       let s = this.signupBy;
       if (!f.phone && !f.mail) {
-        e.push("邮箱和手机不能为空");
+        e.push("邮箱或手机不能为空");
       }
       if (!is[s](this.form[s])) {
         e.push(`${s}的格式不正确`);

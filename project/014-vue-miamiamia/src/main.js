@@ -37,6 +37,9 @@ Vue.use(ElementUI);
 Vue.use(Router);
 
 const router = new Router({
+  // mode: 'hash',
+  // base: __dirname,
+
   routes: [{
       path: '/',
       component: Home,

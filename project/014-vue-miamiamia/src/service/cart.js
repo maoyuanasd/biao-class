@@ -6,6 +6,8 @@ let localCart={};
 const callbackPool=[];
 const output={
     change(product_id,count,product_snapshot,prop,user_id,sign){
+        if(session.isAdmin())
+        return alert('管理员暂不可使用加入购物车功能');
         if(!user_id)
         user_id=session.user().id || '';
         if(!localCart[product_id]){

@@ -16,7 +16,7 @@
       </el-tabs>
       <el-form-item v-if="step==2" label="验证码">
         <el-input placeholder="请输入验证码" v-model="form.code">
-          <el-button slot="append" v-if="sendCodeCountDown">{{sendCodeCountDown}}</el-button>
+          <el-button slot="append" disabled v-if="sendCodeCountDown">{{sendCodeCountDown}}</el-button>
           <el-button slot="append" v-else @click="sendCode" :disabled="!form[recoverBy]">发送验证码</el-button>
         </el-input>
       </el-form-item>
