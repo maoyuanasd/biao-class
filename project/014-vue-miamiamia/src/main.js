@@ -6,6 +6,7 @@ import 'normalize.css/normalize.css';
 import Router from 'vue-router';
 import './css/global.css';
 import session from './lib/session'
+import VueLazyLoad from 'vue-lazyload'
 
 import Home from './page/Home.vue'
 import Product from './page/Product.vue'
@@ -35,6 +36,10 @@ Vue.filter('cut', function (value,max) {
 })
 Vue.use(ElementUI);
 Vue.use(Router);
+Vue.use(VueLazyLoad,{
+  error:'./img/lazyImg.jpg',
+  loading:'./img/lazyImg.jpg'
+})
 
 const router = new Router({
   // mode: 'hash',
@@ -43,10 +48,13 @@ const router = new Router({
   routes: [{
       path: '/',
       component: Home,
+      meta: { title: "欢迎来到miamiamia吃货团" },
     },
     {
       path: '/search',
       component: Search,
+      
+      
     },
     {
       path: '/login',
@@ -63,47 +71,65 @@ const router = new Router({
     {
       path: '/product/:id',
       component: Product,
+
     },
     {
       path: '/my',
       component: My,
+      
       children: [{
           path: 'cart',
-          component: Cart
+          component: Cart,
+      meta: { title: "管理" },
+
         },
         {
           path: 'order/:id?',
-          component: Order
+          component: Order,
+      meta: { title: "订单管理" },
+
         },
         {
           path: 'setting',
-          component: Setting
+          component: Setting,
+      meta: { title: "个人设置" },
+
         },
       ]
     },
     {
       path: '/admin',
       component: AdminBase,
+      
       children: [
         {
-        path: 'user',
-        component: AdminUser,
+          path: 'user',
+          component: AdminUser,
+          meta: { title: "用户管理" },
       },
         {
         path: 'brand',
         component: AdminBrand,
+      meta: { title: "品牌管理" },
+
       },
         {
         path: 'cat',
         component: AdminCat,
+      meta: { title: "分类管理" },
+
       },
         {
         path: 'product',
         component: AdminProduct,
+      meta: { title: "产品管理" },
+
       },
       {
         path:'order',
-        component:AdminOrder
+        component:AdminOrder,
+      meta: { title: "订单管理" },
+
       }
     ]
     }
@@ -114,6 +140,9 @@ router.beforeEach((to,from,next)=>{
 let isAdmin=to.matched[0].path=='/admin';
 if(isAdmin && !session.isAdmin()){
   return;
+}
+if (to.meta.title) {
+  document.title = to.meta.title
 }
 next()
 })

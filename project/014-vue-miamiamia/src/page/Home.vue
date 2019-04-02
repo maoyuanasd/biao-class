@@ -6,7 +6,7 @@
         <el-carousel-item v-for="it in list_carousel" :key="it.id">
           <router-link :to="`/product/${it.id}`">
           <img
-            :src="it.carousel ?  fileUrl(it.carousel) : 'https://mock-cdn.biaoyansu.com/MOCK-FILE-5c81fe7b024292.83724495.jpeg'"
+            v-lazy="it.carousel ?  fileUrl(it.carousel) : 'https://mock-cdn.biaoyansu.com/MOCK-FILE-5c81fe7b024292.83724495.jpeg'"
           >
           </router-link>
         </el-carousel-item>

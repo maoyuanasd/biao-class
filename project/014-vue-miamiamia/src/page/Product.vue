@@ -7,7 +7,7 @@
           <el-carousel indicator-position="outside" height="420px">
             <div v-if="row.main_img">
             <el-carousel-item v-for="it in row.main_img" :key="it.id">
-              <img :src="fileUrl(it)" alt="">
+              <img v-lazy="fileUrl(it)" alt="">
             </el-carousel-item>
             </div>
             <div v-else>
@@ -126,7 +126,7 @@
         <div v-for="it in row.detail">
           <div v-if="it.type=='text'">{{it.value}}</div>
           <div v-else>
-            <img :src="fileUrl(it.value)" alt="">
+            <img v-lazy="fileUrl(it.value)" alt="">
           </div>
         </div>
       </div>
@@ -162,6 +162,8 @@ export default {
      api('product/find',{id:this.$route.params.id}).then(r=>{
        this.row=r.data;
        this.normalize ();
+     document.title=r.data.title+' -miamiamia吃货团';
+
      })
     },
     normalize (){
